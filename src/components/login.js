@@ -6,7 +6,6 @@ import axios from 'axios';
 import '../files/css/login.css'
 
 
-
 class Login extends Component {
     constructor(props){
         super(props)
