@@ -72,11 +72,12 @@ class Login extends Component {
 
         if(!this.state.login){
             
-            if(this.state.redirect === "r")
-            return <Redirect to="/marketplace"></Redirect>
+            if(this.state.redirect === "r"){
+
+                return <Redirect to="/marketplace"></Redirect>
+            }
             if(this.state.redirect === "a")
             {
-                console.log("login")
                 return <Redirect to="/dashboard"></Redirect>
             }
         }
@@ -99,17 +100,17 @@ class Login extends Component {
                             <form onSubmit={this.onSubmit}>
                                 <br/>
                                 <h1>User Login</h1>
-                                            <TextField
-                                            variant="standard"
-                                            margin="normal"
-                                            required
-                                            fullWidth
-                                            name="email"
-                                            label="Email"
-                                            type="text"
-                                            id="email"
-                                            onChange = {this.onChange}
-                                            />
+                                        <TextField
+                                        variant="standard"
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        name="email"
+                                        label="Email"
+                                        type="text"
+                                        id="email"
+                                        onChange = {this.onChange}
+                                        />
                                         
                                         <TextField
                                         variant="standard"
