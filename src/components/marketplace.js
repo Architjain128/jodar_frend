@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Marketplace() {
+export default function Marketplace(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -168,7 +168,7 @@ export default function Marketplace() {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         
-        <Recprofile></Recprofile>
+        <Recprofile data1={props.data1} data2={props.data2}></Recprofile>
       </main>
     </div>
   );

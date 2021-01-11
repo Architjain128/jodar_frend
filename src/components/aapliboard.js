@@ -27,11 +27,15 @@ class Appliboard extends Component {
         // alert("ok")
         const d4 = await axios.get('http://localhost:6050/alledu/'+this.state.userid)
         const d3 = await axios.get('http://localhost:6050/allskill/'+this.state.userid)
-        const d1 = await axios.get('http://localhost:6050/alluser/'+this.state.userid)
+        const d1 = await axios.get('http://localhost:6050/user/'+this.state.userid)
         // const d4 = await axios.get('http://localhost:6050/alledu/'+this.state.userid)
         const dd1 = [];
         const dd3 = [];
         const dd4 = [];
+        dd1.push(d1.data.data1.Firstname)
+        dd1.push(d1.data.data1.Lastname)
+        dd1.push(d1.data.data1.email)
+        dd1.push(d1.data.data1.signup_time)
         for(let i=0;i<d3.data.data3.length;i++)
         {
             dd3.push(d3.data.data3[i].Spec)
@@ -41,7 +45,7 @@ class Appliboard extends Component {
             dd4.push({Edu:d4.data.data4[i].Edu,Edus:d4.data.data4[i].Edus,Edue:d4.data.data4[i].Edue})
         }
         
-        this.setState({data3:dd3,data4:dd4})
+        this.setState({data1:dd1,data3:dd3,data4:dd4})
     }
 
     async componentDidMount(){

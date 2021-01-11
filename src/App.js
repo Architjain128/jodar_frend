@@ -9,7 +9,7 @@ import Marketplace from './components/marketplace';
 import Recprofile from './components/recprofile';
 import Appprofile from './components/appprofile';
 import Appliboard from './components/aapliboard';
-import Example from './components/test1';
+import Recliboard from './components/recliboard';
 
 function App() {
   return (
@@ -19,12 +19,12 @@ function App() {
           <Route path="/" component={LandingPage} exact/>
           <Route path="/login" component={Login} exact/>
           <Route path="/signup" component={Signup} exact/>
-          <Route path="/appdash" component={Appliboard} exact/>
-          <Route path="/dashboard" component={Dashboard} exact/>
-          <Route path="/marketplace" component={Marketplace} exact/>
+          <Route path="/dashboard" component={Appliboard} exact/>
+          <Route path="/marketplace" component={Recliboard} exact/>
+          <Route path="/appdash" component={Dashboard} exact/>
+          <Route path="/recdash" component={Marketplace} exact/>
           <Route path="/recpro" component={Recprofile} exact/>
           <Route path="/apppro" component={Appprofile} exact/>
-          <Route path="/test" component={Example} exact/>
         </Switch>
       </BrowserRouter>
     </div>

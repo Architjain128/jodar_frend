@@ -7,7 +7,34 @@ import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import CardActions from '@material-ui/core/CardActions';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import Box from '@material-ui/core/Box';
+import Avatar from '@material-ui/core/Avatar';
+import Chip from '@material-ui/core/Chip';
+import Modal from '@material-ui/core/Modal';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import Rating from '@material-ui/lab/Rating';
+import { withStyles } from '@material-ui/core/styles';
 import nopro from "../files/images/noprofile.jpg"
+import axios from 'axios';
+
+function getModalStyle() {
+  const top = 50 ;
+  const left = 50;
+
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,29 +54,192 @@ const useStyles = makeStyles((theme) => ({
     height:0,
     paddingTop: '56.25%', // 16:9
   },
+  paper: {
+    position: 'absolute',
+    width: 400,
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
 }));
 
-export default function Recprofile() {
+export default function Recprofile(props) {
   const classes = useStyles();
-  // const [values, setValues] = React.useState({
-  //   amount: '',
-  //   password: '',
-  //   weight: '',
-  //   weightRange: '',
-  //   showPassword: false,
-  // });
+  const [modalStyle] = React.useState(getModalStyle);
+  const [jodar_id, setJodarID] = React.useState(localStorage.getItem("Jodar_id"));
+  const [open, setOpen] = React.useState(false);
+  const [open2, setOpen2] = React.useState(false);
+  const [values, setValues] = React.useState({
+    biobio: '',
+  });
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
 
-  // const handleChange = (prop) => (event) => {
-  //   setValues({ ...values, [prop]: event.target.value });
-  // };
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
-  // const handleClickShowPassword = () => {
-  //   setValues({ ...values, showPassword: !values.showPassword });
-  // };
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleOpen2 = () => {
+    setOpen2(true);
+  };
 
-  // const handleMouseDownPassword = (event) => {
-  //   event.preventDefault();
-  // };
+  const handleClose2 = () => {
+    setOpen2(false);
+  };
+
+
+  const onbioSubmit =()=>{
+    const newbio = {
+      UserId : jodar_id,
+      Bio : values.biobio,
+    }
+    console.log(newbio)
+        axios.post('http://localhost:6050/addbio', newbio)
+            .then(res => {
+                console.log("ok")
+                console.log(res.data)
+                alert(res.data.msg)
+                window.location.reload()
+            })
+            .catch(err=>{
+                console.log(err)
+                alert("error")
+            })
+    setOpen(false);
+  }
+
+  const onupSubmit =()=>{
+    const newbio = {
+      UserId : jodar_id,
+      Bio : values.biobio,
+    }
+    console.log(newbio)
+        axios.put('http://localhost:6050/upbio/'+jodar_id, newbio)
+            .then(res => {
+                console.log("ok")
+                console.log(res.data)
+                alert(res.data.msg)
+                window.location.reload()
+            })
+            .catch(err=>{
+                console.log(err)
+                alert("error")
+            })
+    setOpen2(false);
+  }
+
+  const addbio=(
+    <div style={modalStyle} className={classes.paper}>
+      <h2 id="simple-modal-title">Add a Bio</h2>
+      <TextField
+        variant="standard"
+        margin="normal"
+        required
+        multiline
+        name="new_skill"
+        label="Enter Bio"
+        type="text"
+        id="new_skill"
+        onChange = {handleChange('biobio')}
+        />
+      <Button
+      type="submit"
+      variant="contained"
+      color="primary"
+      id="addbio"
+      onClick = {onbioSubmit}
+      >Add Bio</Button>
+    </div>
+  )
+  const upbio=(
+    <div style={modalStyle} className={classes.paper}>
+      <h2 id="simple-modal-title">Add a new Bio</h2>
+      <TextField
+        variant="standard"
+        margin="normal"
+        required
+        multiline
+        name="new_skill"
+        label="Enter Bio"
+        type="text"
+        id="new_skill"
+        onChange = {handleChange('biobio')}
+        />
+      <Button
+      type="submit"
+      variant="contained"
+      color="primary"
+      id="addbio"
+      onClick = {onupSubmit}
+      >Update Bio</Button>
+    </div>
+  )
+const bio=(
+  <div>
+      
+        <Box
+        boxShadow="1"
+        borderRadius={12}
+        textAlign="center"
+        p='10px'
+        >
+            <Typography variant="h6">Bio</Typography>
+            <Divider/>
+            <Divider/>
+            <br/>
+            <Typography>{props.data2}</Typography>
+            <br/>
+        <Chip clickable="true"  onClick={handleOpen2} color="primary" avatar={<Avatar>+</Avatar>} label="Update Bio"/>
+        <Modal
+        open={open2}
+        onClose={handleClose2}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+        >
+        {upbio}
+        </Modal>
+          </Box>
+    
+    {/* {
+      !props.data2.Bio &&
+      <div>
+        <Box
+        boxShadow="1"
+        borderRadius={12}
+        textAlign="center"
+        p='10px'
+        >
+            <Typography variant="h6">Bio</Typography>
+            <Divider/>
+            <Divider/>
+            <br/>
+              <Chip variant="outlined" color="secondary"  label="None" />
+              <br/>
+              <br/>
+              <Chip clickable="true"  onClick={handleOpen} color="primary" avatar={<Avatar>+</Avatar>} label="Add Bio" />
+              <br/>
+              <br/>
+          </Box>
+        <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+        >
+        {addbio}
+        </Modal>
+      </div>
+    } */}
+  </div>
+)
+
+
+
 
   return (
       <Container>
@@ -69,71 +259,53 @@ export default function Recprofile() {
         </CardActions>
       </Card>
       </div>
-      <div>
+      {/* <div> */}
+      <Box color='#fafafa'>
+        <Typography variant="caption">Account made on</Typography>
+        <Typography variant="h5">{props.data1[3]}</Typography>
+      </Box>
+      <Box color="black" css={{ bgcolor: '#e2e2e2', p: 1,textAlign:'left',border:'black',borderRadius:'5px',margin:'20px',width:500}}>
+        <Typography variant="caption">Company Name</Typography>
+        <Typography variant="h5">{props.data1[0]}</Typography>
+      </Box>
+      <Box color="black" css={{ bgcolor: '#e2e2e2', p: 1,textAlign:'left',border:'black',borderRadius:'5px',margin:'20px',width:500}}>
+        <Typography variant="caption">Email</Typography>
+        <Typography variant="h5">{props.data1[2]}</Typography>
+      </Box>
+      <Box color="black" css={{ bgcolor: '#e2e2e2', p: 1,textAlign:'left',border:'black',borderRadius:'5px',margin:'20px',width:500}}>
+        <Typography variant="caption">Contact Namber</Typography>
+        <Typography variant="h5">{props.data1[1]}</Typography>
+      </Box>
             <FormControl fullWidth className={classes.margin} variant="outlined">
-                <TextField
+                {/* <TextField
+                disabled
                 label="Company Name"
                 id="companyame"
-                // className={clsx(classes.margin, classes.textField)}
-                InputProps={{
-                    readOnly: true
-                }}
-                variant="outlined"
-                /><br/>
+                variant="filled"
+                defaultValue={props.data1[0]}
+                /><br/><br/>
                 <TextField
+                disabled
                 label="Email"
                 id="email"
-                // className={clsx(classes.margin, classes.textField)}
-                InputProps={{
-                    readOnly: true
-                }}
-                variant="outlined"
+                variant="filled"
+                defaultValue={props.data1[2]}
                 />
+                <br/><br/>
+                <TextField
+                disabled
+                label="Contact Number"
+                id="contact_number"
+                variant="filled"
+                defaultValue={props.data1[2]}
+                />
+                <br/>
+                <br/> */}
+            <div>
+              {bio}
+            </div>
             </FormControl>
-                {/* <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
-                <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-                <OutlinedInput
-                    id="outlined-adornment-password"
-                    type={values.showPassword ? 'text' : 'password'}
-                    value={values.password}
-                    onChange={handleChange('password')}
-                    endAdornment={
-                    <InputAdornment position="end">
-                        <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                        >
-                        {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                        </IconButton>
-                    </InputAdornment>
-                    }
-                    labelWidth={70}
-                />
-                </FormControl> */}
-
-                <FormControl fullWidth className={classes.margin} variant="outlined">
-                    <TextField
-                    label="Contact Number"
-                    id="contact_number"
-                    variant="outlined"
-                    />
-                </FormControl>
-
-
-                <FormControl fullWidth className={classes.margin} variant="outlined">
-                    <TextField
-                    label="Bio"
-                    id="bio"
-                    multiline
-                    row={4}
-                    variant="outlined"
-                    />
-                </FormControl>
-                <Button variant="contained" color="primary" component="span">Update</Button>
-
-      </div>
+               
     </div>
     </Container>
   );

@@ -298,40 +298,55 @@ export default function Appprofile(props) {
         </CardActions>
       </Card>
       </div>
-      <div>
-            <FormControl fullWidth className={classes.margin} variant="outlined">
+      <Box color='#fafafa'>
+        <Typography variant="caption">Account made on</Typography>
+        <Typography variant="h5">{props.data1[3]}</Typography>
+      </Box>
+      <Box color="black" css={{ bgcolor: '#e2e2e2', p: 1,textAlign:'left',border:'black',borderRadius:'5px',margin:'20px',width:500}}>
+        <Typography variant="caption">Rating</Typography>
+        <Rating name="read-only" value={3} readOnly />
+      </Box>
+      <Box color="black" css={{ bgcolor: '#e2e2e2', p: 1,textAlign:'left',border:'black',borderRadius:'5px',margin:'20px',width:500}}>
+        <Typography variant="caption">Email</Typography>
+        <Typography variant="h5">{props.data1[2]}</Typography>
+      </Box>
+      <Box color="black" css={{ bgcolor: '#e2e2e2', p: 1,textAlign:'left',border:'black',borderRadius:'5px',margin:'20px',width:500}}>
+        <Typography variant="caption">First Name</Typography>
+        <Typography variant="h5">{props.data1[0]}</Typography>
+      </Box>
+      <Box color="black" css={{ bgcolor: '#e2e2e2', p: 1,textAlign:'left',border:'black',borderRadius:'5px',margin:'20px',width:500}}>
+        <Typography variant="caption">Last Name</Typography>
+        <Typography variant="h5">{props.data1[1]}</Typography>
+      </Box>
+            {/* <FormControl fullWidth className={classes.margin} variant="outlined">
                 <Box component="fieldset" mb={3} borderColor="transparent">
-                    <Rating name="read-only" value={3} readOnly />
+                    <Typography>Rating</Typography>
                 </Box>
+                <br/>
                 <TextField
+                disabled
                 label="First Name"
                 id="name"
-                // className={clsx(classes.margin, classes.textField)}
-                InputProps={{
-                    readOnly: true
-                }}
-                variant="outlined"
+                variant="filled"
+                defaultValue={props.data1[0]}
                 /><br/>
                 <TextField
+                disabled
                 label="Last Name"
                 id="name"
-                // className={clsx(classes.margin, classes.textField)}
-                InputProps={{
-                    readOnly: true
-                }}
-                variant="outlined"
+                variant="filled"
+                defaultValue={props.data1[1]}
                 /><br/>
                 <TextField
+                disabled
                 label="Email"
-                id="email"
-                // className={clsx(classes.margin, classes.textField)}
-                InputProps={{
-                    readOnly: true
-                }}
-                variant="outlined"
+                id="name"
+                variant="filled"
+                defaultValue={props.data1[2]}
                 />
-            </FormControl>
+            </FormControl> */}
                
+                <div>
 
                 <FormControl fullWidth className={classes.margin} variant="outlined">
                     <Box
