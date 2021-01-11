@@ -55,7 +55,12 @@ class Login extends Component {
                 this.setState({redirect:"a"})
                 window.alert(res.data.msg)
                 if(res.data.status === '201')
-                this.setState({login:false})
+                {
+                    console.log(res.data.userdata._id)
+                    localStorage.setItem("Jodar_id", res.data.userdata._id);
+                    localStorage.setItem("Jodar_id_type", res.data.userdata.type);
+                    this.setState({login:false})
+                }
                 else
                 window.location.reload()
             })

@@ -86,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Dashboard() {
+export default function Dashboard(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -169,7 +169,7 @@ export default function Dashboard() {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-          <Appprofile></Appprofile>
+          <Appprofile data1={props.data1} data2={props.data2} data3={props.data3} data4={props.data4} ></Appprofile>
       </main>
     </div>
   );

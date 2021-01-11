@@ -68,8 +68,13 @@ class Signup extends Component {
                 if(res.data.type === "a")
                 this.setState({redirect:"a"})
                 window.alert(res.data.msg)
-                if(res.data.status==="201")
-                this.setState({sign:false})
+                if(res.data.status==="201"){
+                    console.log(res.data.userdata._id)
+                    localStorage.setItem("Jodar_id", res.data.userdata._id);
+                    localStorage.setItem("Jodar_id_type", res.data.userdata.type);
+                    this.setState({sign:false})
+                }
+
                 else
                 window.location.reload()
             })

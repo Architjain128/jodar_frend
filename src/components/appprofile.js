@@ -13,9 +13,15 @@ import Box from '@material-ui/core/Box';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
 import Modal from '@material-ui/core/Modal';
-
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 import Rating from '@material-ui/lab/Rating';
-
+import { withStyles } from '@material-ui/core/styles';
 import nopro from "../files/images/noprofile.jpg"
 import axios from 'axios';
 
@@ -30,11 +36,36 @@ function getModalStyle() {
     transform: `translate(-${top}%, -${left}%)`,
   };
 }
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: "rgb(78,94,186)",
+    color: theme.palette.common.white,
+  },
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);
+
+const StyledTableRow = withStyles((theme) => ({
+  root: {
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
+  },
+}))(TableRow);
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
+    '& > *': {
+      margin: theme.spacing(0.5),
+    },
+  },
+  root1: {
+    '& > *': {
+      margin: theme.spacing(0.5),
+    },
   },
   margin: {
     margin: theme.spacing(1),
@@ -57,14 +88,19 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
+  table: {
+    minWidth: 600,
+  },
 }));
 
 
 
 
-export default function Appprofile() {
+export default function Appprofile(props) {
+
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
+  const [jodar_id, setJodarID] = React.useState(localStorage.getItem("Jodar_id"));
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
   const [values, setValues] = React.useState({
@@ -94,7 +130,7 @@ export default function Appprofile() {
 
   const onskillSubmit =()=>{
     const newskill = {
-      UserId : localStorage.getItem("Objuserid"),
+      UserId : jodar_id,
       Spec : values.specy,
     }
     console.log(newskill)
@@ -113,7 +149,7 @@ export default function Appprofile() {
   }
   const oneduSubmit =()=>{
     const newedu = {
-      UserId : localStorage.getItem("Objuserid"),
+      UserId : jodar_id,
       Edu : values.edu,
       Edus : values.edus,
       Edue : values.edue,
@@ -132,6 +168,53 @@ export default function Appprofile() {
             })
     setOpen2(false);
   }
+
+  const skill =(
+    <div className={classes.root1}>
+      {props.data3.map(name => (
+      <Chip variant="outlined" color="default" size="small" label={name} />
+      ))}
+      {
+      !props.data3.length &&
+      <Chip variant="outlined" color="secondary" size="small" label="None" />
+      }
+
+    </div>
+  )
+  const educationy =(
+    <div className={classes.root1}>
+
+      <TableContainer component={Paper}>
+      <Table className={classes.table} aria-label="customize table">
+        <TableHead>
+          <TableRow>
+            <StyledTableCell>Institution Name</StyledTableCell>
+            <StyledTableCell align="right">Start Date(YYYY)</StyledTableCell>
+            <StyledTableCell align="right">End Date(YYYY)</StyledTableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+            {props.data4.map((row) => (
+              <StyledTableRow>
+                  <StyledTableCell >{row.Edu}</StyledTableCell>
+                  <StyledTableCell align="right">{row.Edus}</StyledTableCell>
+                  <StyledTableCell align="right">{row.Edue}</StyledTableCell>
+              </StyledTableRow>
+            ))}
+            {
+              !props.data4.length &&
+              <StyledTableRow>
+                  <StyledTableCell ><Chip variant="outlined" color="secondary" size="small" label="None" /></StyledTableCell>
+                  <StyledTableCell align="right"><Chip variant="outlined" color="secondary" size="small" label="None" /></StyledTableCell>
+                  <StyledTableCell align="right"><Chip variant="outlined" color="secondary" size="small" label="None" /></StyledTableCell>
+              </StyledTableRow>
+              
+            }
+        </TableBody>
+      </Table>
+    </TableContainer>
+    </div>
+  )
   const addskill = (
     <div style={modalStyle} className={classes.paper}>
       <h2 id="simple-modal-title">Add a skill</h2>
@@ -197,14 +280,6 @@ export default function Appprofile() {
     </div>
   )
 
-//   const handleClickShowPassword = () => {
-//     setValues({ ...values, showPassword: !values.showPassword });
-//   };
-
-//   const handleMouseDownPassword = (event) => {
-//     event.preventDefault();
-//   };
-
   return (
       <Container>
     <div className={classes.root}>
@@ -265,17 +340,18 @@ export default function Appprofile() {
                     textAlign="center"
                     p='10px'
                     >
-                    <Typography>Education</Typography>
+                    <Typography variant="h4">Education</Typography>
                     <Divider></Divider><br/>
-
+                      {educationy}
+                      <br/>
                       <Chip clickable="true"  onClick={handleOpen2} color="primary" avatar={<Avatar>+</Avatar>} label="Add" size="small"/>
                       <Modal
-                        open={open2}
-                        onClose={handleClose2}
-                        aria-labelledby="simple-modal-title"
-                        aria-describedby="simple-modal-description"
+                      open={open2}
+                      onClose={handleClose2}
+                      aria-labelledby="simple-modal-title"
+                      aria-describedby="simple-modal-description"
                       >
-                        {addedu}
+                      {addedu}
                       </Modal>
                     </Box>
                 </FormControl>
@@ -286,20 +362,18 @@ export default function Appprofile() {
                     textAlign="center"
                     p='10px'
                     >
-                    <Typography>Skills</Typography>
+                    <Typography variant="h4">Skills</Typography>
                     <Divider></Divider><br/>
-                    
-                    <Chip variant="outlined" color="default" size="small" label="nope"/>
-                    <Chip variant="outlined" color="default" size="small" label="nope"/>
-                    <Chip variant="outlined" color="default" size="small" label="nope"/>
+                    {skill}
+                    <br/>
                     <Chip clickable="true"  onClick={handleOpen} color="primary" avatar={<Avatar>+</Avatar>} label="Add" size="small"/>
                     <Modal
-                      open={open}
-                      onClose={handleClose}
-                      aria-labelledby="simple-modal-title"
-                      aria-describedby="simple-modal-description"
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="simple-modal-title"
+                    aria-describedby="simple-modal-description"
                     >
-                      {addskill}
+                    {addskill}
                     </Modal>
                     </Box>
                 </FormControl>
