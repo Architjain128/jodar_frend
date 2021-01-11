@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import { Redirect} from 'react-router-dom';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -97,6 +98,13 @@ export default function Marketplace(props) {
     setOpen(false);
   };
 
+  const logoutme = () => {
+    localStorage.removeItem("Jodar_id");
+    localStorage.removeItem("Jodar_id_type");
+    alert("Bye Recruter")
+    window.location.href='/'
+  }
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -159,8 +167,8 @@ export default function Marketplace(props) {
         </List>
         <Divider />
         <List>
-            <ListItem button key={"Logout"}>
-              <ListItemIcon> <ExitToAppIcon /></ListItemIcon>
+            <ListItem button key={"Logout"} onClick={logoutme}>
+              <ListItemIcon > <ExitToAppIcon /></ListItemIcon>
               <ListItemText primary={"Logout"} />
             </ListItem>
         </List>

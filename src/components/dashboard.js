@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import { Redirect,NavLink} from 'react-router-dom';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -98,6 +99,12 @@ export default function Dashboard(props) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  const logoutme = () => {
+    localStorage.removeItem("Jodar_id");
+    localStorage.removeItem("Jodar_id_type");
+    alert("Bye Applicant")
+    window.location.href='/'
+  }
 
   return (
     <div className={classes.root}>
@@ -160,9 +167,9 @@ export default function Dashboard(props) {
             </ListItem>
         </List>
         <Divider />
-        <List>
-            <ListItem button key={"Logout"}>
-              <ListItemIcon> <ExitToAppIcon /></ListItemIcon>
+        <List >
+            <ListItem button key={"Logout"} onClick={logoutme}>
+              <ListItemIcon > <ExitToAppIcon /></ListItemIcon>
               <ListItemText primary={"Logout"} />
             </ListItem>
         </List>
