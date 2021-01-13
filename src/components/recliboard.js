@@ -15,6 +15,7 @@ class Recliboard extends Component {
             userid:localStorage.getItem("Jodar_id"),
             data1:"",
             data2:[],
+            
         }
         this.getinfo = this.getinfo.bind(this);
     }

@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import { Redirect} from 'react-router-dom';
-import {Container,Box,Typography,TextField,Button} from '@material-ui/core';
-import {AccountCircle} from '@material-ui/icons'
+import {Container} from '@material-ui/core';
 import axios from 'axios';
 import Dashboard from './dashboard';
 

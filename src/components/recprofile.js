@@ -13,15 +13,6 @@ import Box from '@material-ui/core/Box';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
 import Modal from '@material-ui/core/Modal';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import Rating from '@material-ui/lab/Rating';
-import { withStyles } from '@material-ui/core/styles';
 import nopro from "../files/images/noprofile.jpg"
 import axios from 'axios';
 

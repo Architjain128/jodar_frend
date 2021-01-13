@@ -10,7 +10,7 @@ import Recprofile from './components/recprofile';
 import Appprofile from './components/appprofile';
 import Appliboard from './components/aapliboard';
 import Recliboard from './components/recliboard';
-
+import Dashyy from "./components/recappdash";
 function App() {
   return (
     <div className="App">
@@ -25,6 +25,7 @@ function App() {
           <Route path="/recdash" component={Marketplace} exact/>
           <Route path="/recpro" component={Recprofile} exact/>
           <Route path="/apppro" component={Appprofile} exact/>
+          <Route path="/joblist" component={Dashyy} exact/>
         </Switch>
       </BrowserRouter>
     </div>

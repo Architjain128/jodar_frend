@@ -1,7 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { Redirect,NavLink} from 'react-router-dom';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -89,9 +88,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Dashboard(props) {
   const classes = useStyles();
-  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-
+  const [homey, setHomey] = React.useState(true);
+  const [dashy, setDashy] = React.useState(false);
+  const [appyy, setAppyy] = React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -99,6 +99,23 @@ export default function Dashboard(props) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const homeyzz = () =>{
+    setHomey(true);
+    setDashy(false);
+    setAppyy(false);
+  }
+  const dashyzz = () =>{
+    setHomey(false);
+    setDashy(true);
+    setAppyy(false);
+  }
+  const appyyzz = () =>{
+    setHomey(false);
+    setDashy(false);
+    setAppyy(true);
+  }
+
   const logoutme = () => {
     localStorage.removeItem("Jodar_id");
     localStorage.removeItem("Jodar_id_type");
@@ -153,15 +170,15 @@ export default function Dashboard(props) {
         <Divider />
         <Divider />
         <List>
-            <ListItem button key={"Jobs"}>
+            <ListItem button key={"Jobs"} onClick={homeyzz}>
               <ListItemIcon> <ViewQuiltIcon /></ListItemIcon>
               <ListItemText primary={"Jobs"} />
             </ListItem>
-            <ListItem button key={"Profile"}>
+            <ListItem button key={"Profile"} onClick={dashyzz}>
               <ListItemIcon> <PersonIcon /></ListItemIcon>
               <ListItemText primary={"Profile"} />
             </ListItem>
-            <ListItem button key={"My Applications"}>
+            <ListItem button key={"My Applications"} onClick={appyyzz}>
               <ListItemIcon> <ListAltIcon /></ListItemIcon>
               <ListItemText primary={"My Applications"} />
             </ListItem>
@@ -176,7 +193,9 @@ export default function Dashboard(props) {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-          <Appprofile data1={props.data1} data2={props.data2} data3={props.data3} data4={props.data4} ></Appprofile>
+          {dashy === true ? <Appprofile data1={props.data1} data2={props.data2} data3={props.data3} data4={props.data4} ></Appprofile> : null}
+          {homey === true ? <h1>home</h1> : null}
+          {appyy === true ? <h1>appli</h1> : null}
       </main>
     </div>
   );

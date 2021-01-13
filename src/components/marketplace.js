@@ -1,7 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { Redirect} from 'react-router-dom';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -21,6 +20,8 @@ import PlaylistAddOutlinedIcon from '@material-ui/icons/PlaylistAddOutlined';
 import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
 
 import Recprofile from "./recprofile";
+import Addjob from "./addjob";
+import Applicationlist from "./application";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -87,8 +88,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Marketplace(props) {
   const classes = useStyles();
-  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [mark, setMark] = React.useState(true);
+  const [joby, setJoby] = React.useState(false);
+  const [list, setList] = React.useState(false);
+  // const [dashy, setDashy] = React.useState(false);
+  // const dasharr = {mark:false, joby:false, list:false};
+  
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -97,7 +103,30 @@ export default function Marketplace(props) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
+  const markzz = () =>{
+    setMark(true);
+    setJoby(false);
+    setList(false);
+    // setDashy(false);
+  }
+  const jobyzz = () =>{
+    setMark(false);
+    setJoby(true);
+    setList(false);
+    // setDashy(false);
+  }
+  const listzz = () =>{
+    setMark(false);
+    setJoby(false);
+    setList(true);
+    // setDashy(false);
+  }
+  // const dashzz = () =>{
+  //   setMark(false);
+  //   setJoby(false);
+  //   setList(false);
+  //   setDashy(true);
+  // }
   const logoutme = () => {
     localStorage.removeItem("Jodar_id");
     localStorage.removeItem("Jodar_id_type");
@@ -152,15 +181,15 @@ export default function Marketplace(props) {
         <Divider />
         <Divider />
         <List>
-            <ListItem button key={"Profile"}>
+            <ListItem button key={"Profile"} onClick={markzz}>
               <ListItemIcon> <PersonIcon /></ListItemIcon>
               <ListItemText primary={"Profile"} />
             </ListItem>
-            <ListItem button key={"Create Listings"}>
+            <ListItem button key={"Create Listings"} onClick={jobyzz}>
               <ListItemIcon> <PlaylistAddOutlinedIcon /></ListItemIcon>
               <ListItemText primary={"Create Listings"} />
             </ListItem>
-            <ListItem button key={"View Listings"}>
+            <ListItem button key={"View Listings"} onClick={listzz}>
               <ListItemIcon> <DescriptionOutlinedIcon /></ListItemIcon>
               <ListItemText primary={"View Listings"} />
             </ListItem>
@@ -175,8 +204,11 @@ export default function Marketplace(props) {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
+        {mark === true ? <Recprofile data1={props.data1} data2={props.data2}></Recprofile> : null}
+        {joby === true ? <Addjob data1={props.data1} /> : null}
+        {list === true ? <Applicationlist data1={props.data1} /> : null}
+        {/* {dashy === true ? <Dashyy data1={props.data1} /> : null} */}
         
-        <Recprofile data1={props.data1} data2={props.data2}></Recprofile>
       </main>
     </div>
   );
