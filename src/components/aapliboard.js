@@ -11,7 +11,7 @@ class Appliboard extends Component {
         super(props)
         this.state = {
             userid:localStorage.getItem("Jodar_id"),
-            data1:"use info",
+            data1:"####",
             data2:"ratin",
             data3:[],
             data4:[],

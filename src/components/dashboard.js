@@ -20,6 +20,7 @@ import ViewQuiltIcon from '@material-ui/icons/ViewQuilt';
 import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
 
 import Appprofile from "./appprofile";
+import Apphome from "./apphome";
 
 
 const drawerWidth = 240;
@@ -194,7 +195,7 @@ export default function Dashboard(props) {
       <main className={classes.content}>
         <div className={classes.toolbar} />
           {dashy === true ? <Appprofile data1={props.data1} data2={props.data2} data3={props.data3} data4={props.data4} ></Appprofile> : null}
-          {homey === true ? <h1>home</h1> : null}
+          {homey === true ? <Apphome data1={props.data1}></Apphome> : null}
           {appyy === true ? <h1>appli</h1> : null}
       </main>
     </div>
