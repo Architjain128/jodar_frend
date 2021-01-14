@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import axios from 'axios';
 import DataTableh from './apphometable'
+
 export default class  Apphome extends Component {
  constructor(props)
  {
@@ -29,19 +30,20 @@ export default class  Apphome extends Component {
          sala:"",
          skilltok:"",
         }
-    // this.onChange=this.onChange.bind(this)
-    // this.onSubmit = this.onSubmit.bind(this)
-    this.getalljobinfo=this.getalljobinfo.bind(this)
+
+    this.getalljob2info=this.getalljob2info.bind(this)
  }
 
- getalljobinfo = async () =>{
-    const d1 = await axios.get('http://localhost:6050/getalljob/')
-    console.log(d1.data.dataa)
-    this.setState({datagetjob:d1.data.dataa})
+ getalljob2info = async () =>{
+    const d1 = await axios.get('http://localhost:6050/alljobposted')
+    // console.log(d1.data.dataa)
+    this.setState({datagetjob:d1.data.dataAA})
+//   console.log(d1.data.dataAA)
+
 }
 
 async componentDidMount(){
-    this.getalljobinfo()
+    this.getalljob2info()
 }
 
 render (){
@@ -55,7 +57,7 @@ render (){
         <br/>
         <Typography variant="h4">All Jobs</Typography>
         <br/>
-        <DataTableh dataa={this.state.datagetjob} ></DataTableh>
+        <DataTableh datagetjob={this.state.datagetjob} ></DataTableh>
     </Container>
   )};
 }

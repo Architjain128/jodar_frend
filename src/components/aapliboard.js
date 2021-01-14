@@ -15,6 +15,7 @@ class Appliboard extends Component {
             data2:"ratin",
             data3:[],
             data4:[],
+            dataAA:[],
             data4a:[],
             data4b:[],
             data4c:[],
@@ -53,7 +54,7 @@ class Appliboard extends Component {
 
         return (
             <Container>
-                <Dashboard data1={this.state.data1} data2={this.state.data2} data3={this.state.data3} data4={this.state.data4} ></Dashboard>
+                <Dashboard data1={this.state.data1} data2={this.state.data2} data3={this.state.data3} data4={this.state.data4}  ></Dashboard>
             </Container>
         )
     }

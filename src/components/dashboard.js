@@ -90,8 +90,8 @@ const useStyles = makeStyles((theme) => ({
 export default function Dashboard(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [homey, setHomey] = React.useState(true);
-  const [dashy, setDashy] = React.useState(false);
+  const [homey, setHomey] = React.useState(false);
+  const [dashy, setDashy] = React.useState(true);
   const [appyy, setAppyy] = React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);

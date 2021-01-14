@@ -11,6 +11,7 @@ import Appprofile from './components/appprofile';
 import Appliboard from './components/aapliboard';
 import Recliboard from './components/recliboard';
 import Dashyy from "./components/recappdash";
+import Jobsop from "./components/jobsop";
 function App() {
   return (
     <div className="App">
@@ -26,6 +27,7 @@ function App() {
           <Route path="/recpro" component={Recprofile} exact/>
           <Route path="/apppro" component={Appprofile} exact/>
           <Route path="/joblist" component={Dashyy} exact/>
+          <Route path="/applyjob" component={Jobsop} exact/>
         </Switch>
       </BrowserRouter>
     </div>

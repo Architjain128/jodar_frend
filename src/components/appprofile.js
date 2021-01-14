@@ -317,35 +317,7 @@ export default function Appprofile(props) {
       <Box color="black" css={{ bgcolor: '#e2e2e2', p: 1,textAlign:'left',border:'black',borderRadius:'5px',margin:'20px',width:500}}>
         <Typography variant="caption">Last Name</Typography>
         <Typography variant="h5">{props.data1[1]}</Typography>
-      </Box>
-            {/* <FormControl fullWidth className={classes.margin} variant="outlined">
-                <Box component="fieldset" mb={3} borderColor="transparent">
-                    <Typography>Rating</Typography>
-                </Box>
-                <br/>
-                <TextField
-                disabled
-                label="First Name"
-                id="name"
-                variant="filled"
-                defaultValue={props.data1[0]}
-                /><br/>
-                <TextField
-                disabled
-                label="Last Name"
-                id="name"
-                variant="filled"
-                defaultValue={props.data1[1]}
-                /><br/>
-                <TextField
-                disabled
-                label="Email"
-                id="name"
-                variant="filled"
-                defaultValue={props.data1[2]}
-                />
-            </FormControl> */}
-               
+      </Box> 
                 <div>
 
                 <FormControl fullWidth className={classes.margin} variant="outlined">

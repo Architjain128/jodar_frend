@@ -4,6 +4,8 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import axios from 'axios';
 import DataTable from './rectable'
+
+
 export default class  Applicationlist extends Component {
  constructor(props)
  {
