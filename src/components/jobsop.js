@@ -57,6 +57,7 @@ export default class Dashyy extends Component {
     const repos=d2.data.data5.Maxposi-dmp.data.dmp
     const reappli=dap.data.dap
     const reappcu=dac.data.dac
+
     // if(dbol.data.dbol!=0)
     // this.setState({button:true})
 
@@ -217,6 +218,8 @@ onSubmit(e) {
 
 render (){
 
+    const btn = this.state.button;
+    console.log(btn?1:0)
   return (
         <Container>
             <br/>
@@ -240,23 +243,31 @@ render (){
             </Paper>
             <br/>
             <br/>
+
+            {btn ? 
             <Paper>
                 <br/>
                 <Typography variant="body2">enter statement of purpose in textbox and smash apply</Typography>
                 <br/>
-                {/* <RadioGroup name="field" value={this.state.uptar} onChange={this.handleChange}>
-                    <FormControlLabel value="appy" control={<Radio />} label="Maximun Applicants" />
-                    <FormControlLabel value="posi" control={<Radio />} label="Maximum Positions" />
-                    <FormControlLabel value="dead" control={<Radio />} label="Deadline" />
-                </RadioGroup> */}
                 <br/>
                 <TextField variant="outlined"  multiline inputProps={{ maxLength: 250 }} label="Not more than 250 words" name="soppp" onChange={this.handleChange}></TextField>
                 <br/>
                 <br/>
-                <Button onClick={this.onapplyjob} color="primary"  variant="contained">Apply</Button>
+                    <Button onClick={this.onapplyjob} color="primary"  variant="contained">Apply</Button> 
                 <br/>
                 <br/>
             </Paper>
+            :
+            <Paper>
+                <br/>
+                <Typography variant="body2">Can't apply either already applied or max application limit reached </Typography>
+                <br/>
+                <br/>
+                <Button color="secondary" disable='true' variant="contained">Applied/Can't Apply</Button>
+                <br/>
+                <br/>
+            </Paper>
+             }
             <br/>
             <br/>
 
