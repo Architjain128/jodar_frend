@@ -19,6 +19,7 @@ class Appliboard extends Component {
             data4a:[],
             data4b:[],
             data4c:[],
+            dataimg:"http://localhost:6050/pimg/noprofile.jpg",
         }
         this.getinfo = this.getinfo.bind(this);
     }
@@ -27,10 +28,17 @@ class Appliboard extends Component {
         const d4 = await axios.get('http://localhost:6050/alledu/'+this.state.userid)
         const d3 = await axios.get('http://localhost:6050/allskill/'+this.state.userid)
         const d1 = await axios.get('http://localhost:6050/user/'+this.state.userid)
+        const dimg = await axios.get('http://localhost:6050/getimg/'+this.state.userid)
+        const dpdf = await axios.get('http://localhost:6050/getpdf/'+this.state.userid)
         // const d4 = await axios.get('http://localhost:6050/alledu/'+this.state.userid)
         const dd1 = [];
         const dd3 = [];
         const dd4 = [];
+        const ddraimgpdf = [];
+        // ddimg.push(dimg.data.ra)
+        ddraimgpdf.push(2)
+        ddraimgpdf.push(dimg.data.proimg)
+        ddraimgpdf.push(dpdf.data.pdf)
         dd1.push(d1.data.data1.Firstname)
         dd1.push(d1.data.data1.Lastname)
         dd1.push(d1.data.data1.email)
@@ -43,8 +51,7 @@ class Appliboard extends Component {
         {
             dd4.push({Edu:d4.data.data4[i].Edu,Edus:d4.data.data4[i].Edus,Edue:d4.data.data4[i].Edue})
         }
-        
-        this.setState({data1:dd1,data3:dd3,data4:dd4})
+        this.setState({data1:dd1,data3:dd3,data4:dd4,data2:ddraimgpdf})
     }
 
     async componentDidMount(){
@@ -54,7 +61,7 @@ class Appliboard extends Component {
 
         return (
             <Container>
-                <Dashboard data1={this.state.data1} data2={this.state.data2} data3={this.state.data3} data4={this.state.data4}  ></Dashboard>
+                <Dashboard data1={this.state.data1} data2={this.state.data2} data3={this.state.data3} data4={this.state.data4}></Dashboard>
             </Container>
         )
     }

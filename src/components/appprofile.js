@@ -103,6 +103,7 @@ export default function Appprofile(props) {
   const [jodar_id, setJodarID] = React.useState(localStorage.getItem("Jodar_id"));
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
+  const [dp, setdp] = React.useState(null);
   const [values, setValues] = React.useState({
     specy : "",
     edu : "",
@@ -279,22 +280,56 @@ export default function Appprofile(props) {
       >Add instance</Button>
     </div>
   )
-
+  const imgadd=(e)=>{
+    setdp(e.target.files[0])
+    console.log(e.target.files[0])
+    const formData = new FormData();        
+    formData.append('dp', e.target.files[0]);
+    axios.post('http://localhost:6050/addimg/'+jodar_id, formData)
+            .then(res => {
+                console.log("ok")
+                console.log(res.data)
+                alert(res.data.msg)
+                window.location.reload()
+            })
+            .catch(err=>{
+                console.log(err)
+                alert("error")
+            })
+  }
+  const pdfadd=(e)=>{
+    setdp(e.target.files[0])
+    console.log(e.target.files[0])
+    const formData = new FormData();        
+    formData.append('dp', e.target.files[0]);
+    axios.post('http://localhost:6050/addpdf/'+jodar_id, formData)
+            .then(res => {
+                console.log("ok")
+                console.log(res.data)
+                alert(res.data.msg)
+                window.location.reload()
+            })
+            .catch(err=>{
+                console.log(err)
+                alert("error")
+            })
+  }
+  console.log(props)
   return (
       <Container>
     <div className={classes.root}>
         <div>
       <Card>
-        <CardMedia
+        {/* <CardMedia
             className={classes.media}
-            image={nopro}
-            title="Profile Photo"
-        />
+        > */}
+        <img src={props.data2[1]} style={{width:400,height:400}}/>
+        {/* </CardMedia> */}
         <CardActions>
         <label disabled>
           Change Profile Image
         </label>
-        <input accept="image/*" className={classes.input} id="icon-button-file" type="file" />
+        <input onChange={imgadd} className={classes.input} id="icon-button-file" type="file" />
         </CardActions>
       </Card>
       </div>
@@ -366,8 +401,9 @@ export default function Appprofile(props) {
                 </FormControl>
                 <br/>
                 <br/>
+                <iframe src={props.data2[2]} width="400" height="400"></iframe>
                 <Typography >Upload Resume</Typography>
-                <Typography ><input accept="image/*" className={classes.input} id="icon-button-file" type="file" /></Typography>
+                <Typography ><input onChange={pdfadd} className={classes.input} id="icon-button-file" type="file" /></Typography>
                 <br/><br/>
                 <Button variant="contained" color="primary" component="span">Update</Button>
 
