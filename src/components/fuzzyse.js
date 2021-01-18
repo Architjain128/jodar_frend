@@ -89,18 +89,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-
-
 export default function SettingsPage(props) {
   const classes = useStyles();
   const [titira, settitira] = useState("1");
   const [titi, settiti] = useState("1");
   const [titidu, settitidu] = useState("1");
-  const [titidura, settitidura] = useState("8");
+  const [titidura, settitidura] = useState("9");
   const [titity, settitity] = useState("All");
   console.log(props.data)
   const [searchData, setSearchData] = useState(props.data);
-  var sdfg = props.data;
+  // var sdfg = props.data;
   const [datasci, setDatasci] = useState(false);
 
   // const columns = [
@@ -140,9 +138,10 @@ export default function SettingsPage(props) {
   //     }
   //   },
   // ];
+  console.log(searchData);
   const searchItem = (query) => {
-    if (!query) {
-      sdfg = props.data;
+    if (!query || !datasci) {
+      setSearchData(props.data);
       return;
     }
     const fuse = new Fuse(props.data, {
@@ -154,9 +153,9 @@ export default function SettingsPage(props) {
       result.forEach((item) => {
         finalResult.push(item.item);
       });
-      sdfg = finalResult;
+      setSearchData(finalResult);
     } else {
-      sdfg = [];
+      setSearchData([]);
     }
     setDatasci(true)
   };
@@ -167,9 +166,9 @@ export default function SettingsPage(props) {
     settitidu('1')
 
     if(e.target.value===2)
-    sdfg.sort((a,b) => (a.Salary - b.Salary))
+    searchData.sort((a,b) => (a.Salary - b.Salary))
     if(e.target.value===3)
-    sdfg.sort((a,b) => (b.Salary - a.Salary))
+    searchData.sort((a,b) => (b.Salary - a.Salary))
   }
   const handlesortra=(e)=>{
     settitira(e.target.value)
@@ -177,7 +176,7 @@ export default function SettingsPage(props) {
     settitidu('1')
 
     if(e.target.value===2)
-    sdfg.sort(function(a,b) {
+    searchData.sort(function(a,b) {
       let g=a.Rating
       let h=b.Rating
       if(a.Rating==="NaN")g=6
@@ -185,7 +184,7 @@ export default function SettingsPage(props) {
       return g - h
     })
     if(e.target.value===3)
-    sdfg.sort(function(a,b) {
+    searchData.sort(function(a,b) {
       let g=a.Rating
       let h=b.Rating
       if(a.Rating==="NaN")g=-1
@@ -199,7 +198,7 @@ export default function SettingsPage(props) {
     settitira("1")
 
     if(e.target.value===2)
-    sdfg.sort(function(a,b) {
+    searchData.sort(function(a,b) {
       let g=a.Duration
       let h=b.Duration
       if(g==="Indefinite")g=7
@@ -207,7 +206,7 @@ export default function SettingsPage(props) {
       return g - h
     })
     if(e.target.value===3)
-    sdfg.sort(function(a,b) {
+    searchData.sort(function(a,b) {
       let g=a.Duration
       let h=b.Duration
       if(g==="Indefinite")g=7
@@ -218,26 +217,26 @@ export default function SettingsPage(props) {
 
   const handlefilty=(e)=>{
     settitity(e.target.value)
-    settitidura('8')
+    settitidura('9')
 
     console.log(e.target.value)
     if(e.target.value==="Full Time")
     {
       const aaa = props.data
-      sdfg = aaa.filter(function(a){ return a.Type === "Full Time" })
+      setSearchData( aaa.filter(function(a){ return a.Type === "Full Time" }))
     }
     else if(e.target.value == "Part Time")
     {
       const aaa = props.data
-      sdfg = aaa.filter(function(a){return a.Type === "Part Time"})
+      setSearchData( aaa.filter(function(a){return a.Type === "Part Time"}))
     }
     else if(e.target.value == "Work From Home")
     {
       const aaa = props.data
-      sdfg = aaa.filter(function(a){return a.Type === "Work From Home"})
+      setSearchData( aaa.filter(function(a){return a.Type === "Work From Home"}))
     }
     else
-    sdfg = props.data
+    setSearchData( props.data)
   }
 
   const handlefildura=(e)=>{
@@ -247,41 +246,43 @@ export default function SettingsPage(props) {
     if(e.target.value === '1')
     {
       const aaa = props.data
-      sdfg = aaa.filter(function(a){ return a.Duration < 1 })
+      setSearchData(aaa.filter(function(a){ return a.Duration < 1 }))
     }
     else if(e.target.value === '2' )
     {
       const aaa = props.data
-      sdfg = aaa.filter(function(a){return a.Duration < 2})
+      setSearchData(aaa.filter(function(a){return a.Duration < 2}))
     }
     else if(e.target.value === '3')
     {
       const aaa = props.data
-      sdfg = aaa.filter(function(a){return a.Duration < 3})
+      setSearchData(aaa.filter(function(a){return a.Duration < 3}))
     }
     else if(e.target.value === '4')
     {
       const aaa = props.data
-      sdfg = aaa.filter(function(a){return a.Duration < 4})
+      setSearchData(aaa.filter(function(a){return a.Duration < 4}))
     }
     else if(e.target.value === '5')
     {
       const aaa = props.data
-      sdfg = aaa.filter(function(a){return a.Duration < 5})
+      setSearchData(aaa.filter(function(a){return a.Duration < 5}))
     }
     else if(e.target.value === '6')
     {
       const aaa = props.data
-      sdfg = aaa.filter(function(a){return a.Duration < 6})
+      setSearchData(aaa.filter(function(a){return a.Duration < 6}))
     }
     else if(e.target.value === '7')
     {
       const aaa = props.data
-      sdfg = aaa.filter(function(a){return a.Duration < 7})
+      setSearchData(aaa.filter(function(a){return a.Duration < 7}))
     }
     else
-    sdfg = props.data
+    setSearchData(props.data)
   }
+
+ 
 
   return (
     <div>
@@ -306,7 +307,7 @@ export default function SettingsPage(props) {
           value={titidura}
           onChange={handlefildura}
         >
-          <MenuItem value="8">All</MenuItem>
+          <MenuItem value="9">All</MenuItem>
           <MenuItem value="1">less than 1 month</MenuItem>
           <MenuItem value="2">less than 2 months</MenuItem>
           <MenuItem value="3">less than 3 months</MenuItem>
@@ -314,6 +315,7 @@ export default function SettingsPage(props) {
           <MenuItem value="5">less than 5 months</MenuItem>
           <MenuItem value="6">less than 6 months</MenuItem>
           <MenuItem value="7">less than 7 months</MenuItem>
+          <MenuItem value="8">less than 8 months</MenuItem>
           
         </Select>
       <br/>
@@ -393,7 +395,8 @@ export default function SettingsPage(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-            {sdfg.map((row) => (
+        
+            {searchData.map((row) => (
               <StyledTableRow>
                   <StyledTableCell >{row.Title}</StyledTableCell>
                   <StyledTableCell align="right">{row.RecName}</StyledTableCell>
@@ -406,7 +409,8 @@ export default function SettingsPage(props) {
               </StyledTableRow>
             ))}
             {
-              !sdfg.length &&
+              !searchData.length && 
+
               <StyledTableRow>
                   <StyledTableCell ><Chip variant="outlined" color="secondary" size="small" label="None" /></StyledTableCell>
                   <StyledTableCell align="right"><Chip variant="outlined" color="secondary" size="small" label="None" /></StyledTableCell>
@@ -418,11 +422,13 @@ export default function SettingsPage(props) {
                   <StyledTableCell align="right"><Button>staa</Button></StyledTableCell>
                   <StyledTableCell ></StyledTableCell>
               </StyledTableRow>
-              
+
             }
+
         </TableBody>
       </Table>
     </TableContainer>
+<Typography variant="subtitle"> *If table showing none values try to enter " " space as input in search box to see results if present</Typography>
       {/* <DataGrid rows={datasci?searchData:props.data}  columns={columns} showToolbar autoPageSize onCellClick /> */}
       </div>
     </div>
