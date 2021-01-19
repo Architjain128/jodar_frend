@@ -19,9 +19,9 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ViewQuiltIcon from '@material-ui/icons/ViewQuilt';
 import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
 
+import Mydashappli from "./applicantmyappli";
 import Appprofile from "./appprofile";
 import Apphome from "./apphome";
-
 
 const drawerWidth = 240;
 
@@ -123,7 +123,6 @@ export default function Dashboard(props) {
     alert("Bye Applicant")
     window.location.href='/'
   }
-
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -171,13 +170,13 @@ export default function Dashboard(props) {
         <Divider />
         <Divider />
         <List>
-            <ListItem button key={"Jobs"} onClick={homeyzz}>
-              <ListItemIcon> <ViewQuiltIcon /></ListItemIcon>
-              <ListItemText primary={"Jobs"} />
-            </ListItem>
             <ListItem button key={"Profile"} onClick={dashyzz}>
               <ListItemIcon> <PersonIcon /></ListItemIcon>
               <ListItemText primary={"Profile"} />
+            </ListItem>
+            <ListItem button key={"Jobs"} onClick={homeyzz}>
+              <ListItemIcon> <ViewQuiltIcon /></ListItemIcon>
+              <ListItemText primary={"Jobs"} />
             </ListItem>
             <ListItem button key={"My Applications"} onClick={appyyzz}>
               <ListItemIcon> <ListAltIcon /></ListItemIcon>
@@ -195,8 +194,8 @@ export default function Dashboard(props) {
       <main className={classes.content}>
         <div className={classes.toolbar} />
           {dashy === true ? <Appprofile data1={props.data1} data2={props.data2} data3={props.data3} data4={props.data4} ></Appprofile> : null}
-          {homey === true ? <Apphome data1={props.data1}></Apphome> : null}
-          {appyy === true ? <h1>appli</h1> : null}
+          {homey === true ? <Apphome data1={props.data1} datajj={props.datajj}></Apphome> : null}
+          {appyy === true ? <Mydashappli data1={props.data1} datajj={props.datajj}></Mydashappli> : null}
       </main>
     </div>
   );

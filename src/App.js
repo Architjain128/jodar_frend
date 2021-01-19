@@ -12,6 +12,7 @@ import Appliboard from './components/aapliboard';
 import Recliboard from './components/recliboard';
 import Dashyy from "./components/recappdash";
 import Jobsop from "./components/jobsop";
+import Jobsee from "./components/jobsee";
 function App() {
   return (
     <div className="App">
@@ -28,6 +29,7 @@ function App() {
           <Route path="/apppro" component={Appprofile} exact/>
           <Route path="/joblist" component={Dashyy} exact/>
           <Route path="/applyjob" component={Jobsop} exact/>
+          <Route path="/seejob" component={Jobsee} exact/>
         </Switch>
       </BrowserRouter>
     </div>

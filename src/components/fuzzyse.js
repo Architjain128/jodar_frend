@@ -96,6 +96,7 @@ export default function SettingsPage(props) {
   const [titidu, settitidu] = useState("1");
   const [titidura, settitidura] = useState("9");
   const [titity, settitity] = useState("All");
+  
   console.log(props.data)
   const [searchData, setSearchData] = useState(props.data);
   // var sdfg = props.data;
@@ -282,7 +283,18 @@ export default function SettingsPage(props) {
     setSearchData(props.data)
   }
 
- 
+  const onClickapply = (e) => {
+    let rowid2 = e.currentTarget.value
+    console.log(rowid2)
+    localStorage.setItem('Jodar_jobapp',rowid2)
+    window.location.href="/applyjob"
+  };
+  const onClickapplied = (e) => {
+    let rowid2 = e.currentTarget.value
+    console.log(rowid2)
+    localStorage.setItem('Jodar_jobapp',rowid2)
+    window.location.href="/seejob"
+  };
 
   return (
     <div>
@@ -405,7 +417,9 @@ export default function SettingsPage(props) {
                   <StyledTableCell align="right">{row.Type}</StyledTableCell>
                   <StyledTableCell align="right">{row.Duration}</StyledTableCell>
                   <StyledTableCell align="right">{row.Deadline}</StyledTableCell>
-                  <StyledTableCell align="right"><Button>staa</Button></StyledTableCell>
+                  <StyledTableCell align="right">
+                      {row.Status === "Apply" ? <Button  value={row.id} variant="contained" color="primary" onClick={onClickapply} >Apply</Button>: row.Status === "Applied" ? <Button value={row.id} variant="contained" color="secondary" onClick={onClickapplied} >Applied</Button> : row.Status === "Position Fill" ? <Typography value={row.id} color="error" style={{fontSize:12}} >Position Filled</Typography> : <Typography value={row.id} color="error" style={{fontSize:12}}>Application limit reached</Typography> }
+                    </StyledTableCell>
               </StyledTableRow>
             ))}
             {
@@ -419,7 +433,7 @@ export default function SettingsPage(props) {
                   <StyledTableCell align="right"><Chip variant="outlined" color="secondary" size="small" label="None" /></StyledTableCell>
                   <StyledTableCell align="right"><Chip variant="outlined" color="secondary" size="small" label="None" /></StyledTableCell>
                   <StyledTableCell align="right"><Chip variant="outlined" color="secondary" size="small" label="None" /></StyledTableCell>
-                  <StyledTableCell align="right"><Button>staa</Button></StyledTableCell>
+                  <StyledTableCell align="right"><Chip variant="outlined" color="secondary" size="small" label="None" /></StyledTableCell>
                   <StyledTableCell ></StyledTableCell>
               </StyledTableRow>
 

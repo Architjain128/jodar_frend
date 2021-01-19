@@ -16,6 +16,9 @@ export default class  Apphome extends Component {
      let datata=`${date}/${month}/${year}`
      this.state={
          datagetjob:"",
+         dataall:"",
+         dataacc:"",
+         datajj:this.props.datajj,
          namemy:this.props.data1[0],
          email:'',
          ondate:datata,
@@ -36,10 +39,11 @@ export default class  Apphome extends Component {
 
  getalljob2info = async () =>{
     const d1 = await axios.get('http://localhost:6050/alljobposted')
-    // console.log(d1.data.dataa)
-    this.setState({datagetjob:d1.data.dataAA})
-//   console.log(d1.data.dataAA)
-
+    const dall = await axios.post('http://localhost:6050/allapp')
+    // const dacc = await axios.post('http://localhost:6050/acceptedapp')
+    // console.log(dall)
+    // console.log(dacc)
+    this.setState({datagetjob:d1.data.dataAA,dataall:dall.data.dataallapp})
 }
 
 async componentDidMount(){
@@ -57,7 +61,7 @@ render (){
         <br/>
         <Typography variant="h4">All Jobs</Typography>
         <br/>
-        <DataTableh datagetjob={this.state.datagetjob} ></DataTableh>
+        <DataTableh datagetjob={this.state.datagetjob} datajj={this.state.datajj}  dataall={this.state.dataall} ></DataTableh>
     </Container>
   )};
 }

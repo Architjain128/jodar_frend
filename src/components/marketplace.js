@@ -204,7 +204,7 @@ export default function Marketplace(props) {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        {mark === true ? <Recprofile data1={props.data1} data2={props.data2}></Recprofile> : null}
+        {mark === true ? <Recprofile data1={props.data1} dataimg={props.dataimg} data2={props.data2}></Recprofile> : null}
         {joby === true ? <Addjob data1={props.data1} /> : null}
         {list === true ? <Applicationlist data1={props.data1} /> : null}
         {/* {dashy === true ? <Dashyy data1={props.data1} /> : null} */}

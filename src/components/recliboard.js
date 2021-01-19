@@ -15,7 +15,7 @@ class Recliboard extends Component {
             userid:localStorage.getItem("Jodar_id"),
             data1:"",
             data2:[],
-            
+            dataimg:"",
         }
         this.getinfo = this.getinfo.bind(this);
     }
@@ -23,6 +23,7 @@ class Recliboard extends Component {
         // alert("ok")
         const d1 = await axios.get('http://localhost:6050/user/'+this.state.userid)
         const d2 = await axios.get('http://localhost:6050/bio/'+this.state.userid)
+        const dimg = await axios.get('http://localhost:6050/getimg/'+this.state.userid)
         const dd1 = [];
         const dd2 = [];
         dd1.push(d1.data.data1.company_name)
@@ -31,7 +32,7 @@ class Recliboard extends Component {
         dd1.push(d1.data.data1.signup_time)
         console.log(d2)
         dd2.push(d2.data.data2.Bio)
-        this.setState({data1:dd1,data2:dd2})
+        this.setState({data1:dd1,data2:dd2,dataimg:dimg.data.proimg})
     }
 
     async componentDidMount(){
@@ -41,7 +42,7 @@ class Recliboard extends Component {
 
         return (
             <Container>
-                <Marketplace data1={this.state.data1} data2={this.state.data2} ></Marketplace>
+                <Marketplace data1={this.state.data1} data2={this.state.data2} dataimg={this.state.dataimg} ></Marketplace>
             </Container>
         )
     }

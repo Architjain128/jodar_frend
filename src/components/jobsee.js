@@ -38,27 +38,13 @@ export default class Dashyy extends Component {
          sala:"",
          skilltok:[],
          stateofpur:"",
-         applybutton:false,
-         button:false,
+       
         }
     this.getjobinfo=this.getjobinfo.bind(this)
-    this.onapplyjob=this.onapplyjob.bind(this)
     this.backMA=this.backMA.bind(this)
-    this.handleChange=this.handleChange.bind(this)
  }
  getjobinfo = async () =>{
     const d2 = await axios.get('http://localhost:6050/getjob/'+this.state.bid)
-    const dap = await axios.get('http://localhost:6050/myappli/'+this.state.jodar_id)
-    // const dac = await axios.get('http://localhost:6050/myapplicur/'+this.state.jodar_id)
-    const reappli=dap.data.dap
-    // const reappcu=dac.data.dac
-
-    if(reappli>=10 )
-    {
-        alert("Can't apply due to your max open application limit reached")
-        window.location.href='/dashboard'
-    }
-
     const sktok = d2.data.data5.Skill_Req.split(";");
     this.setState({skilltok:sktok,comname:d2.data.data5.Company_name,title:d2.data.data5.Title,deadline:d2.data.data5.Deadline,des:d2.data.data5.Descri,maxapp:d2.data.data5.Maxappli,maxpos:d2.data.data5.Maxposi,jtype:d2.data.data5.Job_Type,jdur:d2.data.data5.Job_Dura,sala:d2.data.data5.Job_Sal})
 }
@@ -70,94 +56,12 @@ async componentDidMount(){
 backMA(){
     window.location.href='/dashboard'
 }
-handleChange = (event) => {
-    let value = event.target.value
-    this.setState({stateofpur: value}, () => {
-        console.log(this.state)
-    })
-};
-
-onapplyjob(e){
-    e.preventDefault();
-    let okokok=false
-    let newDate = new Date()
-    let date = newDate.getDate();
-    let month = newDate.getMonth() + 1;
-    let year = newDate.getFullYear();
-    let hour = newDate.getHours();
-    let minutes = newDate.getMinutes();
-    let deadd=this.state.deadline.split(" ");
-    let datede = deadd[0].split("/");
-    let timede = deadd[1].split(":");
-    
-    if(datede[2]>=year)
-    {
-        if(datede[1]>=month)
-        {
-            if(datede[0]>=date)
-            {
-                if(timede[0]>=hour)
-                {
-                    if(timede[1]>=minutes)
-                    {
-                        okokok=true
-                    }
-                }
-            }
-        }
-    }
-
-    if(okokok===false)
-    {
-        alert("Can't apply due to deadline")
-    }
-    else
-    {
-        let datee = new Date();
-        let dated = datee.getDate();
-        let month = datee.getMonth() +1 ;
-        let yeard = datee.getFullYear();
-        let dtstr = dated + "/" + month + "/" + yeard
-        const newlistjob = {
-            JobId : this.state.bid,
-            UserId : this.state.jodar_id,
-            Company_name : this.state.comname,
-            Title : this.state.title,
-            Datejoon : dtstr,
-            Datejoin : "None",
-            Job_Sal : this.state.sala,
-            Rating : 0 ,
-            Status : "pending",
-            Sop:this.state.stateofpur,
-        }
-        console.log(newlistjob)
-
-        axios.post('http://localhost:6050/jobindash', newlistjob)
-            .then(res => {
-                console.log("ok")
-                console.log(res.data)
-                if(res.data.status==="201"){
-                    alert("applied")
-                    window.location.href="/dashboard"
-                }
-                else{
-                    alert(res.data.msg)
-                window.location.reload()
-                }
-            })
-            .catch(err=>{
-                console.log(err)
-            })
-    }
-}
 
 render (){
-
   return (
         <Container>
             <br/>
             <Button onClick={this.backMA} color="primary" variant="contained">Back to Dashboard</Button>
-        
             <br/>
             <br/>
             <Paper elevation={3} >
@@ -176,23 +80,6 @@ render (){
             </Paper>
             <br/>
             <br/>
-
-            <Paper>
-                <br/>
-                <Typography variant="body2">enter statement of purpose in textbox and smash apply</Typography>
-                <br/>
-                <br/>
-                <TextField variant="outlined"  multiline inputProps={{ maxLength: 250 }} label="Not more than 250 words" name="soppp" onChange={this.handleChange}></TextField>
-                <br/>
-                <br/>
-                    <Button onClick={this.onapplyjob} color="primary"  variant="contained">Apply</Button> 
-                <br/>
-                <br/>
-            </Paper>
-    
-            <br/>
-            <br/>
-
         </Container>
   )};
 }

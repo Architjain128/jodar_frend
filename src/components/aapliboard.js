@@ -16,6 +16,7 @@ class Appliboard extends Component {
             data3:[],
             data4:[],
             dataAA:[],
+            datajj:"",
             data4a:[],
             data4b:[],
             data4c:[],
@@ -30,6 +31,7 @@ class Appliboard extends Component {
         const d1 = await axios.get('http://localhost:6050/user/'+this.state.userid)
         const dimg = await axios.get('http://localhost:6050/getimg/'+this.state.userid)
         const dpdf = await axios.get('http://localhost:6050/getpdf/'+this.state.userid)
+        const djj = await axios.get('http://localhost:6050/myallappliedjobs/'+this.state.userid)
         // const d4 = await axios.get('http://localhost:6050/alledu/'+this.state.userid)
         const dd1 = [];
         const dd3 = [];
@@ -51,7 +53,7 @@ class Appliboard extends Component {
         {
             dd4.push({Edu:d4.data.data4[i].Edu,Edus:d4.data.data4[i].Edus,Edue:d4.data.data4[i].Edue})
         }
-        this.setState({data1:dd1,data3:dd3,data4:dd4,data2:ddraimgpdf})
+        this.setState({data1:dd1,data3:dd3,data4:dd4,data2:ddraimgpdf,datajj:djj.data.dalljobapplied})
     }
 
     async componentDidMount(){
@@ -61,7 +63,7 @@ class Appliboard extends Component {
 
         return (
             <Container>
-                <Dashboard data1={this.state.data1} data2={this.state.data2} data3={this.state.data3} data4={this.state.data4}></Dashboard>
+                <Dashboard data1={this.state.data1} data2={this.state.data2} data3={this.state.data3} data4={this.state.data4} datajj={this.state.datajj}></Dashboard>
             </Container>
         )
     }

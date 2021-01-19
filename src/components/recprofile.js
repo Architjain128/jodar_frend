@@ -57,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Recprofile(props) {
   const classes = useStyles();
+  const [dp, setdp] = React.useState(null);
   const [modalStyle] = React.useState(getModalStyle);
   const [jodar_id, setJodarID] = React.useState(localStorage.getItem("Jodar_id"));
   const [open, setOpen] = React.useState(false);
@@ -228,7 +229,23 @@ const bio=(
     } */}
   </div>
 )
-
+const imgadd=(e)=>{
+  setdp(e.target.files[0])
+  console.log(e.target.files[0])
+  const formData = new FormData();        
+  formData.append('dp', e.target.files[0]);
+  axios.post('http://localhost:6050/addimg/'+jodar_id, formData)
+          .then(res => {
+              console.log("ok")
+              console.log(res.data)
+              alert(res.data.msg)
+              window.location.reload()
+          })
+          .catch(err=>{
+              console.log(err)
+              alert("error")
+          })
+}
 
 
 
@@ -237,16 +254,16 @@ const bio=(
     <div className={classes.root}>
         <div>
       <Card>
-        <CardMedia
+        {/* <CardMedia
             className={classes.media}
-            image={nopro}
-            title="Profile Photo"
-        />
+        > */}
+        <img src={props.dataimg} style={{width:400,height:400}}/>
+        {/* </CardMedia> */}
         <CardActions>
         <label disabled>
           Change Profile Image
         </label>
-        <input accept="image/*" className={classes.input} id="icon-button-file" type="file" />
+        <input onChange={imgadd} className={classes.input} id="icon-button-file" type="file" />
         </CardActions>
       </Card>
       </div>
