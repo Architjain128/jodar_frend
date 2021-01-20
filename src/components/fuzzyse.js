@@ -1,5 +1,5 @@
 // import data from "./data.json";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Fuse from "fuse.js";
 import  {DataGrid}  from '@material-ui/data-grid';
 import { makeStyles } from '@material-ui/core/styles';
@@ -30,6 +30,7 @@ import axios from 'axios';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import Slider from '@material-ui/core/Slider';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -96,76 +97,59 @@ export default function SettingsPage(props) {
   const [titidu, settitidu] = useState("1");
   const [titidura, settitidura] = useState("9");
   const [titity, settitity] = useState("All");
-  
-  console.log(props.data)
+  const [value, setValue] = React.useState([0, 200000]);
   const [searchData, setSearchData] = useState(props.data);
-  // var sdfg = props.data;
   const [datasci, setDatasci] = useState(false);
 
-  // const columns = [
-  //   { field: 'Title', headerName: 'Title', description: 'Title of job',width: 140,headerAlign: 'center' },
-  //   { field: 'RecName', headerName: 'Recruiter', description: 'Name of company who posted job',width: 140,headerAlign: 'center' },
-  //   { field: 'Rating', headerName: 'Rating',headerAlign: 'center',description: 'Rating of company', type : 'number', width: 100},
-  //   { field: 'Salary', headerName: 'Salary',headerAlign: 'center',description: 'Salary of job', type : 'number', width: 120 },
-  //   { field: 'Type', headerName: 'Type',description: 'Job Type',headerAlign: 'center', width: 120 },
-  //   { field: 'Duration', headerName: 'Duration',headerAlign: 'center', type :'number',description: 'In months', width: 120 },
-  //   { field: 'Deadline', headerName: 'Deadline',headerAlign: 'center',description: 'Deadline to apply', width: 160 },
-  //   { field: 'id', headerName: 'Id',headerAlign: 'center',hide: true },
-  //   {
-  //     field: "none",
-  //     headerName: "Status",
-  //     headerAlign: 'center',
-  //     width: 100,
-  //     description: 'Click to apply',
-  //     disableClickEventBubbling: true,
-  //     renderCell: (params: CellParams) => {
-  //       const onClick = () => {
-  //         const api: GridApi = params.api;
-  //         const fields = api
-  //           .getAllColumns()
-  //           .map((c) => c.field)
-  //           .filter((c) => c !== "__check__" && !!c);
-  //         const thisRow = {};
-  
-  //         fields.forEach((f) => {
-  //           thisRow[f] = params.getValue(f);
-  //         });
-  //         // console.log(thisRow)
-  //         // alert(thisRow.id);
-  //         localStorage.setItem('Jodar_jobapp',thisRow.id)
-  //         window.location.href="/applyjob"
-  //       };
-  //       return  <Button onClick={onClick} width='140' color="primary" variant="contained">Apply</Button>
-  //     }
-  //   },
-  // ];
-  console.log(searchData);
+  // useEffect(()=>{
+  //   settiti("1")
+  //   settitira("1")
+  //   settitidu('1')
+  //   setValue([0,200000])
+  //   settitity('All')
+  //   settitidura('9')
+    
+  // })
+
+
   const searchItem = (query) => {
-    if (!query || !datasci) {
+    settiti("1")
+    settitira("1")
+    settitidu('1')
+    setValue([0,200000]);
+    settitity('All')
+    settitidura('9')
+
+    if (!query || query==="" || query===" ") {
       setSearchData(props.data);
       return;
     }
+
     const fuse = new Fuse(props.data, {
       keys: ["Title"]
     });
+
     const result = fuse.search(query);
     const finalResult = [];
+
     if (result.length) {
       result.forEach((item) => {
         finalResult.push(item.item);
       });
       setSearchData(finalResult);
-    } else {
+    }
+    else {
       setSearchData([]);
     }
-    setDatasci(true)
   };
   
   const handlesortsal=(e)=>{
     settiti(e.target.value)
     settitira("1")
     settitidu('1')
-
+    setValue([0,200000]);
+    settitity('All')
+    settitidura('9')
     if(e.target.value===2)
     searchData.sort((a,b) => (a.Salary - b.Salary))
     if(e.target.value===3)
@@ -175,7 +159,9 @@ export default function SettingsPage(props) {
     settitira(e.target.value)
     settiti("1")
     settitidu('1')
-
+    setValue([0,200000]);
+    settitity('All')
+    settitidura('9')
     if(e.target.value===2)
     searchData.sort(function(a,b) {
       let g=a.Rating
@@ -197,7 +183,9 @@ export default function SettingsPage(props) {
     settitidu(e.target.value)
     settiti("1")
     settitira("1")
-
+    setValue([0,200000]);
+    settitity('All')
+    settitidura('9')
     if(e.target.value===2)
     searchData.sort(function(a,b) {
       let g=a.Duration
@@ -219,7 +207,10 @@ export default function SettingsPage(props) {
   const handlefilty=(e)=>{
     settitity(e.target.value)
     settitidura('9')
-
+    setValue([0,200000]);
+    settiti("1")
+    settitidu('1')
+    settitira("1")
     console.log(e.target.value)
     if(e.target.value==="Full Time")
     {
@@ -239,11 +230,13 @@ export default function SettingsPage(props) {
     else
     setSearchData( props.data)
   }
-
   const handlefildura=(e)=>{
     settitidura(e.target.value)
     settitity('All')
-
+    setValue([0,200000]);
+    settiti("1")
+    settitidu('1')
+    settitira("1")
     if(e.target.value === '1')
     {
       const aaa = props.data
@@ -282,6 +275,16 @@ export default function SettingsPage(props) {
     else
     setSearchData(props.data)
   }
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+    settitity('All')
+    settitidura('9')
+    settiti("1")
+    settitidu('1')
+    settitira("1")
+    const aaa = props.data
+    setSearchData( aaa.filter(function(a){return a.Salary >= value[0] && a.Salary<=value[1]}))
+  };
 
   const onClickapply = (e) => {
     let rowid2 = e.currentTarget.value
@@ -298,98 +301,116 @@ export default function SettingsPage(props) {
 
   return (
     <div>
-       <InputLabel id="demo-simple-select-label">Filter by Type</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={titity}
-          onChange={handlefilty}
-        >
-          <MenuItem value="All">All</MenuItem>
-          <MenuItem value="Full Time">Full Time</MenuItem>
-          <MenuItem value="Part Time">Part Time</MenuItem>
-          <MenuItem value="Work From Home">Work From Home</MenuItem>
-        </Select>
       <br/>
+      <hr></hr>
+        <Typography variant="h6"><b> Fuzzy Search</b></Typography><br/>
+        <div className="search-container">
+          <input
+            type="search"
+            onChange={(e) => searchItem(e.target.value)}
+            placeholder="Search by Title"
+          />
+        </div>
       <br/>
-       <InputLabel id="demo-simple-select-label">Filter by Duration</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={titidura}
-          onChange={handlefildura}
-        >
-          <MenuItem value="9">All</MenuItem>
-          <MenuItem value="1">less than 1 month</MenuItem>
-          <MenuItem value="2">less than 2 months</MenuItem>
-          <MenuItem value="3">less than 3 months</MenuItem>
-          <MenuItem value="4">less than 4 months</MenuItem>
-          <MenuItem value="5">less than 5 months</MenuItem>
-          <MenuItem value="6">less than 6 months</MenuItem>
-          <MenuItem value="7">less than 7 months</MenuItem>
-          <MenuItem value="8">less than 8 months</MenuItem>
-          
-        </Select>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <Typography variant="h6"><b> Fuzzy Search</b></Typography>
-      <div className="search-container">
-        <input
-          type="search"
-          onChange={(e) => searchItem(e.target.value)}
-          placeholder="Search by Title"
-        />
-      </div>
-      <br/>
-      <br/>
-            <Typography variant="h6"><b> Sorting</b></Typography>
-       <br/>
-       <br/>
-       <InputLabel id="demo-simple-select-label">Sorting by Rating</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={titira}
-          onChange={handlesortra}
-        >
-          <MenuItem value={1}>None</MenuItem>
-          <MenuItem value={2}>Asc</MenuItem>
-          <MenuItem value={3}>Des</MenuItem>
-        </Select>
-      <br/>
-      <br/>
-       <InputLabel id="demo-simple-select-label">Sorting by Salary</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={titi}
-          onChange={handlesortsal}
-        >
-          <MenuItem value={1}>None</MenuItem>
-          <MenuItem value={2}>Asc</MenuItem>
-          <MenuItem value={3}>Des</MenuItem>
-        </Select>
-      <br/>
-      <br/>
-       <InputLabel id="demo-simple-select-label">Sorting by Duration</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={titidu}
-          onChange={handlesortdu}
-        >
-          <MenuItem value={1}>None</MenuItem>
-          <MenuItem value={2}>Asc</MenuItem>
-          <MenuItem value={3}>Des</MenuItem>
-        </Select>
-      <br/>
-       <br/>
+      <hr></hr>
       
+        <Typography variant="h6"><b> Filtering</b></Typography>
+        <br/>
+          <Typography id="range-slider" gutterBottom>
+            Salary Range
+          </Typography>
+          <Box><b>Lower limit</b> {value[0]}</Box>
+          <Box><b>Upper limit</b> {value[1]}</Box>
+          <Slider
+            value={value}
+            min={0}
+            step={10}
+            max={200000}
+            onChange={handleChange}
+            valueLabelDisplay="auto"
+            aria-labelledby="range-slider"
+          />
+        <br/>
+          <InputLabel id="demo-simple-select-label">Filter by Type</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={titity}
+              onChange={handlefilty}
+            >
+              <MenuItem value="All">All</MenuItem>
+              <MenuItem value="Full Time">Full Time</MenuItem>
+              <MenuItem value="Part Time">Part Time</MenuItem>
+              <MenuItem value="Work From Home">Work From Home</MenuItem>
+            </Select>
+        <br/>
+        <br/>
+          <InputLabel id="demo-simple-select-label">Filter by Duration</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={titidura}
+              onChange={handlefildura}
+            >
+              <MenuItem value="9">All</MenuItem>
+              <MenuItem value="1">less than 1 month</MenuItem>
+              <MenuItem value="2">less than 2 months</MenuItem>
+              <MenuItem value="3">less than 3 months</MenuItem>
+              <MenuItem value="4">less than 4 months</MenuItem>
+              <MenuItem value="5">less than 5 months</MenuItem>
+              <MenuItem value="6">less than 6 months</MenuItem>
+              <MenuItem value="7">less than 7 months</MenuItem>
+              <MenuItem value="8">less than 8 months</MenuItem>
+            </Select>
       <br/>
       <br/>
+      <hr></hr>
+      
+        <Typography variant="h6"><b> Sorting</b></Typography>
+        <br/>
+        <br/>
+        <InputLabel id="demo-simple-select-label">Sorting by Rating</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={titira}
+            onChange={handlesortra}
+          >
+            <MenuItem value={1}>None</MenuItem>
+            <MenuItem value={2}>Asc</MenuItem>
+            <MenuItem value={3}>Des</MenuItem>
+          </Select>
+        <br/>
+        <br/>
+        <InputLabel id="demo-simple-select-label">Sorting by Salary</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={titi}
+            onChange={handlesortsal}
+          >
+            <MenuItem value={1}>None</MenuItem>
+            <MenuItem value={2}>Asc</MenuItem>
+            <MenuItem value={3}>Des</MenuItem>
+          </Select>
+        <br/>
+        <br/>
+        <InputLabel id="demo-simple-select-label">Sorting by Duration</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={titidu}
+            onChange={handlesortdu}
+          >
+            <MenuItem value={1}>None</MenuItem>
+            <MenuItem value={2}>Asc</MenuItem>
+            <MenuItem value={3}>Des</MenuItem>
+          </Select>
+        <br/>
+        <br/>
+        <hr></hr>
+        <br/>
+        <br/>
 
     <div style={{ height: 650, width: '100%' }}> 
     <TableContainer component={Paper}>

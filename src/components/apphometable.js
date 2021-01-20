@@ -17,11 +17,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 
 export default function DataTableh(props) {
-  const [value, setValue] = React.useState([0, 200000]);
   const [sop, setsop] = React.useState(null);
-  const handleChange = (event, newValue) => {
-     setValue(newValue);
-  };
+ 
 
   let allmyapp = new Map();
   for(let i=0;i<props.datajj.length;i++)
@@ -87,6 +84,7 @@ export default function DataTableh(props) {
       let datede = deadd[0].split("/");
       let timede = deadd[1].split(":");
       
+      // if(pa.Salary>=value[0] && pa.Salary<=value[1]){
       if(datede[2]>=year)
       {
           if(datede[1]>=month)
@@ -97,13 +95,13 @@ export default function DataTableh(props) {
                   {
                       if(timede[1]>=minutes)
                       {
-                        if(pa.Salary>=value[0] && pa.Salary<=value[1])
                         antyj.push(pa)
                       }
                   }
               }
           }
       }
+    // }
   }
 // console.log(1 + antyj)
   // const rows = [
@@ -122,26 +120,10 @@ export default function DataTableh(props) {
 
   return (
     <div style={{ height: 400, width: '100%' }}>
-    <br/>
-      <Typography variant="h6"><b> Filtering</b></Typography>
-    <br/>
-      <Typography id="range-slider" gutterBottom>
-        Salary Range
-      </Typography>
-      <Box><b>Lower limit</b> {value[0]}</Box>
-      <Box><b>Upper limit</b> {value[1]}</Box>
-      <Slider
-        value={value}
-        min={0}
-        step={10}
-        max={200000}
-        onChange={handleChange}
-        valueLabelDisplay="auto"
-        aria-labelledby="range-slider"
-      />
+   
+      
       <br/>
-      <br/>
-      <SettingsPage data={antyj} dataall={props.dataall} dataacc={props.dataacc}></SettingsPage>
+      <SettingsPage data={antyj} dataall={props.dataall} dataacc={props.dataacc} ></SettingsPage>
     </div>
   );
 }
