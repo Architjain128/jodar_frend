@@ -130,6 +130,11 @@ export default function Marketplace(props) {
   const logoutme = () => {
     localStorage.removeItem("Jodar_id");
     localStorage.removeItem("Jodar_id_type");
+    localStorage.removeItem("Jodar_googleapi_name");
+    localStorage.removeItem("Jodar_googleapi_firstname");
+    localStorage.removeItem("Jodar_googleapi_lastname");
+    localStorage.removeItem("Jodar_googleapi_email");
+    localStorage.removeItem("Jodar_googleapi_password");
     alert("Bye Recruter")
     window.location.href='/'
   }

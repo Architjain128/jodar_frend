@@ -4,27 +4,26 @@ import {Container,Box,Typography,TextField,Button,Switch} from '@material-ui/cor
 import {AccountCircle} from '@material-ui/icons'
 import axios from 'axios';
 import '../files/css/signup.css'
-import GooSignin from "./zzgoogleapi2"
 
-class Signup extends Component {
+class UserData extends Component {
     constructor(props){
         super(props)
         this.state = {
-            Firstname:'',
-            Lastname:'',
-            email:'',
-            password:'',
+            Firstname:localStorage.getItem("Jodar_googleapi_firstname"),
+            Lastname:localStorage.getItem("Jodar_googleapi_lastname"),
+            email:localStorage.getItem("Jodar_googleapi_email"),
+            password:localStorage.getItem("Jodar_googleapi_password"),
             type:"a",
             checked:false,
             switched:false,
-            company_name:'NONE',
+            company_name:localStorage.getItem("Jodar_googleapi_name"),
             contact_number:'NONE',
             redirect:"r",
             sign:true
         }
         this.onChange=this.onChange.bind(this)
         this.onCheck=this.onCheck.bind(this)
-        this.onSwitch=this.onSwitch.bind(this)
+        this.onSwitch2=this.onSwitch2.bind(this)
         this.onSubmit=this.onSubmit.bind(this)
     }
     onChange(event) {
@@ -34,12 +33,11 @@ class Signup extends Component {
             console.log(this.state)
         })
     }
-    onSwitch(event){
+    onSwitch2(event){
         if(this.state.switched === false)
-        this.setState({switched : true, type:"r", company_name:"",contact_number:""})
+        this.setState({switched : true, type:"r"})
         else
-        this.setState({switched : false, type :"a", company_name:"NONE", contact_number:"NONE"})
-        
+        this.setState({switched : false, type:"a"})
     }
     onCheck(event){
         if(this.state.checked === false)
@@ -75,7 +73,6 @@ class Signup extends Component {
                     localStorage.setItem("Jodar_id_type", res.data.userdata.type);
                     this.setState({sign:false})
                 }
-
                 else
                 window.location.reload()
             })
@@ -124,62 +121,18 @@ class Signup extends Component {
                                 <Typography component="div" id="logintypo" >
                                 <form onSubmit={this.onSubmit}>
                                     <br/>
-                                    <h1>Join us as Applicants</h1>
+                                    <h1>Joining us as Applicants</h1>
                                                 <Switch
                                                     checked={this.state.switched}
-                                                    onChange={this.onSwitch}
+                                                    onChange={this.onSwitch2}
                                                     name="switched"
                                                     color="primary"
                                                 />
-                                                <label id="cat">Need a 's recruiter account</label>
                                                 
-                                            <TextField
-                                                variant="standard"
-                                                margin="normal"
-                                                required
-                                                fullWidth
-                                                name="Firstname"
-                                                label="First Name"
-                                                type="text"
-                                                id="Firstname"
-                                                onChange = {this.onChange}
-                                            />
-                                            <TextField
-                                                variant="standard"
-                                                margin="normal"
-                                                required
-                                                fullWidth
-                                                name="Lastname"
-                                                label="Last Name"
-                                                type="text"
-                                                id="Lastname"
-                                                onChange = {this.onChange}
-                                            />
-                                            <TextField
-                                                variant="standard"
-                                                margin="normal"
-                                                required
-                                                fullWidth
-                                                name="email"
-                                                label="E-Mail"
-                                                type="text"
-                                                id="email"
-                                                // autoComplete
-                                                onChange = {this.onChange}
-                                            />
-
-                                            <TextField
-                                                variant="standard"
-                                                margin="normal"
-                                                required
-                                                fullWidth
-                                                name="password"
-                                                label="Password"
-                                                type="password"
-                                                id="password"
-                                                // autoComplete
-                                                onChange = {this.onChange}
-                                            />
+                                                <label id="cat">Need a 's recruiter account</label>
+                                    <br/>
+                                    <br/>
+                                                
                                             <div id="tcdiv">
                                                 <input type="checkbox" onChange={this.onCheck} checked={this.state.checked} id="tandcheck"/> <p id="tc">I agree all <a href="https://pastebin.com/embed_js/KjwiiUhG" target="blank" id="tandc">terms and conditions.</a></p><br/>
                                             </div>
@@ -191,14 +144,10 @@ class Signup extends Component {
                                                 id="signupbutton"
                                                 onClick = {this.onSubmit}
                                                 >
-                                                Sign Up
+                                                Confirm
                                             </Button>
                                             <br/>
-                                            <br/>
-                                            <GooSignin></GooSignin>
-                                    {/* <input type="submit" id="loginbutton" value="Login" /> */}
                                 </form> 
-                                <p id="nouser">Already a user? <a id="tandc" href="/login">Login</a></p>
                                 </Typography>
                             </div>
                         </div>
@@ -225,49 +174,15 @@ class Signup extends Component {
                             <Typography component="div" id="logintypo" >
                             <form onSubmit={this.onSubmit}>
                                 <br/>
-                                <h1>Join us as Recruiter</h1>
+                                <h1>Joining us as Recruiter</h1>
                                                 <Switch
                                                     checked={this.state.switched}
-                                                    onChange={this.onSwitch}
+                                                    onChange={this.onSwitch2}
                                                     name="switched"
                                                     color="primary"
                                                 />
                                                 <label id="cat">Need a applicants's account</label>
-                                                
-                                        <TextField
-                                            variant="standard"
-                                            margin="normal"
-                                            required
-                                            fullWidth
-                                            name="email"
-                                            label="E-Mail"
-                                            type="text"
-                                            id="email"
-                                            // autoComplete
-                                            onChange = {this.onChange}
-                                        />
-                                        <TextField
-                                            variant="standard"
-                                            margin="normal"
-                                            required
-                                            fullWidth
-                                            name="password"
-                                            label="Password"
-                                            type="password"
-                                            id="password"
-                                            onChange = {this.onChange}
-                                        />
-                                    <TextField
-                                            variant="standard"
-                                            margin="normal"
-                                            required
-                                            fullWidth
-                                            name="company_name"
-                                            label="Company Name"
-                                            type="company_name"
-                                            id="company_name"
-                                            onChange = {this.onChange}
-                                    />
+                              
                                     <TextField
                                             variant="standard"
                                             margin="normal"
@@ -279,6 +194,8 @@ class Signup extends Component {
                                             id="contact_number"
                                             onChange = {this.onChange}
                                     />
+                                    <br/>
+                                    <br/>
                                         <div id="tcdiv">
                                             <input type="checkbox" onChange={this.onCheck} checked={this.state.checked}  id="tandcheck"/> <p id="tc">I agree all <a href="https://pastebin.com/embed_js/KjwiiUhG" target="blank" id="tandc">terms and conditions.</a></p><br/>
                                         </div>
@@ -291,14 +208,9 @@ class Signup extends Component {
                                             // className={classes.submit}
                                             onClick = {this.onSubmit}
                                             >
-                                            Sign Up
+                                            Confirm
                                         </Button>
-                                        <br/>
-                                        <br/>
-                                        <GooSignin></GooSignin>
-
                             </form> 
-                            <p id="nouser">Already a user? <a id="tandc" href="/login">Login</a></p>
                             </Typography>
                         </div>
                     </div>
@@ -311,4 +223,4 @@ class Signup extends Component {
 
 
 
-export default Signup
+export default UserData

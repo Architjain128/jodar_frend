@@ -4,7 +4,7 @@ import {Container,Box,Typography,TextField,Button} from '@material-ui/core';
 import {AccountCircle} from '@material-ui/icons'
 import axios from 'axios';
 import '../files/css/login.css'
-
+import GooLogin from "./zzgoogleapi"
 
 class Login extends Component {
     constructor(props){
@@ -142,6 +142,9 @@ class Login extends Component {
                                             >
                                             Login
                                         </Button>
+                                        <br/>
+                                        <br/>
+                                        <GooLogin></GooLogin>
                             </form> 
                             <p id="nouser">Not a user? <a id="tandc" href="/signup">Sign up</a></p>
                             </Typography>
