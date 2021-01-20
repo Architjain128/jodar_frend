@@ -405,7 +405,7 @@ export default function Appprofile(props) {
                 <Typography >Upload Resume</Typography>
                 <Typography ><input onChange={pdfadd} className={classes.input} id="icon-button-file" type="file" /></Typography>
                 <br/><br/>
-                <Button variant="contained" color="primary" component="span">Update</Button>
+                {/* <Button variant="contained" color="primary" component="span">Update</Button> */}
 
       </div>
     </div>
