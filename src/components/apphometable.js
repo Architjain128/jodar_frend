@@ -35,12 +35,12 @@ export default function DataTableh(props) {
     const p = props.dataall[i]
     allapp.set(p["_id"], p["total"]);
   }
-  // let accapp = new Map();
-  // for(let i=0;i<props.dataacc.length;i++)
-  // {
-  //   const p = props.dataacc[i]
-  //   accapp.set(p["_id"], p["total"]);
-  // }
+  let accapp = new Map();
+  for(let i=0;i<props.dataacc.length;i++)
+  {
+    const p = props.dataacc[i]
+    accapp.set(p["_id"], p["total"]);
+  }
   const antyj = [];
   for(let i=0;i<props.datagetjob.length;i++)
   {
@@ -65,10 +65,10 @@ export default function DataTableh(props) {
       if(!temp)temp = 0
       if(pa.Maxappli - temp <= 0 ) 
       pa.Status="Application Full"
-      // temp = accapp.get(pa.id)
-      // if(!temp)temp = 0
-      // if(pa.Maxposi - temp <= 0 ) 
-      // pa.Status="Position Full"
+      temp = accapp.get(pa.id)
+      if(!temp)temp = 0
+      if(pa.Maxposi - temp <= 0 ) 
+      pa.Status="Position Full"
       temp = allmyapp.get(pa.id)
       if(!temp)temp = 0
       if(temp===1)

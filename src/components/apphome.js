@@ -40,10 +40,10 @@ export default class  Apphome extends Component {
  getalljob2info = async () =>{
     const d1 = await axios.get('http://localhost:6050/alljobposted')
     const dall = await axios.post('http://localhost:6050/allapp')
-    // const dacc = await axios.post('http://localhost:6050/acceptedapp')
-    // console.log(dall)
-    // console.log(dacc)
-    this.setState({datagetjob:d1.data.dataAA,dataall:dall.data.dataallapp})
+    const dacc = await axios.post('http://localhost:6050/acceptedapp')
+    console.log(dall)
+    console.log(dacc)
+    this.setState({datagetjob:d1.data.dataAA,dataall:dall.data.dataallapp,dataacc:dacc.data.acceptedapp})
 }
 
 async componentDidMount(){
@@ -61,7 +61,7 @@ render (){
         <br/>
         <Typography variant="h4">All Jobs</Typography>
         <br/>
-        <DataTableh datagetjob={this.state.datagetjob} datajj={this.state.datajj}  dataall={this.state.dataall} ></DataTableh>
+        <DataTableh datagetjob={this.state.datagetjob} datajj={this.state.datajj}  dataall={this.state.dataall}  dataacc={this.state.dataacc} ></DataTableh>
     </Container>
   )};
 }
