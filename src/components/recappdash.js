@@ -13,6 +13,13 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Rating from '@material-ui/lab/Rating'
 import { FormatAlignJustify } from '@material-ui/icons';
 
 export default class  Dashyy extends Component {
@@ -53,6 +60,71 @@ export default class  Dashyy extends Component {
  getjobinfo = async () =>{
     const d1 = await axios.get('http://localhost:6050/user/'+this.state.jodar_id)
     const d2 = await axios.get('http://localhost:6050/getjob/'+this.state.bid)
+    const dalist = await axios.get('http://localhost:6050/alljobslisting/'+this.state.bid)
+    const mahadata =[];
+    for(let i=0;i<dalist.data.dalljoblisting.length;i++)
+    {
+        const p = dalist.data.dalljoblisting[i];
+        const puser = await axios.get('http://localhost:6050/user/'+ p["UserId"])
+        const pedu = await axios.get('http://localhost:6050/alledu/'+ p["UserId"])
+        const pskill = await axios.get('http://localhost:6050/allskill/'+ p["UserId"])
+        const ppdf = await axios.get('http://localhost:6050/downloadpdf/'+ p["UserId"])
+        // console.log(p)
+        // console.log(puser)
+        // console.log(pedu)
+        // console.log(pskill)
+        // console.log(ppdf)
+
+
+        let aedu =""
+        for(let i=0;i<pedu.data.data4.length;i++)
+        {
+            aedu = aedu + pedu.data.data4[i].Edu + ";" + pedu.data.data4[i].Edus + ";" + pedu.data.data4[i].Edue + ";" 
+        }
+        let askill =""
+        for(let i=0;i<pskill.data.data3.length;i++)
+        {
+            askill = askill + pskill.data.data3[i].Spec + ";" 
+        }
+        const pa = {UserId:p["UserId"],Status:p["Status"],Datejoon:p["Datejoon"],Sop:p["Sop"],Resume:ppdf.data.pdf,Rating:puser.data.data1.reset_token,sumRating:puser.data.data1.expire,fname:puser.data.data1.Firstname,lname:puser.data.data1.Lastname,uedu:aedu,uskill:askill}
+        if(pa.Rating===0)Rating="NaN"
+        else{
+            pa.Rating = pa.sumRating/pa.Rating
+        }
+        // console.log(pa)
+        mahadata.push(pa)
+    }
+    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+    console.log(mahadata)
+
+
+    // [
+    //     {
+    //       "UserId": "5ff9fb0d25bb0e2dea385be5",
+    //       "Status": "pending",
+    //       "Datejoon": "19/1/2021",
+    //       "Sop": "wagRs",
+    //       "Resume": "http://localhost:6050/pdf/5ff9fb0d25bb0e2dea385be5.pdf",
+    //       "Rating": null,
+    //       "fname": "Archit",
+    //       "lname": "Jain",
+    //       "uedu": "ar;ar;ar;arc;2019;2020;arch;2000;present;archit;2000;4554;iiit;2109;6544;",
+    //       "uskill": "food;sleep;code;js;do;chess;"
+    //     },
+    //     {
+    //       "UserId": "5ff9f87aae5ae8253d6c6084",
+    //       "Status": "pending",
+    //       "Datejoon": "19/1/2021",
+    //       "Sop": "ssrhyk",
+    //       "Resume": "false",
+    //       "Rating": null,
+    //       "fname": "Archit",
+    //       "lname": "Jain",
+    //       "uedu": "reactjs;reactjs;reactjs;",
+    //       "uskill": "reactjs;"
+    //     }
+    //   ]
+
     const dd1 = [];
     const dd2 = [];
     console.log(d1.data)
@@ -259,6 +331,18 @@ render (){
             <br/>
             <br/>
             <Button onClick={this.ondeljob} color="secondary" variant="contained">Delete</Button>
+            <br/>
+            <br/>
+               
+
+                <Paper>
+
+                    <Box>
+                        hihi
+                    </Box>
+
+                </Paper>
+
         </Container>
   )};
 }

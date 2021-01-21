@@ -12,8 +12,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Rating from '@material-ui/lab/Rating'
 import Chip from '@material-ui/core/Chip';
 import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
-import { makeStyles } from '@material-ui/core/styles';
+
 
 
 
@@ -41,7 +40,7 @@ class Mydashappli extends Component {
             const p = this.props.datajj[i]
             const pa = {jobid:p["JobId"],userid:p["UserId"],Title:p["Title"],RecName:p["Company_name"],Rating:p["Rating"],Salary:p["Job_Sal"],Datejoon:p["Datejoon"],Datejoin:p["Datejoin"],Status:p["Status"]}
             if(pa.Rating === 0)pa.Rating = "NaN"
-            if(pa.Status === "pending")appliedjobvar.push(pa)
+            if(pa.Status === "pending" || pa.Status === "shortlisted")appliedjobvar.push(pa)
             if(pa.Status === "rejected")rejectedjobvar.push(pa)
             if(pa.Status === "accepted")workingjobvar.push(pa)
         }
