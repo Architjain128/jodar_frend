@@ -21,6 +21,12 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Rating from '@material-ui/lab/Rating'
 import { FormatAlignJustify } from '@material-ui/icons';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import { DATE_COL_DEF } from '@material-ui/data-grid';
+
+
 
 export default class  Dashyy extends Component {
  constructor(props)
@@ -47,6 +53,11 @@ export default class  Dashyy extends Component {
          points:'',
          uptar:'',
          uptarval:'',
+         soda:'1',
+         sora:'1',
+         sona:'1',
+         mahadata : [],
+         mahadata2 : [],
         }
     this.onChange=this.onChange.bind(this)
     this.getjobinfo=this.getjobinfo.bind(this)
@@ -56,6 +67,9 @@ export default class  Dashyy extends Component {
     this.handleChange=this.handleChange.bind(this)
     this.handleChange2=this.handleChange2.bind(this)
     this.onSubmit = this.onSubmit.bind(this);
+    this.handlesortra = this.handlesortra.bind(this);
+    this.handlesortna = this.handlesortna.bind(this);
+    this.handlesortda = this.handlesortda.bind(this);
  }
  getjobinfo = async () =>{
     const d1 = await axios.get('http://localhost:6050/user/'+this.state.jodar_id)
@@ -76,15 +90,16 @@ export default class  Dashyy extends Component {
         // console.log(ppdf)
 
 
-        let aedu =""
+        let aedu =[];
         for(let i=0;i<pedu.data.data4.length;i++)
         {
-            aedu = aedu + pedu.data.data4[i].Edu + ";" + pedu.data.data4[i].Edus + ";" + pedu.data.data4[i].Edue + ";" 
+            const ppe = {Edu:pedu.data.data4[i].Edu,Edus:pedu.data.data4[i].Edus,Edue:pedu.data.data4[i].Edue}
+            aedu.push(ppe)
         }
-        let askill =""
+        let askill =[]
         for(let i=0;i<pskill.data.data3.length;i++)
         {
-            askill = askill + pskill.data.data3[i].Spec + ";" 
+            askill.push(pskill.data.data3[i].Spec)
         }
         const pa = {UserId:p["UserId"],Status:p["Status"],Datejoon:p["Datejoon"],Sop:p["Sop"],Resume:ppdf.data.pdf,Rating:puser.data.data1.reset_token,sumRating:puser.data.data1.expire,fname:puser.data.data1.Firstname,lname:puser.data.data1.Lastname,uedu:aedu,uskill:askill}
         if(pa.Rating===0)Rating="NaN"
@@ -96,44 +111,201 @@ export default class  Dashyy extends Component {
     }
     console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
     console.log(mahadata)
+    this.setState({mahadata2:mahadata})
 
 
-    // [
-    //     {
-    //       "UserId": "5ff9fb0d25bb0e2dea385be5",
-    //       "Status": "pending",
-    //       "Datejoon": "19/1/2021",
-    //       "Sop": "wagRs",
-    //       "Resume": "http://localhost:6050/pdf/5ff9fb0d25bb0e2dea385be5.pdf",
-    //       "Rating": null,
-    //       "fname": "Archit",
-    //       "lname": "Jain",
-    //       "uedu": "ar;ar;ar;arc;2019;2020;arch;2000;present;archit;2000;4554;iiit;2109;6544;",
-    //       "uskill": "food;sleep;code;js;do;chess;"
-    //     },
-    //     {
-    //       "UserId": "5ff9f87aae5ae8253d6c6084",
-    //       "Status": "pending",
-    //       "Datejoon": "19/1/2021",
-    //       "Sop": "ssrhyk",
-    //       "Resume": "false",
-    //       "Rating": null,
-    //       "fname": "Archit",
-    //       "lname": "Jain",
-    //       "uedu": "reactjs;reactjs;reactjs;",
-    //       "uskill": "reactjs;"
-    //     }
-    //   ]
+    const pppmahadata = [
+        {
+          "UserId": "5ff9fb0d25bb0e2dea385be5",
+          "Status": "pending",
+          "Datejoon": "19/1/2021 11:45",
+          "Sop": "wagRs",
+          "Resume": "http://localhost:6050/pdf/5ff9fb0d25bb0e2dea385be5.pdf",
+          "Rating": null,
+          "fname": "Archit",
+          "lname": "Jain",
+          "uedu": [
+            {
+              "Edu": "ar",
+              "Edus": "ar",
+              "Edue": "ar"
+            },
+            {
+              "Edu": "arc",
+              "Edus": "2019",
+              "Edue": "2020"
+            },
+            {
+              "Edu": "arch",
+              "Edus": "2000",
+              "Edue": "present"
+            },
+            {
+              "Edu": "archit",
+              "Edus": "2000",
+              "Edue": "4554"
+            },
+            {
+              "Edu": "iiit",
+              "Edus": "2109",
+              "Edue": "6544"
+            }
+          ],
+          "uskill": [
+            "food",
+            "sleep",
+            "code",
+            "js",
+            "do",
+            "chess"
+          ]
+        },
+        {
+          "UserId": "5ff9f87aae5ae8253d6c6084",
+          "Status": "pending",
+          "Datejoon": "19/1/2021 12:15",
+          "Sop": "ssrhyk",
+          "Resume": "false",
+          "Rating": null,
+          "fname": "Brchit",
+          "lname": "Jain",
+          "uedu": [
+            {
+              "Edu": "reactjs",
+              "Edus": "reactjs",
+              "Edue": "reactjs"
+            }
+          ],
+          "uskill": [
+            "reactjs"
+          ]
+        }
+      ]
+      this.setState({mahadata:mahadata})
+     
+    console.log(mahadata)
+    console.log(this.state.mahadata2)
+
 
     const dd1 = [];
     const dd2 = [];
-    console.log(d1.data)
-    console.log(d2.data.data5)
+    // console.log(d1.data)
+    // console.log(d2.data.data5)
     const sktok = d2.data.data5.Skill_Req.split(";");
-    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-    console.log(sktok)
+    // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+    // console.log(sktok)
     this.setState({skilltok:sktok,comname:d1.data.data1.company_name,Title:d2.data.data5.Title,deadline:d2.data.data5.Deadline,des:d2.data.data5.Descri,maxapp:d2.data.data5.Maxappli,maxpos:d2.data.data5.Maxposi,jtype:d2.data.data5.Job_Type,jdur:d2.data.data5.Job_Dura,sala:d2.data.data5.Job_Sal})
 }
+
+handlesortra=(e)=>{
+    this.setState({sora : e.target.value,sona:"1",soda:"1"})
+    let tempmahadata = this.state.mahadata
+    if(e.target.value===2)
+    tempmahadata.sort(function(a,b) {
+      let g=a.Rating
+      let h=b.Rating
+      if(a.Rating==="NaN")g=6
+      if(b.Rating==="NaN")h=6
+      return g - h
+    })
+    if(e.target.value===3)
+    tempmahadata.sort(function(a,b) {
+      let g=a.Rating
+      let h=b.Rating
+      if(a.Rating==="NaN")g=-1
+      if(b.Rating==="NaN")h=-1
+      return h-g
+    })
+    this.setState({mahadata2:tempmahadata})
+    console.log(tempmahadata)
+
+  }
+  handlesortna=(e)=>{
+    this.setState({sona : e.target.value,sora:"1",soda:"1"})
+    let tempmahadata = this.state.mahadata
+    if(e.target.value===2)
+    tempmahadata.sort(function(a,b) {
+        let g=a.fname +" " +a.lname
+        let h=b.fname +" " +b.lname
+        g=g.toLowerCase();
+        h=h.toLowerCase();
+        return g.localeCompare(h)
+    })
+    if(e.target.value===3)
+    tempmahadata.sort(function(a,b) {
+        let g=a.fname +" " +a.lname
+        let h=b.fname +" " +b.lname
+        g=g.toLowerCase();
+        h=h.toLowerCase();
+        return h.localeCompare(g)
+    })
+    this.setState({mahadata2:tempmahadata})
+    console.log(tempmahadata)
+
+  }
+  handlesortda=(e)=>{
+    this.setState({soda : e.target.value,sona:"1",sora:"1"})
+    let tempmahadata = this.state.mahadata
+    if(e.target.value===3)
+    tempmahadata.sort(function(a,b) {
+        let g=a.Datejoon
+        let h=a.Datejoon
+        let gdeadd=g.split(" ");
+        let gdatede = gdeadd[0].split("/");
+        let gtimede = gdeadd[1].split(":");
+        let hdeadd=h.split(" ");
+        let hdatede = hdeadd[0].split("/");
+        let htimede = hdeadd[1].split(":");
+        if( parseInt(gdatede[2])>= parseInt(hdatede[2]))
+        {
+            if( parseInt(gdatede[1])>= parseInt(hdatede[1]))
+            {
+                if( parseInt(gdatede[0])>= parseInt(hdatede[0]))
+                {
+                    if( parseInt(gtimede[0])>= parseInt(htimede[0]))
+                    {
+                        if( parseInt(gtimede[1])>= parseInt(htimede[1]))
+                        {
+                           return -1
+                        }
+                    }
+                }
+            }
+        }
+        return 1
+    })
+    if(e.target.value==2)
+    tempmahadata.sort(function(a,b) {
+        let g=a.Datejoon
+        let h=a.Datejoon
+        let gdeadd=g.split(" ");
+        let gdatede = gdeadd[0].split("/");
+        let gtimede = gdeadd[1].split(":");
+        let hdeadd=h.split(" ");
+        let hdatede = hdeadd[0].split("/");
+        let htimede = hdeadd[1].split(":");
+        if( parseInt(gdatede[2])< parseInt(hdatede[2]))
+        {
+            if( parseInt(gdatede[1])< parseInt(hdatede[1]))
+            {
+                if( parseInt(gdatede[0])< parseInt(hdatede[0]))
+                {
+                    if( parseInt(gtimede[0])< parseInt(htimede[0]))
+                    {
+                        if( parseInt(gtimede[1])< parseInt(htimede[1]))
+                        {
+                           return -1
+                        }
+                    }
+                }
+            }
+        }
+        return 1
+    })
+    this.setState({mahadata2:tempmahadata})
+    console.log(tempmahadata)
+    
+  }
 
 async componentDidMount(){
     this.getjobinfo()
@@ -311,37 +483,154 @@ render (){
             </Paper>
             <br/>
             <br/>
-            <Paper>
+            <Paper elevation={1}>
                 <br/>
                 <Typography variant="body2">Choose field and enter new value in textbox and smash update</Typography>
                 <br/>
-                {/* <RadioGroup name="field" value={this.state.uptar} onChange={this.handleChange}>
-                    <FormControlLabel value="appy" control={<Radio />} label="Maximun Applicants" />
-                    <FormControlLabel value="posi" control={<Radio />} label="Maximum Positions" />
-                    <FormControlLabel value="dead" control={<Radio />} label="Deadline" />
-                </RadioGroup> */}
                 <br/>
                 <TextField variant="outlined" label="Max applicant" name="maxappz" onChange={this.handleChange}></TextField>
                 <TextField variant="outlined" label="Max Position" name="maxposz" onChange={this.handleChange}></TextField>
                 <TextField variant="outlined" label="Deadline" name="deadlinez" onChange={this.handleChange}></TextField>
                 <br/>
+                <br/>
                 <Button onClick={this.onupjob} color="primary" variant="contained">Update</Button>
+                <br/>
+                <br/>
                 <br/>
             </Paper>
             <br/>
+            <Paper elevation={1}>
             <br/>
             <Button onClick={this.ondeljob} color="secondary" variant="contained">Delete</Button>
             <br/>
             <br/>
-               
+            </Paper>
+            <br/>
+            <br/>
+               <hr></hr>
+               <hr></hr>
 
-                <Paper>
+                <Box>
+                    <br/>
+                    <Typography variant="h3"><b>Sorting</b></Typography>
+                    <br/>
+                    <br/>
+                    <InputLabel id="demo-simple-select-label">Sorting by Rating</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={this.state.sora}
+                        onChange={this.handlesortra}
+                    >
+                        <MenuItem value={1}>None</MenuItem>
+                        <MenuItem value={2}>Asc</MenuItem>
+                        <MenuItem value={3}>Des</MenuItem>
+                    </Select>
+                    <br/>
+                    <br/>
+                    <InputLabel id="demo-simple-select-label">Sorting by Name</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={this.state.sona}
+                        onChange={this.handlesortna}
+                    >
+                        <MenuItem value={1}>None</MenuItem>
+                        <MenuItem value={2}>Asc</MenuItem>
+                        <MenuItem value={3}>Des</MenuItem>
+                    </Select>
+                    <br/>
+                    <br/>
+                    <InputLabel id="demo-simple-select-label">Sorting by Duration</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={this.state.soda}
+                        onChange={this.handlesortda}
+                    >
+                        <MenuItem value={1}>None</MenuItem>
+                        <MenuItem value={2}>Asc</MenuItem>
+                        <MenuItem value={3}>Des</MenuItem>
+                    </Select>
+                    <br/>
+                    <br/>
+                    <hr></hr>
+                    <br/>
+                    <br/>
+                    {
+                        this.state.mahadata2.map((row)=>(
+                            <>
+                            <Paper elevation={5}>
+                                <br/>
+                                <Typography><b>Applicant Name : </b> {row.fname} {row.lname}</Typography><br/>
+                                <Typography><b>Rating : </b> {row.Rating} </Typography><br/>
+                                <Typography><b>Applied On : </b> {row.Datejoon} </Typography><br/>
+                                <Typography><b>Skills</b></Typography>
+                                {
+                                    row.uskill.map((skill)=>(
+                                        <Chip variant="outlined" color="default" size="small" label={skill} />
+                                    ))
+                                }
+                                {
+                                    !row.uskill.length && 
+                                    <Chip variant="outlined" color="default" size="small" label="None" />
+                                }
+                                <br/>
+                                <br/>
+                                <Typography><b>Eduction</b></Typography>
+                                {
+                                    <TableContainer size="small" aria-label="a dense table" style={{width:600,paddingLeft:"25%"}} >
+                                    <Table aria-label="customize table" >
+                                        <TableHead style={{backgroundColor:"rgb(63,81,181)"}}>
+                                        <TableRow>
+                                            <TableCell style={{color:"white"}}>Institution Name</TableCell>
+                                            <TableCell style={{color:"white"}} align="right">Start Date(YYYY)</TableCell>
+                                            <TableCell style={{color:"white"}} align="right">End Date(YYYY)</TableCell>
+                                        </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            {row.uedu.map((edu) => (
+                                            <TableRow>
+                                                <TableCell >{edu.Edu}</TableCell>
+                                                <TableCell align="right">{edu.Edus}</TableCell>
+                                                <TableCell align="right">{edu.Edue}</TableCell>
+                                            </TableRow>
+                                            ))}
+                                            {
+                                            !row.uedu.length &&
+                                            <TableRow>
+                                                <TableCell ><Chip variant="outlined" color="secondary" size="small" label="None" /></TableCell>
+                                                <TableCell align="right"><Chip variant="outlined" color="secondary" size="small" label="None" /></TableCell>
+                                                <TableCell align="right"><Chip variant="outlined" color="secondary" size="small" label="None" /></TableCell>
+                                            </TableRow>
+                                            
+                                            }
+                                        </TableBody>
+                                    </Table>
+                                    </TableContainer>
+                                }
+                                <br/>
+                                <Typography><b>Statement of Purpose</b></Typography>
+                                <Typography>{row.Sop}</Typography><br/>
+                                {
+                                    row.Resume === "false" ? <Button color="default" disabled="true"><b>No Resume</b></Button> : <Button color="primary" value={row.Resume} onClick={(e)=>{window.open(e.currentTarget.value)}}><b>Download Resume</b></Button>
+                                }
+                                {/* <iframe src={row.Resume} width="400" height="400"></iframe> */}
+                                <br/><br/>
+                                <Button value={row.UserId} color="secondary" variant="contained" >Reject</Button>
+                                <Button value={row.UserId} variant="contained" color="primary">Shortlist</Button>
+                                <br/>
+                                <br/>
 
-                    <Box>
-                        hihi
-                    </Box>
+                            </Paper>
+                            <br/>
+                            <br/>
+                            </>
+                        ))
+                    }
+                    
 
-                </Paper>
+                </Box>
 
         </Container>
   )};
