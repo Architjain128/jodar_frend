@@ -25,6 +25,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import { DATE_COL_DEF } from '@material-ui/data-grid';
+const nodemailer = require('nodemailer'); 
 
 
 
@@ -70,6 +71,9 @@ export default class  Dashyy extends Component {
     this.handlesortra = this.handlesortra.bind(this);
     this.handlesortna = this.handlesortna.bind(this);
     this.handlesortda = this.handlesortda.bind(this);
+    this.ptor = this.ptor.bind(this);
+    this.ptos = this.ptos.bind(this);
+    this.stoa = this.stoa.bind(this);
  }
  getjobinfo = async () =>{
     const d1 = await axios.get('http://localhost:6050/user/'+this.state.jodar_id)
@@ -101,16 +105,16 @@ export default class  Dashyy extends Component {
         {
             askill.push(pskill.data.data3[i].Spec)
         }
-        const pa = {UserId:p["UserId"],Status:p["Status"],Datejoon:p["Datejoon"],Sop:p["Sop"],Resume:ppdf.data.pdf,Rating:puser.data.data1.reset_token,sumRating:puser.data.data1.expire,fname:puser.data.data1.Firstname,lname:puser.data.data1.Lastname,uedu:aedu,uskill:askill}
+        const pa = {UserId:p["UserId"],Email:p["email"],Status:p["Status"],Datejoon:p["Datejoon"],Sop:p["Sop"],Resume:ppdf.data.pdf,Rating:puser.data.data1.reset_token,sumRating:puser.data.data1.expire,fname:puser.data.data1.Firstname,lname:puser.data.data1.Lastname,uedu:aedu,uskill:askill}
         if(pa.Rating===0)Rating="NaN"
         else{
             pa.Rating = pa.sumRating/pa.Rating
         }
         // console.log(pa)
+        if(pa.Status.toLowerCase()!="rejected" || pa.Status.toLowerCase()!="reject"  )
         mahadata.push(pa)
     }
-    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-    console.log(mahadata)
+
     this.setState({mahadata2:mahadata})
 
 
@@ -454,7 +458,69 @@ onSubmit(e) {
         points:''
     });
 }
+ptor(e){
+    let vall = e.currentTarget.value + this.state.bid
+    axios.put('http://localhost:6050/ptor/'+vall)
+    .then(res => {
+        console.log("ok")
+        console.log(res.data)
+        if(res.data.status === '201')
+        {
+            alert("Application rejected")
+        }
+        else
+        {
+            alert("Error in Rejection")
+        }
+        window.location.reload()
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+}
 
+ptos(e){
+    let vall = e.currentTarget.value + this.state.bid
+    axios.put('http://localhost:6050/ptos/'+vall)
+    .then(res => {
+        console.log("ok")
+        console.log(res.data)
+        if(res.data.status === '201')
+        {
+            alert("Application shortlisted")
+        }
+        else
+        {
+            alert("Error in shortlisting")
+        }
+        window.location.reload()
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+}
+stoa(e){
+    let vall = e.currentTarget.value + this.state.bid
+    let emailiduser = e.currentTarget.emaildata
+    axios.put('http://localhost:6050/stoa/'+vall)
+    .then(res => {
+        console.log("ok")
+        console.log(res.data)
+        if(res.data.status === '201')
+        {
+            // milljlkcbhwrbdiogs euirchgniuhiugv
+            alert("Application accepted")
+        }
+        else
+        {
+            alert("Error in accepting")
+        }
+        // window.location.reload()
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+}
 render (){
   return (
         <Container>
@@ -507,11 +573,16 @@ render (){
             </Paper>
             <br/>
             <br/>
-               <hr></hr>
                {/* <hr></hr> */}
-
-                <Box>
+               {/* <hr></hr> */}
+                
+                {
+                this.state.mahadata != []
+                ?
+                <Box style={{backgroundColor:"rgb(220,220,220)",padding:15,borderRadius:5}}>
+                    <Paper elevation={1} style={{border:"black 5px solid"}}>
                     <br/>
+
                     <Typography variant="h3"><b>Sorting</b></Typography>
                     <br/>
                     <br/>
@@ -554,7 +625,9 @@ render (){
                     </Select>
                     <br/>
                     <br/>
-                    <hr></hr>
+                    </Paper>
+
+                    {/* <hr></hr> */}
                     <br/>
                     <br/>
                     {
@@ -623,8 +696,8 @@ render (){
                                 }
                                 {/* <iframe src={row.Resume} width="400" height="400"></iframe> */}
                                 <br/><br/>
-                                <Button value={row.UserId} color="secondary" variant="contained" >Reject</Button>
-                                <Button value={row.UserId} variant="contained" style={{backgroundColor:"rgb(235, 158, 52)"}}>Shortlist</Button>
+                                <Button value={row.UserId} onClick={this.ptor} color="secondary" variant="contained" >Reject</Button>
+                                <Button value={row.UserId} onClick={this.ptos} variant="contained" style={{backgroundColor:"rgb(235, 158, 52)"}}>Shortlist</Button>
                                 <br/>
                                 <br/>
 
@@ -633,7 +706,7 @@ render (){
                             <br/>
                             </div>
                             :
-                            row.Status === "shortlisted"
+                            (row.Status === "shortlist" || row.Status === "shortlisted")
                             ?
                             <div >
                             <Paper elevation={5} style={{border:"rgb(235, 158, 52) 3px solid"}}>
@@ -696,8 +769,8 @@ render (){
                                 }
                                 {/* <iframe src={row.Resume} width="400" height="400"></iframe> */}
                                 <br/><br/>
-                                <Button value={row.UserId} color="secondary" variant="contained" >Reject</Button>
-                                <Button value={row.UserId} variant="contained" color="primary">Accept</Button>
+                                <Button value={row.UserId} onClick={this.ptor} color="secondary" variant="contained" >Reject</Button>
+                                <Button value={row.UserId} onClick={this.stoa} emaildata={row.Email} variant="contained" color="primary">Accept</Button>
                                 <br/>
                                 <br/>
 
@@ -767,6 +840,8 @@ render (){
                                 {
                                     row.Resume === "false" ? <Button color="default" disabled="true"><b>No Resume</b></Button> : <Button color="primary" value={row.Resume} onClick={(e)=>{window.open(e.currentTarget.value)}}><b>Download Resume</b></Button>
                                 }
+                                <Button value={row.UserId} onClick={this.stoa} emaildata={row.Email} variant="contained" color="primary">Accept</Button>
+
                                 {/* <iframe src={row.Resume} width="400" height="400"></iframe> */}
                                 <br/>
                                 <br/>
@@ -782,6 +857,9 @@ render (){
                     
 
                 </Box>
+                :
+                null
+                }
 
         </Container>
   )};
