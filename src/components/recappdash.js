@@ -468,7 +468,7 @@ render (){
             </Box>
             <br/>
             <br/>
-            <Paper elevation={3} >
+            <Paper elevation={3} style={{border:"black 5px solid"}}>
                 <Typography variant="h3">{this.state.Title}</Typography><br/>
                 <Typography variant="body1"><b>Deadline</b> {this.state.deadline}</Typography><br/>
                 <Typography variant="body2">{this.state.des}</Typography><br/><Divider variant="middle" />
@@ -483,7 +483,7 @@ render (){
             </Paper>
             <br/>
             <br/>
-            <Paper elevation={1}>
+            <Paper elevation={1} style={{border:"rgb(63,81,181) 2px solid"}}>
                 <br/>
                 <Typography variant="body2">Choose field and enter new value in textbox and smash update</Typography>
                 <br/>
@@ -499,7 +499,7 @@ render (){
                 <br/>
             </Paper>
             <br/>
-            <Paper elevation={1}>
+            <Paper elevation={1} style={{border:"red 2px solid"}}>
             <br/>
             <Button onClick={this.ondeljob} color="secondary" variant="contained">Delete</Button>
             <br/>
@@ -508,7 +508,7 @@ render (){
             <br/>
             <br/>
                <hr></hr>
-               <hr></hr>
+               {/* <hr></hr> */}
 
                 <Box>
                     <br/>
@@ -559,8 +559,14 @@ render (){
                     <br/>
                     {
                         this.state.mahadata2.map((row)=>(
-                            <>
-                            <Paper elevation={5}>
+
+                            row.Status === "pending"
+                            ?
+                            <div >
+                            <Paper elevation={5} style={{border:"grey 3px solid"}}>
+                                <br/>
+                                <Typography variant="h5" style={{color:"grey"}}><b>PENDING</b></Typography><br/>
+                                <Divider variant="middle"></Divider>
                                 <br/>
                                 <Typography><b>Applicant Name : </b> {row.fname} {row.lname}</Typography><br/>
                                 <Typography><b>Rating : </b> {row.Rating} </Typography><br/>
@@ -618,14 +624,159 @@ render (){
                                 {/* <iframe src={row.Resume} width="400" height="400"></iframe> */}
                                 <br/><br/>
                                 <Button value={row.UserId} color="secondary" variant="contained" >Reject</Button>
-                                <Button value={row.UserId} variant="contained" color="primary">Shortlist</Button>
+                                <Button value={row.UserId} variant="contained" style={{backgroundColor:"rgb(235, 158, 52)"}}>Shortlist</Button>
                                 <br/>
                                 <br/>
 
                             </Paper>
                             <br/>
                             <br/>
-                            </>
+                            </div>
+                            :
+                            row.Status === "shortlisted"
+                            ?
+                            <div >
+                            <Paper elevation={5} style={{border:"rgb(235, 158, 52) 3px solid"}}>
+                                <br/>
+                                <Typography style={{color:"rgb(235, 158, 52)"}}><b>SHORTLISTED</b></Typography><br/>
+                                <Divider variant="middle"></Divider>
+                                <br/>
+                                <Typography><b>Applicant Name : </b> {row.fname} {row.lname}</Typography><br/>
+                                <Typography><b>Rating : </b> {row.Rating} </Typography><br/>
+                                <Typography><b>Applied On : </b> {row.Datejoon} </Typography><br/>
+                                <Typography><b>Skills</b></Typography>
+                                {
+                                    row.uskill.map((skill)=>(
+                                        <Chip variant="outlined" color="default" size="small" label={skill} />
+                                    ))
+                                }
+                                {
+                                    !row.uskill.length && 
+                                    <Chip variant="outlined" color="default" size="small" label="None" />
+                                }
+                                <br/>
+                                <br/>
+                                <Typography><b>Eduction</b></Typography>
+                                {
+                                    <TableContainer size="small" aria-label="a dense table" style={{width:600,paddingLeft:"25%"}} >
+                                    <Table aria-label="customize table" >
+                                        <TableHead style={{backgroundColor:"rgb(63,81,181)"}}>
+                                        <TableRow>
+                                            <TableCell style={{color:"white"}}>Institution Name</TableCell>
+                                            <TableCell style={{color:"white"}} align="right">Start Date(YYYY)</TableCell>
+                                            <TableCell style={{color:"white"}} align="right">End Date(YYYY)</TableCell>
+                                        </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            {row.uedu.map((edu) => (
+                                            <TableRow>
+                                                <TableCell >{edu.Edu}</TableCell>
+                                                <TableCell align="right">{edu.Edus}</TableCell>
+                                                <TableCell align="right">{edu.Edue}</TableCell>
+                                            </TableRow>
+                                            ))}
+                                            {
+                                            !row.uedu.length &&
+                                            <TableRow>
+                                                <TableCell ><Chip variant="outlined" color="secondary" size="small" label="None" /></TableCell>
+                                                <TableCell align="right"><Chip variant="outlined" color="secondary" size="small" label="None" /></TableCell>
+                                                <TableCell align="right"><Chip variant="outlined" color="secondary" size="small" label="None" /></TableCell>
+                                            </TableRow>
+                                            
+                                            }
+                                        </TableBody>
+                                    </Table>
+                                    </TableContainer>
+                                }
+                                <br/>
+                                <Typography><b>Statement of Purpose</b></Typography>
+                                <Typography>{row.Sop}</Typography><br/>
+                                {
+                                    row.Resume === "false" ? <Button color="default" disabled="true"><b>No Resume</b></Button> : <Button color="primary" value={row.Resume} onClick={(e)=>{window.open(e.currentTarget.value)}}><b>Download Resume</b></Button>
+                                }
+                                {/* <iframe src={row.Resume} width="400" height="400"></iframe> */}
+                                <br/><br/>
+                                <Button value={row.UserId} color="secondary" variant="contained" >Reject</Button>
+                                <Button value={row.UserId} variant="contained" color="primary">Accept</Button>
+                                <br/>
+                                <br/>
+
+                            </Paper>
+                            <br/>
+                            <br/>
+                            </div>
+                            :
+                            row.Status === "accepted"
+                            ?
+                            <div >
+                            <Paper elevation={5} style={{border:"rgb(63,81,181) 3px solid"}}>
+                                <br/>
+                                <Typography style={{color:"rgb(63, 81, 181)"}}><b>ACCCEPTED</b></Typography><br/>
+                                <Divider variant="middle"></Divider>
+                                <br/>
+                                <Typography><b>Applicant Name : </b> {row.fname} {row.lname}</Typography><br/>
+                                <Typography><b>Rating : </b> {row.Rating} </Typography><br/>
+                                <Typography><b>Applied On : </b> {row.Datejoon} </Typography><br/>
+                                <Typography><b>Skills</b></Typography>
+                                {
+                                    row.uskill.map((skill)=>(
+                                        <Chip variant="outlined" color="default" size="small" label={skill} />
+                                    ))
+                                }
+                                {
+                                    !row.uskill.length && 
+                                    <Chip variant="outlined" color="default" size="small" label="None" />
+                                }
+                                <br/>
+                                <br/>
+                                <Typography><b>Eduction</b></Typography>
+                                {
+                                    <TableContainer size="small" aria-label="a dense table" style={{width:600,paddingLeft:"25%"}} >
+                                    <Table aria-label="customize table" >
+                                        <TableHead style={{backgroundColor:"rgb(63,81,181)"}}>
+                                        <TableRow>
+                                            <TableCell style={{color:"white"}}>Institution Name</TableCell>
+                                            <TableCell style={{color:"white"}} align="right">Start Date(YYYY)</TableCell>
+                                            <TableCell style={{color:"white"}} align="right">End Date(YYYY)</TableCell>
+                                        </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            {row.uedu.map((edu) => (
+                                            <TableRow>
+                                                <TableCell >{edu.Edu}</TableCell>
+                                                <TableCell align="right">{edu.Edus}</TableCell>
+                                                <TableCell align="right">{edu.Edue}</TableCell>
+                                            </TableRow>
+                                            ))}
+                                            {
+                                            !row.uedu.length &&
+                                            <TableRow>
+                                                <TableCell ><Chip variant="outlined" color="secondary" size="small" label="None" /></TableCell>
+                                                <TableCell align="right"><Chip variant="outlined" color="secondary" size="small" label="None" /></TableCell>
+                                                <TableCell align="right"><Chip variant="outlined" color="secondary" size="small" label="None" /></TableCell>
+                                            </TableRow>
+                                            
+                                            }
+                                        </TableBody>
+                                    </Table>
+                                    </TableContainer>
+                                }
+                                <br/>
+                                <Typography><b>Statement of Purpose</b></Typography>
+                                <Typography>{row.Sop}</Typography><br/>
+                                {
+                                    row.Resume === "false" ? <Button color="default" disabled="true"><b>No Resume</b></Button> : <Button color="primary" value={row.Resume} onClick={(e)=>{window.open(e.currentTarget.value)}}><b>Download Resume</b></Button>
+                                }
+                                {/* <iframe src={row.Resume} width="400" height="400"></iframe> */}
+                                <br/>
+                                <br/>
+
+                            </Paper>
+                            <br/>
+                            <br/>
+                            </div>
+                            :
+                            null
                         ))
                     }
                     
