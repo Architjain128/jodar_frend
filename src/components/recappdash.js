@@ -509,8 +509,13 @@ stoa(e){
         console.log(res.data)
         if(res.data.status === '201')
         {
-            // milljlkcbhwrbdiogs euirchgniuhiugv
-            alert("Application accepted")
+            axios.put('http://localhost:6050/mailit/'+emailiduser)
+            .then(res => {
+                alert("Application accepted and mail sent to applicant")
+            })
+            .catch(err=>{
+                alert("Application accepted")
+            })
         }
         else
         {
