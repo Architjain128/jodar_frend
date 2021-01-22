@@ -26,8 +26,8 @@ export default class  Applicationlist extends Component {
          maxapp:"",
          maxpos:"",
          deadline:"",
-         jtype:"1",
-         jdur:"7",
+         jtype:"Full Time",
+         jdur:"Indefinite",
          sala:"",
          skilltok:"",
         }

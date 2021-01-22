@@ -14,6 +14,7 @@ import Dashyy from "./components/recappdash";
 import Jobsop from "./components/jobsop";
 import Jobsee from "./components/jobsee";
 import UserData from "./components/userdata";
+import SplitButton from "./components/buttongrp";
 function App() {
   return (
     <div className="App">
@@ -32,6 +33,7 @@ function App() {
           <Route path="/applyjob" component={Jobsop} exact/>
           <Route path="/seejob" component={Jobsee} exact/>
           <Route path="/userdata" component={UserData} exact/>
+          <Route path="/test" component={SplitButton} exact/>
         </Switch>
       </BrowserRouter>
     </div>

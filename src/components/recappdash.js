@@ -87,12 +87,6 @@ export default class  Dashyy extends Component {
         const pedu = await axios.get('http://localhost:6050/alledu/'+ p["UserId"])
         const pskill = await axios.get('http://localhost:6050/allskill/'+ p["UserId"])
         const ppdf = await axios.get('http://localhost:6050/downloadpdf/'+ p["UserId"])
-        // console.log(p)
-        // console.log(puser)
-        // console.log(pedu)
-        // console.log(pskill)
-        // console.log(ppdf)
-
 
         let aedu =[];
         for(let i=0;i<pedu.data.data4.length;i++)
@@ -117,89 +111,22 @@ export default class  Dashyy extends Component {
     }
 
     this.setState({mahadata2:mahadata})
-
-
-    const pppmahadata = [
-        {
-          "UserId": "5ff9fb0d25bb0e2dea385be5",
-          "Status": "pending",
-          "Datejoon": "19/1/2021 11:45",
-          "Sop": "wagRs",
-          "Resume": "http://localhost:6050/pdf/5ff9fb0d25bb0e2dea385be5.pdf",
-          "Rating": null,
-          "fname": "Archit",
-          "lname": "Jain",
-          "uedu": [
-            {
-              "Edu": "ar",
-              "Edus": "ar",
-              "Edue": "ar"
-            },
-            {
-              "Edu": "arc",
-              "Edus": "2019",
-              "Edue": "2020"
-            },
-            {
-              "Edu": "arch",
-              "Edus": "2000",
-              "Edue": "present"
-            },
-            {
-              "Edu": "archit",
-              "Edus": "2000",
-              "Edue": "4554"
-            },
-            {
-              "Edu": "iiit",
-              "Edus": "2109",
-              "Edue": "6544"
-            }
-          ],
-          "uskill": [
-            "food",
-            "sleep",
-            "code",
-            "js",
-            "do",
-            "chess"
-          ]
-        },
-        {
-          "UserId": "5ff9f87aae5ae8253d6c6084",
-          "Status": "pending",
-          "Datejoon": "19/1/2021 12:15",
-          "Sop": "ssrhyk",
-          "Resume": "false",
-          "Rating": null,
-          "fname": "Brchit",
-          "lname": "Jain",
-          "uedu": [
-            {
-              "Edu": "reactjs",
-              "Edus": "reactjs",
-              "Edue": "reactjs"
-            }
-          ],
-          "uskill": [
-            "reactjs"
-          ]
-        }
-      ]
-      this.setState({mahadata:mahadata})
-     
-    console.log(mahadata)
+    this.setState({mahadata:mahadata}) 
+    // console.log(mahadata)
     console.log(this.state.mahadata2)
 
 
     const dd1 = [];
     const dd2 = [];
-    // console.log(d1.data)
-    // console.log(d2.data.data5)
+
     const sktok = d2.data.data5.Skill_Req.split(";");
-    // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-    // console.log(sktok)
-    this.setState({skilltok:sktok,comname:d1.data.data1.company_name,Title:d2.data.data5.Title,deadline:d2.data.data5.Deadline,des:d2.data.data5.Descri,maxapp:d2.data.data5.Maxappli,maxpos:d2.data.data5.Maxposi,jtype:d2.data.data5.Job_Type,jdur:d2.data.data5.Job_Dura,sala:d2.data.data5.Job_Sal})
+    let jtypez=d2.data.data5.Job_Type
+    let jdurz=d2.data.data5.Job_Dura
+    if(jdurz===0 || jdurz === 7 || jdurz=== '0' || jdurz === '7' ) jdurz = "Indefinite"
+    if(jtypez === "1" || jtypez === 1)jtypez = "Full Time"
+    if(jtypez === "2" || jtypez === 2)jtypez = "Part Time"
+    if(jtypez === "3" || jtypez === 3)jtypez = "Work From Home"
+    this.setState({skilltok:sktok,comname:d1.data.data1.company_name,Title:d2.data.data5.Title,deadline:d2.data.data5.Deadline,des:d2.data.data5.Descri,maxapp:d2.data.data5.Maxappli,maxpos:d2.data.data5.Maxposi,jtype:jtypez,jdur:jdurz,sala:d2.data.data5.Job_Sal})
 }
 
 handlesortra=(e)=>{
@@ -550,6 +477,7 @@ render (){
             <Box style={{backgroundColor:"rgb(247, 240, 250)",padding:25,borderRadius:5}}>
 
             <Paper elevation={3} style={{border:"black 5px solid"}}>
+                <br/>
                 <Typography variant="h3">{this.state.Title}</Typography><br/>
                 <Typography variant="body1"><b>Deadline</b> {this.state.deadline}</Typography><br/>
                 <Typography variant="body2">{this.state.des}</Typography><br/><Divider variant="middle" />
@@ -560,7 +488,7 @@ render (){
                 <Typography variant="overline"><b>Job Type</b> {this.state.jtype}</Typography><br/>
                 <Typography variant="overline"><b>Job Duration</b> {this.state.jdur}</Typography><br/>
                 <Typography variant="overline"><b>Rating</b> {this.state.points}</Typography><br/>
-
+                <br/>
             </Paper>
             </Box>
             <br/>
