@@ -34,7 +34,7 @@ export default class  Acceptedlist extends Component {
  {
      super(props)
      this.state={
-         comname:"",
+         comname:this.props.data1[0],
          email:"",
          ondate:"",
          jodar_id:localStorage.getItem('Jodar_id'),
@@ -45,30 +45,40 @@ export default class  Acceptedlist extends Component {
          sota : "1",
          sona : "1",
         }
+        console.log(props)
     this.onChange=this.onChange.bind(this)
     this.getjobinfo=this.getjobinfo.bind(this)
-    this.backMA=this.backMA.bind(this)
     this.handleChange=this.handleChange.bind(this)
     this.handleChange2=this.handleChange2.bind(this)
     this.handlesortra = this.handlesortra.bind(this);
     this.handlesortna = this.handlesortna.bind(this);
     this.handlesortda = this.handlesortda.bind(this);
+    this.handlesortta = this.handlesortta.bind(this);
  }
  getjobinfo = async () =>{
     //  all accepted jobs from applicationd
+    const pp =   await axios.get('http://localhost:6050/getjobuser/'+ this.state.jodar_id)
+
     const mahadata =[];
-    for(let i=0;i<dalist.data.dalljoblisting.length;i++)
+    for(let i=0;i<pp.data.datapp.length;i++)
     {
-        const p = dalist.data.dalljoblisting[i];
-        const puser = await axios.get('http://localhost:6050/user/'+ p["UserId"])
-        // const pjobi = await {jobdata by job id}      
-        const pa = {UserId:p["UserId"],JobId:p["email"],Status:p["Status"],Datejoon:p["Datejoon"],Datejoin:p["Datejoin"],Rating:puser.data.data1.reset_token,sumRating:puser.data.data1.expire,fname:puser.data.data1.Firstname,lname:puser.data.data1.Lastname}
-        if(pa.Rating===0)Rating="NaN"
-        else{
-            pa.Rating = pa.sumRating/pa.Rating
+        const p = pp.data.datapp[i];
+        const pjob = await axios.get('http://localhost:6050/allmypostedjobs/'+ p["_id"])
+        for(let j=0;j<pjob.data.allmypostedjobs.length;j++)
+        {
+            const pj = pjob.data.allmypostedjobs[j];
+            const puser = await axios.get('http://localhost:6050/user/'+ pj["UserId"])
+            const pa = {Title:p["Title"],Jtype:p["Job_Type"],Datejoin:pj["Datejoin"],Rating:puser.data.data1.reset_token,sumRating:puser.data.data1.expire,fname:puser.data.data1.Firstname,lname:puser.data.data1.Lastname}
+            if(pa.Rating===0)Rating="NaN"
+            else{
+                pa.Rating = pa.sumRating/pa.Rating
+            }
+            if(pa.Jtype===1)pa.Jtype = "Full Time"
+            if(pa.Jtype===2)pa.Jtype = "Part Time"
+            if(pa.Jtype===3)pa.Jtype = "Work From Home"
+            console.log(pa)
+            mahadata.push(pa)
         }
-        // console.log(pa)
-        mahadata.push(pa)
     }
 
     this.setState({accmahadata2:mahadata,accmahadata:mahadata})
@@ -248,8 +258,8 @@ render (){
                 {
                 this.state.accmahadata != []
                 ?
-                <Box style={{padding:15,borderRadius:5,border:"black 2px solid"}}>
-                    <Paper elevation={1} style={{border:"black 5px solid"}}>
+                <Box style={{padding:15,borderRadius:5}}>
+                    <Paper elevation={1} style={{border:"black 1px solid"}}>
                     <br/>
                     <Typography variant="h3"><b>Sorting</b></Typography>
                     <br/>
@@ -311,23 +321,31 @@ render (){
                     {/* <hr></hr> */}
                     <br/>
                     <br/>
-                    {
-                        this.state.accmahadata2.map((row)=>(
-                            <div >
-                            <Paper elevation={5} style={{border:"grey 3px solid"}}>
-                                <br/>
-                                <Typography><b>Applicant Name : </b> {row.fname} {row.lname}</Typography><br/>
-                                <Typography><b>Rating : </b> {row.Rating} </Typography><br/>
-                                <Typography><b>Applied On : </b> {row.Datejoon} </Typography><br/>
-                                <Typography><b>Job Title</b> {row.Title}</Typography>
-                                <br/>
-                                <Typography><b>Job Type</b> {row.Type}</Typography>
-                            </Paper>
-                            <br/>
-                            <br/>
-                            </div>
-                        ))
-                    }
+                    <TableContainer size="small" aria-label="a dense table" component={Paper}>
+                        <Table aria-label="customize table" >
+                            <TableHead style={{backgroundColor:"rgb(63,81,181)"}}>
+                            <TableRow>
+                                <TableCell style={{color:"white"}}>Applicant Name</TableCell>
+                                <TableCell style={{color:"white"}} align="center">Job Title</TableCell>
+                                <TableCell style={{color:"white"}} align="center">Job Type</TableCell>
+                                <TableCell style={{color:"white"}} align="center">Date of Joining</TableCell>
+                                <TableCell style={{color:"white"}} align="right">Rating</TableCell>
+                            </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {this.state.accmahadata2.map((row) => (
+                                <TableRow>
+                                    <TableCell >{row.fname} {row.lname}</TableCell>
+                                    <TableCell align="center">{row.Title}</TableCell>
+                                    <TableCell align="center">{row.Jtype}</TableCell>
+                                    <TableCell align="center">{row.Datejoin}</TableCell>
+                                    <TableCell align="right">some tin</TableCell>
+                                </TableRow>
+                                ))}
+                           
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
                 </Box>
                 :
                 null

@@ -18,7 +18,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined';
 import PlaylistAddOutlinedIcon from '@material-ui/icons/PlaylistAddOutlined';
 import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
-
+import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
 import Recprofile from "./recprofile";
 import Addjob from "./addjob";
 import Applicationlist from "./application";
@@ -202,7 +202,7 @@ export default function Marketplace(props) {
               <ListItemText primary={"View Listings"} />
             </ListItem>
              <ListItem button key={"View Accepted"} onClick={acczzz}>
-              <ListItemIcon> <DescriptionOutlinedIcon /></ListItemIcon>
+              <ListItemIcon> <PlaylistAddCheckIcon /></ListItemIcon>
               <ListItemText primary={"View Accepted"} />
             </ListItem>
         </List>
@@ -219,7 +219,7 @@ export default function Marketplace(props) {
         {mark === true ? <Recprofile data1={props.data1} dataimg={props.dataimg} data2={props.data2}></Recprofile> : null}
         {joby === true ? <Addjob data1={props.data1} /> : null}
         {list === true ? <Applicationlist data1={props.data1} /> : null}
-        {dashy === true ? <Acceptedlist/> : null}
+        {dashy === true ? <Acceptedlist data1={props.data1}/> : null}
         
       </main>
     </div>
