@@ -22,6 +22,8 @@ import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
 import Recprofile from "./recprofile";
 import Addjob from "./addjob";
 import Applicationlist from "./application";
+import Acceptedlist from "./recdashviewacc" ;
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -92,7 +94,7 @@ export default function Marketplace(props) {
   const [mark, setMark] = React.useState(true);
   const [joby, setJoby] = React.useState(false);
   const [list, setList] = React.useState(false);
-  // const [dashy, setDashy] = React.useState(false);
+  const [dashy, setDashy] = React.useState(false);
   // const dasharr = {mark:false, joby:false, list:false};
   
 
@@ -107,26 +109,27 @@ export default function Marketplace(props) {
     setMark(true);
     setJoby(false);
     setList(false);
-    // setDashy(false);
+    setDashy(false);
+  }
+  const acczzz = () =>{
+    setMark(false);
+    setJoby(false);
+    setList(false);
+    setDashy(true);
   }
   const jobyzz = () =>{
     setMark(false);
     setJoby(true);
     setList(false);
-    // setDashy(false);
+    setDashy(false);
   }
   const listzz = () =>{
     setMark(false);
     setJoby(false);
     setList(true);
-    // setDashy(false);
+    setDashy(false);
   }
-  // const dashzz = () =>{
-  //   setMark(false);
-  //   setJoby(false);
-  //   setList(false);
-  //   setDashy(true);
-  // }
+
   const logoutme = () => {
     localStorage.removeItem("Jodar_id");
     localStorage.removeItem("Jodar_id_type");
@@ -198,6 +201,10 @@ export default function Marketplace(props) {
               <ListItemIcon> <DescriptionOutlinedIcon /></ListItemIcon>
               <ListItemText primary={"View Listings"} />
             </ListItem>
+             <ListItem button key={"View Accepted"} onClick={acczzz}>
+              <ListItemIcon> <DescriptionOutlinedIcon /></ListItemIcon>
+              <ListItemText primary={"View Accepted"} />
+            </ListItem>
         </List>
         <Divider />
         <List>
@@ -212,7 +219,7 @@ export default function Marketplace(props) {
         {mark === true ? <Recprofile data1={props.data1} dataimg={props.dataimg} data2={props.data2}></Recprofile> : null}
         {joby === true ? <Addjob data1={props.data1} /> : null}
         {list === true ? <Applicationlist data1={props.data1} /> : null}
-        {/* {dashy === true ? <Dashyy data1={props.data1} /> : null} */}
+        {dashy === true ? <Acceptedlist/> : null}
         
       </main>
     </div>

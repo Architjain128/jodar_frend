@@ -117,7 +117,9 @@ onapplyjob(e){
         let dated = datee.getDate();
         let month = datee.getMonth() +1 ;
         let yeard = datee.getFullYear();
-        let dtstr = dated + "/" + month + "/" + yeard
+        let horus = datee.getHours();
+        let minite = datee.getMinutes();
+        let dtstr = dated + "/" + month + "/" + yeard + " "+horus + ":" + minite
         const newlistjob = {
             JobId : this.state.bid,
             UserId : this.state.jodar_id,

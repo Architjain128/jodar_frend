@@ -459,6 +459,7 @@ onSubmit(e) {
     });
 }
 ptor(e){
+
     let vall = e.currentTarget.value + this.state.bid
     axios.put('http://localhost:6050/ptor/'+vall)
     .then(res => {
@@ -599,7 +600,7 @@ render (){
                     </Select>
                     <br/>
                     <br/>
-                    <InputLabel id="demo-simple-select-label">Sorting by Name</InputLabel>
+                    <InputLabel id="demo-simple-select-label">Sorting by Name of applicant</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
@@ -612,7 +613,7 @@ render (){
                     </Select>
                     <br/>
                     <br/>
-                    <InputLabel id="demo-simple-select-label">Sorting by Duration</InputLabel>
+                    <InputLabel id="demo-simple-select-label">Sorting by Date of apply</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
@@ -627,7 +628,6 @@ render (){
                     <br/>
                     </Paper>
 
-                    {/* <hr></hr> */}
                     <br/>
                     <br/>
                     {
