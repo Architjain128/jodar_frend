@@ -51,7 +51,7 @@ export default class  Dashyy extends Component {
          jdur:"",
          sala:"",
          skilltok:[],
-         points:'',
+         points:0,
          uptar:'',
          uptarval:'',
          soda:'1',
@@ -79,6 +79,15 @@ export default class  Dashyy extends Component {
     const d1 = await axios.get('http://localhost:6050/user/'+this.state.jodar_id)
     const d2 = await axios.get('http://localhost:6050/getjob/'+this.state.bid)
     const dalist = await axios.get('http://localhost:6050/alljobslisting/'+this.state.bid)
+    const daras = await axios.post('http://localhost:6050/getratingforjob/'+this.state.bid)
+if(daras.data.datarat.length){
+    var raating  = daras.data.datarat[0].Raating
+    var sumrating  = daras.data.datarat[0].sumRating
+    var porat = sumrating/raating
+    console.log(porat)
+    this.setState({points:porat})
+}
+
     const mahadata =[];
     for(let i=0;i<dalist.data.dalljoblisting.length;i++)
     {
@@ -118,7 +127,6 @@ export default class  Dashyy extends Component {
 
     const dd1 = [];
     const dd2 = [];
-
     const sktok = d2.data.data5.Skill_Req.split(";");
     let jtypez=d2.data.data5.Job_Type
     let jdurz=d2.data.data5.Job_Dura
@@ -487,7 +495,17 @@ render (){
                 <Typography variant="overline"><b>Salary</b> {this.state.sala}</Typography><br/><Divider variant="middle" />
                 <Typography variant="overline"><b>Job Type</b> {this.state.jtype}</Typography><br/>
                 <Typography variant="overline"><b>Job Duration</b> {this.state.jdur}</Typography><br/>
-                <Typography variant="overline"><b>Rating</b> {this.state.points}</Typography><br/>
+                <Typography variant="overline"><b>Rating </b><br/>
+                {
+                    (this.state.points === "" ||this.state.points === 0 ||this.state.points === "0" || this.state.points === "NaN" )
+                    ?
+                    <>Not rated yet</>
+                    :
+                    <>
+                    <Rating name="half-rating-read" precision={0.5} name="read-only" value={this.state.points} readOnly />
+                    </>
+                }
+                </Typography><br/>
                 <br/>
             </Paper>
             </Box>
