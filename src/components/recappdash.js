@@ -105,12 +105,13 @@ export default class  Dashyy extends Component {
         {
             askill.push(pskill.data.data3[i].Spec)
         }
-        const pa = {UserId:p["UserId"],Email:p["email"],Status:p["Status"],Datejoon:p["Datejoon"],Sop:p["Sop"],Resume:ppdf.data.pdf,Rating:puser.data.data1.reset_token,sumRating:puser.data.data1.expire,fname:puser.data.data1.Firstname,lname:puser.data.data1.Lastname,uedu:aedu,uskill:askill}
+        const pa = {Zenmod:"",UserId:p["UserId"],Email:puser.data.data1.email,Status:p["Status"],Datejoon:p["Datejoon"],Sop:p["Sop"],Resume:ppdf.data.pdf,Rating:puser.data.data1.reset_token,sumRating:puser.data.data1.expire,fname:puser.data.data1.Firstname,lname:puser.data.data1.Lastname,uedu:aedu,uskill:askill}
         if(pa.Rating===0)Rating="NaN"
         else{
             pa.Rating = pa.sumRating/pa.Rating
         }
         // console.log(pa)
+        pa.Zenmod = pa.UserId +";"+pa.Email
         if(pa.Status.toLowerCase()!="rejected" || pa.Status.toLowerCase()!="reject"  )
         mahadata.push(pa)
     }
@@ -501,20 +502,26 @@ ptos(e){
     })
 }
 stoa(e){
-    let vall = e.currentTarget.value + this.state.bid
-    let emailiduser = e.currentTarget.emaildata
+    let all = e.currentTarget.value
+    console.log(all)
+    let zz = all.split(";");
+    let vall = zz[0] + this.state.bid
+    let emailiduser = zz[1]
+    console.log(e.currentTarget)
     axios.put('http://localhost:6050/stoa/'+vall)
     .then(res => {
         console.log("ok")
         console.log(res.data)
         if(res.data.status === '201')
         {
-            axios.put('http://localhost:6050/mailit/'+emailiduser)
+            axios.get('http://localhost:6050/mailit/'+emailiduser)
             .then(res => {
                 alert("Application accepted and mail sent to applicant")
             })
             .catch(err=>{
-                alert("Application accepted")
+                console.log(err)
+                // alert("Application accepted e")
+
             })
         }
         else
@@ -540,6 +547,8 @@ render (){
             </Box>
             <br/>
             <br/>
+            <Box style={{backgroundColor:"rgb(247, 240, 250)",padding:25,borderRadius:5}}>
+
             <Paper elevation={3} style={{border:"black 5px solid"}}>
                 <Typography variant="h3">{this.state.Title}</Typography><br/>
                 <Typography variant="body1"><b>Deadline</b> {this.state.deadline}</Typography><br/>
@@ -553,8 +562,11 @@ render (){
                 <Typography variant="overline"><b>Rating</b> {this.state.points}</Typography><br/>
 
             </Paper>
+            </Box>
             <br/>
             <br/>
+            <Box style={{backgroundColor:"rgb(247, 240, 250)",padding:25,borderRadius:5}}>
+
             <Paper elevation={1} style={{border:"rgb(63,81,181) 2px solid"}}>
                 <br/>
                 <Typography variant="body2">Choose field and enter new value in textbox and smash update</Typography>
@@ -577,6 +589,7 @@ render (){
             <br/>
             <br/>
             </Paper>
+            </Box>
             <br/>
             <br/>
                {/* <hr></hr> */}
@@ -585,8 +598,9 @@ render (){
                 {
                 this.state.mahadata != []
                 ?
-                <Box style={{backgroundColor:"rgb(220,220,220)",padding:15,borderRadius:5}}>
+                <Box style={{backgroundColor:"rgb(247, 240, 250)",padding:25,borderRadius:5}}>
                     <Paper elevation={1} style={{border:"black 5px solid"}}>
+                    <br/>
                     <br/>
 
                     <Typography variant="h3"><b>Sorting</b></Typography>
@@ -775,7 +789,8 @@ render (){
                                 {/* <iframe src={row.Resume} width="400" height="400"></iframe> */}
                                 <br/><br/>
                                 <Button value={row.UserId} onClick={this.ptor} color="secondary" variant="contained" >Reject</Button>
-                                <Button value={row.UserId} onClick={this.stoa} emaildata={row.Email} variant="contained" color="primary">Accept</Button>
+                                <Button value={row.Zenmod} onClick={this.stoa} name={row.Email} variant="contained" color="primary">Accept</Button>
+                                {/* <Button value={row.UserId} onClick={this.stoa} emaildata={row.Email} variant="contained" color="primary">Accept</Button> */}
                                 <br/>
                                 <br/>
 
@@ -787,9 +802,9 @@ render (){
                             row.Status === "accepted"
                             ?
                             <div >
-                            <Paper elevation={5} style={{border:"rgb(63,81,181) 3px solid"}}>
+                            <Paper elevation={5} style={{border:"rgb(98, 184, 72) 3px solid"}}>
                                 <br/>
-                                <Typography style={{color:"rgb(63, 81, 181)"}}><b>ACCCEPTED</b></Typography><br/>
+                                <Typography style={{color:"rgb(98,184,72)"}}><b>ACCCEPTED</b></Typography><br/>
                                 <Divider variant="middle"></Divider>
                                 <br/>
                                 <Typography><b>Applicant Name : </b> {row.fname} {row.lname}</Typography><br/>
@@ -845,14 +860,13 @@ render (){
                                 {
                                     row.Resume === "false" ? <Button color="default" disabled="true"><b>No Resume</b></Button> : <Button color="primary" value={row.Resume} onClick={(e)=>{window.open(e.currentTarget.value)}}><b>Download Resume</b></Button>
                                 }
-                                <Button value={row.UserId} onClick={this.stoa} emaildata={row.Email} variant="contained" color="primary">Accept</Button>
+                                {/* <Button value={row.Zenmod} onClick={this.stoa} name={row.Email} variant="contained" color="primary">Accept</Button> */}
 
                                 {/* <iframe src={row.Resume} width="400" height="400"></iframe> */}
                                 <br/>
                                 <br/>
 
                             </Paper>
-                            <br/>
                             <br/>
                             </div>
                             :
@@ -866,6 +880,9 @@ render (){
                 null
                 }
 
+                <br/>
+                <br/>
+                <br/>
         </Container>
   )};
 }
