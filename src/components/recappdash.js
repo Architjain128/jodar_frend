@@ -109,10 +109,10 @@ if(daras.data.datarat.length){
             askill.push(pskill.data.data3[i].Spec)
         }
         const pa = {Zenmod:"",UserId:p["UserId"],Email:puser.data.data1.email,Status:p["Status"],Datejoon:p["Datejoon"],Sop:p["Sop"],Resume:ppdf.data.pdf,Rating:puser.data.data1.reset_token,sumRating:puser.data.data1.expire,fname:puser.data.data1.Firstname,lname:puser.data.data1.Lastname,uedu:aedu,uskill:askill}
-        if(pa.Rating===0)Rating="NaN"
-        else{
-            pa.Rating = pa.sumRating/pa.Rating
-        }
+        // if(pa.Rating===0)Rating="NaN"
+        // else{
+        //     pa.Rating = pa.sumRating/pa.Rating
+        // }
         // console.log(pa)
         pa.Zenmod = pa.UserId +";"+pa.Email
         if(pa.Status.toLowerCase()!="rejected" || pa.Status.toLowerCase()!="reject"  )

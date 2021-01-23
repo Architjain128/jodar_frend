@@ -320,9 +320,6 @@ export default function Appprofile(props) {
     <div className={classes.root}>
         <div>
       <Card>
-        {/* <CardMedia
-            className={classes.media}
-        > */}
         <img src={props.data2[1]} style={{width:400,height:400}}/>
         {/* </CardMedia> */}
         <CardActions>
@@ -339,7 +336,9 @@ export default function Appprofile(props) {
       </Box>
       <Box color="black" css={{ bgcolor: '#e2e2e2', p: 1,textAlign:'left',border:'black',borderRadius:'5px',margin:'20px',width:500}}>
         <Typography variant="caption">Rating</Typography>
-        <Rating name="read-only" value={3} readOnly />
+        {
+          (props.data2[0] === "NaN" || props.data2[0] === NaN || props.data2[0] === 0) ? <Typography> Not Rated Yet </Typography> : <Rating name="half-rating-read" precision={0.5} name="read-only" value={props.data2[0]} readOnly />
+        }
       </Box>
       <Box color="black" css={{ bgcolor: '#e2e2e2', p: 1,textAlign:'left',border:'black',borderRadius:'5px',margin:'20px',width:500}}>
         <Typography variant="caption">Email</Typography>

@@ -25,7 +25,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import { DATE_COL_DEF } from '@material-ui/data-grid';
-const nodemailer = require('nodemailer'); 
+import SplitButton2 from './buttongrp2'
 
 
 
@@ -68,10 +68,10 @@ export default class  Acceptedlist extends Component {
         {
             const pj = pjob.data.allmypostedjobs[j];
             const puser = await axios.get('http://localhost:6050/user/'+ pj["UserId"])
-            const pa = {Title:p["Title"],Jtype:p["Job_Type"],Datejoin:pj["Datejoin"],Rating:puser.data.data1.reset_token,sumRating:puser.data.data1.expire,fname:puser.data.data1.Firstname,lname:puser.data.data1.Lastname}
-            if(pa.Rating===0)Rating="NaN"
+            const pa = {Raating:0,Title:p["Title"],Jtype:p["Job_Type"],Datejoin:pj["Datejoin"],Rating:puser.data.data1.reset_token,sumRating:puser.data.data1.expire,fname:puser.data.data1.Firstname,lname:puser.data.data1.Lastname,uid : puser.data.data1._id}
+            if(pa.Rating===0)pa.Raating = 0
             else{
-                pa.Rating = pa.sumRating/pa.Rating
+                pa.Raating = pa.sumRating/pa.Rating
             }
             if(pa.Jtype===1)pa.Jtype = "Full Time"
             if(pa.Jtype===2)pa.Jtype = "Part Time"
@@ -81,6 +81,7 @@ export default class  Acceptedlist extends Component {
         }
     }
 
+    
     this.setState({accmahadata2:mahadata,accmahadata:mahadata})
     // console.log(mahadata)
     // console.log(this.state.accmahadata2)
@@ -339,7 +340,9 @@ render (){
                                     <TableCell align="center">{row.Title}</TableCell>
                                     <TableCell align="center">{row.Jtype}</TableCell>
                                     <TableCell align="center">{row.Datejoin}</TableCell>
-                                    <TableCell align="right">some tin</TableCell>
+                                    <TableCell align="right">{
+                                                ( row.Rating === 0 ||  row.Raating === "NaN" ||row.Raating === NaN) ? <div><SplitButton2 datar={row.uid}></SplitButton2></div>:<Rating name="half-rating-read" precision={0.5} name="read-only" value={row.Rating} readOnly />
+                                    }</TableCell>
                                 </TableRow>
                                 ))}
                            
