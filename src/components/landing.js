@@ -19,11 +19,11 @@ class LandingPage extends Component {
                 borderRadius="15px"
                 textAlign="center"
                 p='30px'
-                mt='20px'
+                mt='40px'
                 >
                     <Grid container spacing={3}>
                         <Grid item xs={12}>
-                            <Typography>Tries to write a react app for the first time</Typography>
+                            <Typography variant="h4"><b>&lt; Tries to write a react app for the first time /&gt;</b></Typography>
                         <img src={CompanyName} alt="website company name" style={{width:"90%"}}></img>
                         <br/>
                         <br/>

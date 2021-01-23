@@ -57,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Recprofile(props) {
   const classes = useStyles();
+  const [open3, setOpen3] = React.useState(false);
   const [dp, setdp] = React.useState(null);
   const [modalStyle] = React.useState(getModalStyle);
   const [jodar_id, setJodarID] = React.useState(localStorage.getItem("Jodar_id"));
@@ -64,11 +65,23 @@ export default function Recprofile(props) {
   const [open2, setOpen2] = React.useState(false);
   const [values, setValues] = React.useState({
     biobio: '',
+    cna : "",
+    cnu : "",
+    ena : "",
   });
+
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
+  const handleOpen3 = () => {
+    setValues({ ...values, ena:"",can:"",cnu:""});
+    setOpen3(true);
+  };
 
+  const handleClose3 = () => {
+    setOpen3(false);
+    setValues({ ...values, ena:"",can:"",cnu:""});
+  };
   const handleOpen = () => {
     setOpen(true);
   };
@@ -84,6 +97,28 @@ export default function Recprofile(props) {
     setOpen2(false);
   };
 
+  const onupdatepro= ()=>{
+    const newedu = {
+      UserId : jodar_id,
+      Companyname : values.cna,
+      Companynum : values.cnu,
+      email : values.ena,
+    }
+    console.log(newedu)
+        axios.put('http://localhost:6050/upprofile', newedu)
+            .then(res => {
+                console.log("ok")
+                console.log(res.data)
+                alert(res.data.msg)
+                window.location.reload()
+            })
+            .catch(err=>{
+                console.log(err)
+                alert("error")
+            })
+    setOpen3(false);
+    setValues({ ...values, ena:"",can:"",cnu:""});
+  }
 
   const onbioSubmit =()=>{
     const newbio = {
@@ -171,6 +206,49 @@ export default function Recprofile(props) {
       >Update Bio</Button>
     </div>
   )
+
+  const updatepro = (
+    <div style={modalStyle} className={classes.paper}>
+    <h2 id="simple-modal-title">Update Profile</h2>
+    <TextField
+      variant="standard"
+      margin="normal"
+      name="new_edu"
+      label="Company Name"
+      type="text"
+      id="new_edu"
+      onChange = {handleChange('cna')}
+      />
+      <TextField
+      variant="standard"
+      margin="normal"
+      name="new_edus"
+      label="Company Number"
+      type="text"
+      id="new_edus"
+      onChange = {handleChange('cnu')}
+      />
+      <TextField
+      variant="standard"
+      margin="normal"
+      name="new_edue"
+      label="Email"
+      type="text"
+      id="new_edue"
+      onChange = {handleChange('ena')}
+      />
+      <br/>
+      <br/>
+    <Button
+    type="submit"
+    variant="contained"
+    color="primary"
+    id="addedu"
+    onClick = {onupdatepro}
+    >Update</Button>
+  </div>
+  )
+
 const bio=(
   <div>
       
@@ -313,8 +391,18 @@ const imgadd=(e)=>{
               {bio}
             </div>
             </FormControl>
-               
     </div>
+    <br/><br/><br/><Divider/><br/><br/>
+                <Button onClick={handleOpen3} variant="contained" color="secondary" component="span">Edit Profile</Button>
+                <Modal
+                open={open3}
+                onClose={handleClose3}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+                >
+                {updatepro}
+                </Modal>
+                <br/><br/><br/><br/><br/><br/><br/>
     </Container>
   );
 }

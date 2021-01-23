@@ -103,12 +103,16 @@ export default function Appprofile(props) {
   const [jodar_id, setJodarID] = React.useState(localStorage.getItem("Jodar_id"));
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
+  const [open3, setOpen3] = React.useState(false);
   const [dp, setdp] = React.useState(null);
   const [values, setValues] = React.useState({
     specy : "",
     edu : "",
     edus : "",
     edue : "present",
+    fna : "",
+    lna : "",
+    ena : "",
     // prorating: 3,
   });
   const handleOpen = () => {
@@ -118,6 +122,7 @@ export default function Appprofile(props) {
   const handleClose = () => {
     setOpen(false);
   };
+
   const handleOpen2 = () => {
     setOpen2(true);
   };
@@ -125,6 +130,15 @@ export default function Appprofile(props) {
   const handleClose2 = () => {
     setOpen2(false);
   };
+
+  const handleOpen3 = () => {
+    setOpen3(true);
+  };
+
+  const handleClose3 = () => {
+    setOpen3(false);
+  };
+
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
@@ -168,6 +182,28 @@ export default function Appprofile(props) {
                 alert("error")
             })
     setOpen2(false);
+  }
+
+  const onupdatepro= ()=>{
+    const newedu = {
+      UserId : jodar_id,
+      Firstname : values.fna,
+      Lastname : values.lna,
+      email : values.ena,
+    }
+    console.log(newedu)
+        axios.put('http://localhost:6050/uppro', newedu)
+            .then(res => {
+                console.log("ok")
+                console.log(res.data)
+                alert(res.data.msg)
+                window.location.reload()
+            })
+            .catch(err=>{
+                console.log(err)
+                alert("error")
+            })
+    setOpen3(false);
   }
 
   const skill =(
@@ -271,6 +307,8 @@ export default function Appprofile(props) {
         id="new_edue"
         onChange = {handleChange('edue')}
         />
+        <br/>
+        <br/>
       <Button
       type="submit"
       variant="contained"
@@ -280,6 +318,50 @@ export default function Appprofile(props) {
       >Add instance</Button>
     </div>
   )
+
+    const updatepro = (
+      <div style={modalStyle} className={classes.paper}>
+      <h2 id="simple-modal-title">Update Profile</h2>
+      <TextField
+        variant="standard"
+        margin="normal"
+        name="new_edu"
+        label="First Name"
+        type="text"
+        id="new_edu"
+        onChange = {handleChange('fna')}
+        />
+        <TextField
+        variant="standard"
+        margin="normal"
+        name="new_edus"
+        label="Last Name"
+        type="text"
+        id="new_edus"
+        onChange = {handleChange('lna')}
+        />
+        <TextField
+        variant="standard"
+        margin="normal"
+        name="new_edue"
+        label="Email"
+        type="text"
+        id="new_edue"
+        onChange = {handleChange('ena')}
+        />
+        <br/>
+        <br/>
+      <Button
+      type="submit"
+      variant="contained"
+      color="primary"
+      id="addedu"
+      onClick = {onupdatepro}
+      >Update</Button>
+    </div>
+    )
+
+
   const imgadd=(e)=>{
     setdp(e.target.files[0])
     console.log(e.target.files[0])
@@ -403,11 +485,26 @@ export default function Appprofile(props) {
                 <iframe src={props.data2[2]} width="400" height="400"></iframe>
                 <Typography >Upload Resume</Typography>
                 <Typography ><input onChange={pdfadd} className={classes.input} id="icon-button-file" type="file" /></Typography>
-                <br/><br/>
-                {/* <Button variant="contained" color="primary" component="span">Update</Button> */}
-
+                <br/><br/><br/><Divider/><br/>
+                <br/>
+                <Button onClick={handleOpen3} variant="contained" color="secondary" component="span">Edit Profile</Button>
+                <Modal
+                open={open3}
+                onClose={handleClose3}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+                >
+                {updatepro}
+                </Modal>
       </div>
     </div>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
     </Container>
   );
 }

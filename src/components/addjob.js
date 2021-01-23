@@ -80,9 +80,9 @@ onSubmit(e) {
             }
         })
         .catch(err=>{
-            alert("Ooops something gone wrong")
+            // alert("Ooops something gone wrong")
             window.location.reload()
-            // console.log(err)
+            console.log(err)
         })
 
     this.setState({
