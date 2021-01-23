@@ -41,8 +41,8 @@ export default class  Apphome extends Component {
     const d1 = await axios.get('http://localhost:6050/alljobposted')
     const dall = await axios.post('http://localhost:6050/allapp')
     const dacc = await axios.post('http://localhost:6050/acceptedapp')
-    console.log(dall)
-    console.log(dacc)
+    // console.log(dall)
+    // console.log(dacc)
     this.setState({datagetjob:d1.data.dataAA,dataall:dall.data.dataallapp,dataacc:dacc.data.acceptedapp})
 }
 

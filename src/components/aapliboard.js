@@ -37,7 +37,7 @@ class Appliboard extends Component {
         const dd3 = [];
         const dd4 = [];
         const ddraimgpdf = [];
-        console.log(d1.data.data1)
+        // console.log(d1.data.data1)
         var sumrating = d1.data.data1.reset_token
         var raating = d1.data.data1.expire
         if(raating===0)

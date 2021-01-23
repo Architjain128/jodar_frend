@@ -25,7 +25,7 @@ class Login extends Component {
         let name = event.target.name
         let value = event.target.value
         this.setState({[name]: value}, () => {
-            console.log(this.state)
+            // console.log(this.state)
         })
     } 
     onCheck(e){
@@ -44,11 +44,11 @@ class Login extends Component {
             checked:this.state.checked,
         }
 
-        console.log(newUser)
+        // console.log(newUser)
         axios.post('http://localhost:6050/login', newUser)
             .then(res => {
-                console.log("ok")
-                console.log(res.data)
+                // console.log("ok")
+                // console.log(res.data)
                 if(res.data.type === "r")
                 this.setState({redirect:"r"})
                 if(res.data.type === "a")
@@ -56,15 +56,20 @@ class Login extends Component {
                 window.alert(res.data.msg)
                 if(res.data.status === '201')
                 {
-                    console.log(res.data.userdata._id)
+                    // console.log(res.data.userdata._id)
                     localStorage.setItem("Jodar_id", res.data.userdata._id);
                     localStorage.setItem("Jodar_id_type", res.data.userdata.type);
                     this.setState({login:false})
                 }
                 else
-                window.location.reload()
+                {
+                    alert("email or password not matched ")
+                    window.location.reload()
+                }
             })
             .catch(err=>{
+                // alert("password or email not matched")
+                // window.location.reload()
                 console.log(err)
             })
 

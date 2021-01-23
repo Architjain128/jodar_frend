@@ -31,7 +31,7 @@ class Signup extends Component {
         let name = event.target.name
         let value = event.target.value
         this.setState({[name]: value}, () => {
-            console.log(this.state)
+            // console.log(this.state)
         })
     }
     onSwitch(event){
@@ -59,27 +59,29 @@ class Signup extends Component {
             company_name:this.state.company_name,
             contact_number:this.state.contact_number,
         }
-        console.log(newUser)
+        // console.log(newUser)
         axios.post('http://localhost:6050/signup', newUser)
             .then(res => {
-                console.log("ok")
-                console.log(res.data)
+                // console.log("ok")
+                // console.log(res.data)
                 if(res.data.type === "r")
                 this.setState({redirect:"r"})
                 if(res.data.type === "a")
                 this.setState({redirect:"a"})
                 window.alert(res.data.msg)
                 if(res.data.status==="201"){
-                    console.log(res.data.userdata._id)
+                    // console.log(res.data.userdata._id)
                     localStorage.setItem("Jodar_id", res.data.userdata._id);
                     localStorage.setItem("Jodar_id_type", res.data.userdata.type);
                     this.setState({sign:false})
                 }
-
-                else
-                window.location.reload()
+                else{
+                    alert("Ooops something gone wrong")
+                    window.location.reload()
+                }
             })
             .catch(err=>{
+                // window.location.reload()
                 console.log(err)
             })
 

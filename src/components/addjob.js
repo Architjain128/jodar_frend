@@ -39,7 +39,7 @@ export default class  AddJob extends Component {
     let name = event.target.name
     let value = event.target.value
     this.setState({[name]: value}, () => {
-        console.log(this.state)
+        // console.log(this.state)
     })
 } 
 onSubmit(e) {
@@ -63,11 +63,11 @@ onSubmit(e) {
         Ondate:this.state.ondate,
     }
 
-    console.log(newJob)
+    // console.log(newJob)
     axios.post('http://localhost:6050/addjob', newJob)
         .then(res => {
-            console.log("ok")
-            console.log(res.data)
+            // console.log("ok")
+            // console.log(res.data)
             if(res.data.status === '201')
             {
                 alert("ok add")
@@ -80,7 +80,9 @@ onSubmit(e) {
             }
         })
         .catch(err=>{
-            console.log(err)
+            alert("Ooops something gone wrong")
+            window.location.reload()
+            // console.log(err)
         })
 
     this.setState({
