@@ -24,7 +24,6 @@ import { ControlPointDuplicate, FormatAlignJustify } from '@material-ui/icons';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import { DATE_COL_DEF } from '@material-ui/data-grid';
 const nodemailer = require('nodemailer'); 
 
 
@@ -193,7 +192,7 @@ handlesortra=(e)=>{
         tempmahadata.sort(function(a,b){
             let g=a.Datejoon
             let h=b.Datejoon
-            console.log(g + h)
+            // console.log(g + h)
             let gdeadd=g.split(" ");
             let gdatede = gdeadd[0].split("/");
             let gtimede = gdeadd[1].split(":");
@@ -248,7 +247,7 @@ handlesortra=(e)=>{
         tempmahadata.sort(function(a,b) {
             let g=a.Datejoon
             let h=b.Datejoon
-            console.log(g + h)
+            // console.log(g + h)
             let gdeadd=g.split(" ");
             let gdatede = gdeadd[0].split("/");
             let gtimede = gdeadd[1].split(":");

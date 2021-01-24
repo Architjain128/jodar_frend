@@ -15,11 +15,28 @@ class Login extends Component {
             redirect:"a",
             checked:false,
             login:true,
+            emailerror:false,
+            emailerrormsg:null,
         }
         this.onChange=this.onChange.bind(this)
         this.onCheck=this.onCheck.bind(this)
         this.onSubmit = this.onSubmit.bind(this);
+        this.validateEmail=this.validateEmail.bind(this)
 
+
+    }
+    validateEmail(e){
+        var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+        if (reg.test(e.target.value) == false) 
+        {
+            this.setState({emailerrormsg:"Please enter valid email",emailerror:true})
+            return false;
+        }
+        else
+        {
+            this.setState({emailerrormsg:null,emailerror:false})
+            return true;
+        }
     }
     onChange(event) {
         let name = event.target.name
@@ -37,7 +54,11 @@ class Login extends Component {
     }
     onSubmit(e) {
         e.preventDefault();
-
+        if(this.state.emailerror === true )
+        {
+            alert("Please enter valid data")
+            return
+        }
         const newUser = {
             email: this.state.email,
             password: this.state.password,
@@ -119,6 +140,9 @@ class Login extends Component {
                                         label="Email"
                                         type="text"
                                         id="email"
+                                        error = {this.state.emailerror}
+                                        helperText = {this.state.emailerrormsg}
+                                        onBlur = {this.validateEmail}
                                         onChange = {this.onChange}
                                         />
                                         

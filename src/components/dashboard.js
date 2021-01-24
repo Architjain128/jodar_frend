@@ -18,7 +18,6 @@ import ListAltIcon from '@material-ui/icons/ListAlt';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ViewQuiltIcon from '@material-ui/icons/ViewQuilt';
 import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
-
 import Mydashappli from "./applicantmyappli";
 import Appprofile from "./appprofile";
 import Apphome from "./apphome";

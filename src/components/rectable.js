@@ -48,14 +48,6 @@ const anty = [];
       console.log(pa)
       anty.push(pa)
   }
-  // const rows = [
-  //     { id: 'a', Title: 'Snow', Maxappli: 1, Maxposi: 1,Ondate : "12/1/2010"},
-  //     { id: 'b', Title: 'anow', Maxappli: 10, Maxposi: 10,Ondate : "12/1/2010" },
-  //     { id: 3, Title: 'Anow', Maxappli: 2, Maxposi: 2 ,Ondate : "12/1/2010"},
-  //     { id: 4, Title: '1now', Maxappli: 22, Maxposi: 22,Ondate : "12/1/2010" },
-  //     { id: 5, Title: 'bnow', Maxappli: 1002, Maxposi: 1002,Ondate : "12/1/2010"},
-  //     { id: 6, Title: '10now', Maxappli: 10, Maxposi: 10 ,Ondate : "12/1/2010"},
-  //   ];
 
   return (
     <div style={{ height: 400, width: '100%' }}>

@@ -33,9 +33,21 @@ export default class  AddJob extends Component {
          jdur:"7",
          sala:"",
          skilltok:"",
+         dateerr:false,
+         dateerrmsg:null,
+         numerr:false,
+         numerrmsg:null,
+         num2err:false,
+         num2errmsg:null,
+         num3err:false,
+         num3errmsg:null,
         }
     this.onChange=this.onChange.bind(this)
     this.onSubmit = this.onSubmit.bind(this);
+    this.validateDate = this.validateDate.bind(this);
+    this.validatenum = this.validatenum.bind(this);
+    this.validatenum2 = this.validatenum2.bind(this);
+    this.validatenum3 = this.validatenum3.bind(this);
  }
  onChange(event) {
     let name = event.target.name
@@ -44,9 +56,57 @@ export default class  AddJob extends Component {
         // console.log(this.state)
     })
 } 
+validateDate(e){
+    var reg =/^([0-2][0-9]|[0-3][0-1])\/([0][0-9]|[1][1-2])\/([0-9]{4})\s([0][0-9]|[1][0-9]|[2][0-3]):([0-5][0-9])$/;
+    if (reg.test(e.target.value) === false) 
+    {
+        this.setState({dateerrmsg:"Please enter valid date (DD/MM/YYYY hh:mm) (24 hour format)",dateerr:true})
+    }
+    else
+    {
+        this.setState({dateerrmsg:null,dateerr:false})
+    }
+}
+validatenum(e){
+    if (isNaN(e.target.value)===true || parseInt(e.target.value)>200000 || parseInt(e.target.value)<1 || e.target.value==='') 
+    {
+        this.setState({numerrmsg:"value must be a whole number",numerr:true})
+    }
+    else
+    {
+        this.setState({numerrmsg:null,numerr:false})
+    }
+}
+
+validatenum2(e){
+    var reg =/^[1-9]\d*$/;
+    if (reg.test(e.target.value) === false) 
+    {
+        this.setState({num2errmsg:"value must be a whole number",num2err:true})
+    }
+    else
+    {
+        this.setState({num2errmsg:null,num2err:false})
+    }
+}
+validatenum3(e){
+    var reg =/^[1-9]\d*$/;
+    if (reg.test(e.target.value) === false) 
+    {
+        this.setState({num3errmsg:"value must be a whole number",num3err:true})
+    }
+    else
+    {
+        this.setState({num3errmsg:null,num3err:false})
+    }
+}
 onSubmit(e) {
     e.preventDefault();
-
+    if(this.state.dateerr === true ||this.state.numerr === true ||this.state.num2err === true ||this.state.num3err === true || this.state.maxpos >= this.state.maxapp )
+    {
+        alert("Please enter valid data *(Max application >= max position)")
+        return
+    }
     const newJob = {
         UserId:this.state.jodar_id,
         Company_name:this.state.comname,
@@ -121,14 +181,27 @@ render (){
         <TextField required fullWidth id="standard-basic" multiline label="Description" name="des"onChange = {this.onChange}/>
         <br/>
         <br/>
-        <TextField required fullWidth id="standard-basic" label="Max Applicant" name="maxapp" onChange = {this.onChange}/>
+        <TextField required fullWidth id="standard-basic" 
+            error = {this.state.num2err}
+            helperText = {this.state.num2errmsg}
+            onBlur = {this.validatenum2}
+        label="Max Applicant" name="maxapp" onChange = {this.onChange}/>
         <br/>
         <br/>
-        <TextField required fullWidth id="standard-basic" label="Max Postions" name="maxpos" onChange = {this.onChange}/>
+        <TextField required fullWidth id="standard-basic" 
+            error = {this.state.num3err}
+            helperText = {this.state.num3errmsg}
+            onBlur = {this.validatenum3}
+        label="Max Postions" name="maxpos" onChange = {this.onChange}/>
         <br/>
         <br/>
-        <TextField required fullWidth id="standard-basic" label="Salary" onChange = {this.onChange} name="sala"/>
-        <br/>
+        <TextField required fullWidth 
+         error = {this.state.numerr}
+         helperText = {this.state.numerrmsg}
+         onBlur = {this.validatenum}
+        id="standard-basic" label="Salary" onChange = {this.onChange} name="sala"/>
+        <FormHelperText>per month (0&lt;salary&lt;200000)</FormHelperText>
+
         <br/>
         <br/>
         <NativeSelect required fullWidth label="Job Type" name="jtype" value={this.state.jtype} onChange = {this.onChange} textAlign='left' id="demo-simple-select-placeholder-label"  displayEmpty
@@ -157,8 +230,13 @@ render (){
         </NativeSelect>
         <FormHelperText>Default Job Type is Indefined</FormHelperText>        
         <br/>
-        <TextField required fullWidth id="standard-basic" label="Deadline" name="deadline"onChange = {this.onChange}/>
-        <FormHelperText> "DD/MM/YYYY : hh:mm" (24 hour format) only</FormHelperText>
+        <TextField 
+        required 
+        error = {this.state.dateerr}
+        helperText = {this.state.dateerrmsg}
+        onBlur = {this.validateDate}
+        fullWidth id="standard-basic" label="Deadline" name="deadline"onChange = {this.onChange}/>
+        <FormHelperText> "DD/MM/YYYY hh:mm" (24 hour format) only</FormHelperText>
         <br/>
         <TextField required fullWidth id="standard-basic" label="Skills" onChange = {this.onChange} name="skilltok" />
         <FormHelperText>Add multiple skill by seprating them through semicolon (;)</FormHelperText>

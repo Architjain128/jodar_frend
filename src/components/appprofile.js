@@ -4,7 +4,6 @@ import Container from '@material-ui/core/Container';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
-import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
@@ -22,7 +21,6 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Rating from '@material-ui/lab/Rating';
 import { withStyles } from '@material-ui/core/styles';
-import nopro from "../files/images/noprofile.jpg"
 import axios from 'axios';
 
 
@@ -113,6 +111,8 @@ export default function Appprofile(props) {
     fna : "",
     lna : "",
     ena : "",
+    enaerr : false,
+    enaerrmsg : null,
     // prorating: 3,
   });
   const handleOpen = () => {
@@ -185,6 +185,11 @@ export default function Appprofile(props) {
   }
 
   const onupdatepro= ()=>{
+    if(values.enaerr === true)
+    {
+        alert("Please enter valid data")
+        return
+    }
     const newedu = {
       UserId : jodar_id,
       Firstname : values.fna,
@@ -204,6 +209,21 @@ export default function Appprofile(props) {
                 alert("error")
             })
     setOpen3(false);
+  }
+  const validateEmail=(e)=>{
+    var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+    if( e.target.value.trim() === "")
+    {
+      setValues({ ...values, enaerr: false , enaerrmsg : null });
+    }
+    else if (reg.test(e.target.value) == false) 
+    {
+      setValues({ ...values, enaerr: true , enaerrmsg : "Please enter valid email" });
+    }
+    else
+    {
+      setValues({ ...values, enaerr: false , enaerrmsg : null });
+    }
   }
 
   const skill =(
@@ -345,6 +365,9 @@ export default function Appprofile(props) {
         margin="normal"
         name="new_edue"
         label="Email"
+        error = {values.enaerr}
+        helperText = {values.enaerrmsg}
+        onBlur = {validateEmail}
         type="text"
         id="new_edue"
         onChange = {handleChange('ena')}

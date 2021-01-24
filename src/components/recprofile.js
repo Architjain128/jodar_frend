@@ -68,6 +68,10 @@ export default function Recprofile(props) {
     cna : "",
     cnu : "",
     ena : "",
+    enaerr : false,
+    enaerrmsg : null,
+    cnuerr : false,
+    cnuerrmsg : null,
   });
 
   const handleChange = (prop) => (event) => {
@@ -97,7 +101,42 @@ export default function Recprofile(props) {
     setOpen2(false);
   };
 
+  const validateEmail=(e)=>{
+    var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+    if( e.target.value.trim() === "")
+    {
+      setValues({ ...values, enaerr: false , enaerrmsg : null });
+    }
+    else if (reg.test(e.target.value) == false) 
+    {
+      setValues({ ...values, enaerr: true , enaerrmsg : "Please enter valid email" });
+    }
+    else
+    {
+      setValues({ ...values, enaerr: false , enaerrmsg : null });
+    }
+  }
+  const validateCompanynum=(e)=>{
+    var reg = /^[0-9]{6,10}$/;
+    if( e.target.value.trim() === "")
+    {
+      setValues({ ...values, cnuerr: false , cnuerrmsg : null });
+    }
+    else if (reg.test(e.target.value) == false) 
+    {
+      setValues({ ...values, cnuerr: true , cnuerrmsg : "Please enter valid number (length between 6-10 and all whole numbers)" });
+    }
+    else
+    {
+      setValues({ ...values, cnuerr: false , cnuerrmsg : null });
+    }
+  }
   const onupdatepro= ()=>{
+    if(values.enaerr === true || values.cnuerr === true)
+        {
+            alert("Please enter valid data")
+            return
+        }
     const newedu = {
       UserId : jodar_id,
       Companyname : values.cna,
@@ -226,6 +265,9 @@ export default function Recprofile(props) {
       label="Company Number"
       type="text"
       id="new_edus"
+      error = {values.cnuerr}
+      helperText = {values.cnuerrmsg}
+      onBlur = {validateCompanynum}
       onChange = {handleChange('cnu')}
       />
       <TextField
@@ -233,6 +275,9 @@ export default function Recprofile(props) {
       margin="normal"
       name="new_edue"
       label="Email"
+      error = {values.enaerr}
+      helperText = {values.enaerrmsg}
+      onBlur = {validateEmail}
       type="text"
       id="new_edue"
       onChange = {handleChange('ena')}

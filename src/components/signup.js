@@ -20,13 +20,44 @@ class Signup extends Component {
             company_name:'NONE',
             contact_number:'NONE',
             redirect:"r",
-            sign:true
+            sign:true,
+            emailerror:false,
+            emailerrormsg:null,
+            numerror:false,
+            numerrormsg:null,
         }
         this.onChange=this.onChange.bind(this)
         this.onCheck=this.onCheck.bind(this)
         this.onSwitch=this.onSwitch.bind(this)
         this.onSubmit=this.onSubmit.bind(this)
+        this.validateEmail=this.validateEmail.bind(this)
+        this.validateCompanynum=this.validateCompanynum.bind(this)
     }
+    validateEmail(e){
+        var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+        if (reg.test(e.target.value) === false) 
+        {
+            this.setState({emailerrormsg:"Please enter valid email",emailerror:true})
+        }
+        else
+        {
+            this.setState({emailerrormsg:null,emailerror:false})
+        }
+    }
+    validateCompanynum(e){
+        var reg = /^[0-9]{6,10}$/;
+        if (reg.test(e.target.value) === false) 
+        {
+            this.setState({numerrormsg: "Please enter valid number (length between 6-10 and all whole numbers)",numerror:true})
+            return false;
+        }
+        else
+        {
+            this.setState({numerrormsg:null,numerror:false})
+            return true;
+        }
+    }
+
     onChange(event) {
         let name = event.target.name
         let value = event.target.value
@@ -49,6 +80,11 @@ class Signup extends Component {
     }
     onSubmit(e) {
         e.preventDefault();
+        if(this.state.emailerror === true || this.state.numerror === true)
+        {
+            alert("Please enter valid data")
+            return
+        }
         const newUser = {
             Firstname: this.state.Firstname,
             Lastname: this.state.Lastname,
@@ -167,6 +203,9 @@ class Signup extends Component {
                                                 type="text"
                                                 id="email"
                                                 // autoComplete
+                                                error = {this.state.emailerror}
+                                                helperText = {this.state.emailerrormsg}
+                                                onBlur = {this.validateEmail}
                                                 onChange = {this.onChange}
                                             />
 
@@ -246,6 +285,9 @@ class Signup extends Component {
                                             type="text"
                                             id="email"
                                             // autoComplete
+                                            error = {this.state.emailerror}
+                                            helperText = {this.state.emailerrormsg}
+                                            onBlur = {this.validateEmail}
                                             onChange = {this.onChange}
                                         />
                                         <TextField
@@ -279,6 +321,9 @@ class Signup extends Component {
                                             label="Contact Number"
                                             type="contact_number"
                                             id="contact_number"
+                                            error = {this.state.numerror}
+                                            helperText = {this.state.numerrormsg}
+                                            onBlur = {this.validateCompanynum}
                                             onChange = {this.onChange}
                                     />
                                         <div id="tcdiv">

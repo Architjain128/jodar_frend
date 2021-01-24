@@ -100,17 +100,6 @@ export default function SettingsPage(props) {
   const [value, setValue] = React.useState([0, 200000]);
   const [searchData, setSearchData] = useState(props.data);
   const [datasci, setDatasci] = useState(false);
-
-  // useEffect(()=>{
-  //   settiti("1")
-  //   settitira("1")
-  //   settitidu('1')
-  //   setValue([0,200000])
-  //   settitity('All')
-  //   settitidura('9')
-    
-  // })
-
   
   const searchItem = (query) => {
     settiti("1")

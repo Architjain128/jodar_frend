@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import {Container} from '@material-ui/core';
-import axios from 'axios';
-import Dashboard from './dashboard';
 import {Typography,Paper} from '@material-ui/core';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -11,14 +9,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Rating from '@material-ui/lab/Rating'
 import Chip from '@material-ui/core/Chip';
-import Button from '@material-ui/core/Button';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Grow from '@material-ui/core/Grow';
-import Popper from '@material-ui/core/Popper';
-import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
 import SplitButton from "./buttongrp";
 
 class Mydashappli extends Component {
@@ -92,7 +82,6 @@ class Mydashappli extends Component {
                                         <TableCell align="right">
                                             {
                                                 (row.Rating === "NaN" || row.Rating === 0) ? <div><SplitButton datar={row.jobid}></SplitButton></div>:<Rating name="half-rating-read" precision={0.5} name="read-only" value={row.Rating} readOnly />
-                                                // (row.Rating === "NaN" || row.Rating === 0) ? <div><Rating name="half-rating"  defaultValue={0} onChange={(event,newValue)=>this.rateitnow(newValue)}></Rating> </div>:<Rating name="half-rating-read" precision={0.5} name="read-only" value={row.Rating} readOnly />
                                             }
                                         </TableCell>
                                     </TableRow>

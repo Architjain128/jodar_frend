@@ -159,58 +159,32 @@ handlesortra=(e)=>{
     if(e.target.value===3)
     tempmahadata.sort(function(a,b) {
         let g=a.Datejoon
-        let h=a.Datejoon
-        let gdeadd=g.split(" ");
-        let gdatede = gdeadd[0].split("/");
-        let gtimede = gdeadd[1].split(":");
-        let hdeadd=h.split(" ");
-        let hdatede = hdeadd[0].split("/");
-        let htimede = hdeadd[1].split(":");
-        if( parseInt(gdatede[2])>= parseInt(hdatede[2]))
-        {
-            if( parseInt(gdatede[1])>= parseInt(hdatede[1]))
-            {
-                if( parseInt(gdatede[0])>= parseInt(hdatede[0]))
-                {
-                    if( parseInt(gtimede[0])>= parseInt(htimede[0]))
-                    {
-                        if( parseInt(gtimede[1])>= parseInt(htimede[1]))
-                        {
-                           return -1
-                        }
-                    }
-                }
-            }
-        }
-        return 1
+            let h=b.Datejoon
+            // console.log(g + h)
+            let gdeadd=g.split(" ");
+            let gdatede = gdeadd[0].split("/");
+            let gtimede = gdeadd[1].split(":");
+            let hdeadd=h.split(" ");
+            let hdatede = hdeadd[0].split("/");
+            let htimede = hdeadd[1].split(":");
+            let gstr = `${("0"+gdatede[2]).split(-4)}/${("0"+gdatede[1]).split(-2)}/${("0"+gdatede[0]).split(-2)} ${("0"+gtimede[0]).split(-2)}:${("0"+gtimede[1]).split(-2)}`
+            let hstr = `${("0"+hdatede[2]).split(-4)}/${("0"+hdatede[1]).split(-2)}/${("0"+hdatede[0]).split(-2)} ${("0"+htimede[0]).split(-2)}:${("0"+htimede[1]).split(-2)}`
+            return gstr.localeCompare(hstr)
     })
     if(e.target.value==2)
     tempmahadata.sort(function(a,b) {
         let g=a.Datejoon
-        let h=a.Datejoon
-        let gdeadd=g.split(" ");
-        let gdatede = gdeadd[0].split("/");
-        let gtimede = gdeadd[1].split(":");
-        let hdeadd=h.split(" ");
-        let hdatede = hdeadd[0].split("/");
-        let htimede = hdeadd[1].split(":");
-        if( parseInt(gdatede[2])< parseInt(hdatede[2]))
-        {
-            if( parseInt(gdatede[1])< parseInt(hdatede[1]))
-            {
-                if( parseInt(gdatede[0])< parseInt(hdatede[0]))
-                {
-                    if( parseInt(gtimede[0])< parseInt(htimede[0]))
-                    {
-                        if( parseInt(gtimede[1])< parseInt(htimede[1]))
-                        {
-                           return -1
-                        }
-                    }
-                }
-            }
-        }
-        return 1
+            let h=b.Datejoon
+            // console.log(g + h)
+            let gdeadd=g.split(" ");
+            let gdatede = gdeadd[0].split("/");
+            let gtimede = gdeadd[1].split(":");
+            let hdeadd=h.split(" ");
+            let hdatede = hdeadd[0].split("/");
+            let htimede = hdeadd[1].split(":");
+            let gstr = `${("0"+gdatede[2]).split(-4)}/${("0"+gdatede[1]).split(-2)}/${("0"+gdatede[0]).split(-2)} ${("0"+gtimede[0]).split(-2)}:${("0"+gtimede[1]).split(-2)}`
+            let hstr = `${("0"+hdatede[2]).split(-4)}/${("0"+hdatede[1]).split(-2)}/${("0"+hdatede[0]).split(-2)} ${("0"+htimede[0]).split(-2)}:${("0"+htimede[1]).split(-2)}`
+            return hstr.localeCompare(gstr)
     })
     this.setState({accmahadata2:tempmahadata})
     console.log(tempmahadata)

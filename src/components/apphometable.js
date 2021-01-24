@@ -1,32 +1,13 @@
-import React, {useState} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import {Redirect} from 'react-router-dom'
-import  {DataGrid}  from '@material-ui/data-grid';
-import Button from '@material-ui/core/Button';
-import Box from '@material-ui/core/Box';
-import Modal from '@material-ui/core/Modal';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
+import React from 'react';
 import SettingsPage from "./fuzzyse";
-import Slider from '@material-ui/core/Slider';
-import { withStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-
 
 
 export default function DataTableh(props) {
-  const [sop, setsop] = React.useState(null);
- 
-  // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-  // console.log(props)
   let allmyapp = new Map();
   let allrate = new Map();
   let allmyworkapp = new Map();
   let allmyapapp = new Map();
   let allappstat = [];
-
 
   for(let i=0;i<props.datarar.length;i++)
   {
@@ -34,18 +15,16 @@ export default function DataTableh(props) {
     let temp = p["sumRating"]
     let temp2 = p["Raating"]
     let temp3 = 0
-    if(temp2===0 || temp2 === "NaN" || temp2 === NaN) temp3=0
+    if(temp2===0 || temp2 === "NaN" || isNaN(temp2) === true) temp3=0
     else{
-      if(temp===0 || temp === "NaN" || temp === NaN) temp3=0
+      if(temp===0 || temp === "NaN" || isNaN(temp2) === true) temp3=0
       else{
         temp3 = temp/temp2
       }
     }
-    
     allrate.set(p["_id"],temp3);
   }
-console.log(">>>>>>>>>>>>>>>>>>>>>>>")
-console.log(allrate)
+
   for(let i=0;i<props.datajj.length;i++)
   {
     const p = props.datajj[i]
@@ -80,13 +59,13 @@ console.log(allrate)
       // console.log(p)
       const pa = {id:p["_id"],Title:p["Title"],RecName:p["Company_name"],sumRating:p["sumRating"],Rating:0,Salary:p["Job_Sal"],Duration:p["Job_Dura"],Type:p["Job_Type"],Deadline:p["Deadline"],Status:"Apply",Maxappli:p["Maxappli"],Maxposi:p["Maxposi"]}
       // console.log(pa)
-      if(pa.Type==1)
+      if(pa.Type===1 || pa.Type==='1' )
       pa.Type = "Full Time"
-      if(pa.Type==2)
+      if(pa.Type===2 || pa.Type==='2')
       pa.Type = "Part Time"
-      if(pa.Type==3)
+      if(pa.Type===3 || pa.Type==="3" )
       pa.Type = "Work From Home"
-      if(pa.Duration==7)
+      if(pa.Duration===7 || pa.Duration==='7')
       pa.Duration = "Indefinite"
 
       pa.Rating = 0
