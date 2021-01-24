@@ -10,12 +10,15 @@ export default class  Apphome extends Component {
  {
      super(props)
      let newDate = new Date()
-     let date = newDate.getDate();
-     let month = newDate.getMonth() + 1;
-     let year = newDate.getFullYear();
-     let datata=`${date}/${month}/${year}`
+     let date = ("0"+newDate.getDate()).slice(-2);
+     let month =("0"+(newDate.getMonth() + 1)).slice(-2);
+     let year = ("0"+newDate.getFullYear()).slice(-4);
+     let hour = ("00"+newDate.getHours()).slice(-2);
+     let minite = ("00"+newDate.getMinutes()).slice(-2)
+     let datata=`${date}/${month}/${year} ${hour}:${minite}`
      this.state={
          datagetjob:"",
+         datarar:"",
          dataall:"",
          dataacc:"",
          datajj:this.props.datajj,
@@ -41,9 +44,13 @@ export default class  Apphome extends Component {
     const d1 = await axios.get('http://localhost:6050/alljobposted')
     const dall = await axios.post('http://localhost:6050/allapp')
     const dacc = await axios.post('http://localhost:6050/acceptedapp')
-    // console.log(dall)
-    // console.log(dacc)
-    this.setState({datagetjob:d1.data.dataAA,dataall:dall.data.dataallapp,dataacc:dacc.data.acceptedapp})
+    const drar = await axios.get('http://localhost:6050/jobratins')
+    
+    console.log(dall)
+    console.log(dacc)
+    console.log(d1)
+    console.log(drar)
+    this.setState({datarar:drar.data.allratedjob,datagetjob:d1.data.dataAA,dataall:dall.data.dataallapp,dataacc:dacc.data.acceptedapp})
 }
 
 async componentDidMount(){
@@ -61,7 +68,7 @@ render (){
         <br/>
         <Typography variant="h4">All Jobs</Typography>
         <br/>
-        <DataTableh datagetjob={this.state.datagetjob} datajj={this.state.datajj}  dataall={this.state.dataall}  dataacc={this.state.dataacc} ></DataTableh>
+        <DataTableh datagetjob={this.state.datagetjob} datajj={this.state.datajj}  dataall={this.state.dataall}  datarar={this.state.datarar} dataacc={this.state.dataacc} ></DataTableh>
     </Container>
   )};
 }

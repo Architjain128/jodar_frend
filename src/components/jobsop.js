@@ -81,29 +81,49 @@ onapplyjob(e){
     e.preventDefault();
     let okokok=false
     let newDate = new Date()
-    let date = newDate.getDate();
-    let month = newDate.getMonth() + 1;
-    let year = newDate.getFullYear();
-    let hour = newDate.getHours();
-    let minutes = newDate.getMinutes();
+    let adate = newDate.getDate();
+    let amonth = newDate.getMonth() + 1;
+    let ayear = newDate.getFullYear();
+    let ahour = newDate.getHours();
+    let aminutes = newDate.getMinutes();
     let deadd=this.state.deadline.split(" ");
     let datede = deadd[0].split("/");
     let timede = deadd[1].split(":");
     
-    if(datede[2]>=year)
+    if(parseInt(datede[2]) >= parseInt(ayear))
     {
-        if(datede[1]>=month)
+      okokok = true
+    }
+    else
+    {
+        if(parseInt(datede[1]) >= parseInt(amonth))
         {
-            if(datede[0]>=date)
+            okokok = true
+
+        }
+        else
+        {
+          if(parseInt(datede[0]) >= parseInt(adate))
+          {
+            okokok = true
+            
+          }
+          else
+          {
+            if(parseInt(timede[0]) >= parseInt(ahour))
             {
-                if(timede[0]>=hour)
-                {
-                    if(timede[1]>=minutes)
-                    {
-                        okokok=true
-                    }
-                }
+                okokok = true
+
             }
+            else
+            {
+              if(parseInt(timede[1]) >= parseInt(aminutes))
+              {
+                okokok = true
+                  
+              }
+            }
+          }
         }
     }
 
@@ -114,11 +134,11 @@ onapplyjob(e){
     else
     {
         let datee = new Date();
-        let dated = datee.getDate();
-        let month = datee.getMonth() +1 ;
-        let yeard = datee.getFullYear();
-        let horus = datee.getHours();
-        let minite = datee.getMinutes();
+        let dated = ("0" + datee.getDate()).slice(-2);
+        let month = ("0"+(datee.getMonth() +1)).slice(-2) ;
+        let yeard = ("0"+datee.getFullYear()).slice(-4);
+        let horus = ("00"+datee.getHours()).slice(-2);
+        let minite = ("00"+datee.getMinutes()).slice(-2);
         let dtstr = dated + "/" + month + "/" + yeard + " "+horus + ":" + minite
         const newlistjob = {
             JobId : this.state.bid,
@@ -171,8 +191,16 @@ render (){
                 <Typography variant="overline"><b>Max positions</b> {this.state.maxpos}</Typography><br/>
                 <Typography variant="overline"><b>Skills Required </b> {this.state.skilltok.map(name => (<Chip variant="outlined" color="default" size="small" label={name} />))}</Typography><br/>
                 <Typography variant="overline"><b>Salary</b> {this.state.sala}</Typography><br/><Divider variant="middle" />
-                <Typography variant="overline"><b>Job Type</b> {this.state.jtype}</Typography><br/>
-                <Typography variant="overline"><b>Job Duration</b> {this.state.jdur}</Typography><br/>
+                <Typography variant="overline"><b>Job Type  </b> 
+                { 
+                    this.state.jtype===1 ? <>Full Time</> : this.state.jtype===2 ? <>Part Time</> :this.state.jtype===3 ? <>Work From Home</> : null
+                }
+                </Typography><br/>
+                <Typography variant="overline"><b>Job Duration </b> 
+                {
+                    this.state.jdur === 1 ? <>1 month</> : this.state.jdur === 2 ? <>2 months</> :this.state.jdur === 3 ? <>3 months</> :this.state.jdur === 4 ? <>4 months</> : this.state.jdur === 5 ? <>5 months</> : this.state.jdur === 6 ? <>6 months</> : <>Indefinite</>
+                }
+                </Typography><br/>
                 <Typography variant="overline"><b>Rating</b> {this.state.points}</Typography><br/>
 
             </Paper>

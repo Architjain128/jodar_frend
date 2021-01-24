@@ -73,8 +73,16 @@ render (){
                 <Typography variant="overline"><b>Max positions</b> {this.state.maxpos}</Typography><br/>
                 <Typography variant="overline"><b>Skills Required </b> {this.state.skilltok.map(name => (<Chip variant="outlined" color="default" size="small" label={name} />))}</Typography><br/>
                 <Typography variant="overline"><b>Salary</b> {this.state.sala}</Typography><br/><Divider variant="middle" />
-                <Typography variant="overline"><b>Job Type</b> {this.state.jtype}</Typography><br/>
-                <Typography variant="overline"><b>Job Duration</b> {this.state.jdur}</Typography><br/>
+                <Typography variant="overline"><b>Job Type  </b> 
+                { 
+                    this.state.jtype===1 ? <>Full Time</> : this.state.jtype===2 ? <>Part Time</> :this.state.jtype===3 ? <>Work From Home</> : null
+                }
+                </Typography><br/>
+                <Typography variant="overline"><b>Job Duration </b> 
+                {
+                    this.state.jdur === 1 ? <>1 month</> : this.state.jdur === 2 ? <>2 months</> :this.state.jdur === 3 ? <>3 months</> :this.state.jdur === 4 ? <>4 months</> : this.state.jdur === 5 ? <>5 months</> : this.state.jdur === 6 ? <>6 months</> : <>Indefinite</>
+                }
+                </Typography><br/>
                 <Typography variant="overline"><b>Rating</b> {this.state.points}</Typography><br/>
 
             </Paper>

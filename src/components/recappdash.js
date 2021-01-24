@@ -20,7 +20,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Rating from '@material-ui/lab/Rating'
-import { FormatAlignJustify } from '@material-ui/icons';
+import { ControlPointDuplicate, FormatAlignJustify } from '@material-ui/icons';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -181,67 +181,124 @@ handlesortra=(e)=>{
     })
     this.setState({mahadata2:tempmahadata})
     console.log(tempmahadata)
-
   }
+  
   handlesortda=(e)=>{
     this.setState({soda : e.target.value,sona:"1",sora:"1"})
     let tempmahadata = this.state.mahadata
-    if(e.target.value===3)
-    tempmahadata.sort(function(a,b) {
-        let g=a.Datejoon
-        let h=a.Datejoon
-        let gdeadd=g.split(" ");
-        let gdatede = gdeadd[0].split("/");
-        let gtimede = gdeadd[1].split(":");
-        let hdeadd=h.split(" ");
-        let hdatede = hdeadd[0].split("/");
-        let htimede = hdeadd[1].split(":");
-        if( parseInt(gdatede[2])>= parseInt(hdatede[2]))
-        {
-            if( parseInt(gdatede[1])>= parseInt(hdatede[1]))
-            {
-                if( parseInt(gdatede[0])>= parseInt(hdatede[0]))
-                {
-                    if( parseInt(gtimede[0])>= parseInt(htimede[0]))
-                    {
-                        if( parseInt(gtimede[1])>= parseInt(htimede[1]))
-                        {
-                           return -1
-                        }
-                    }
-                }
-            }
-        }
-        return 1
-    })
-    if(e.target.value==2)
-    tempmahadata.sort(function(a,b) {
-        let g=a.Datejoon
-        let h=a.Datejoon
-        let gdeadd=g.split(" ");
-        let gdatede = gdeadd[0].split("/");
-        let gtimede = gdeadd[1].split(":");
-        let hdeadd=h.split(" ");
-        let hdatede = hdeadd[0].split("/");
-        let htimede = hdeadd[1].split(":");
-        if( parseInt(gdatede[2])< parseInt(hdatede[2]))
-        {
-            if( parseInt(gdatede[1])< parseInt(hdatede[1]))
-            {
-                if( parseInt(gdatede[0])< parseInt(hdatede[0]))
-                {
-                    if( parseInt(gtimede[0])< parseInt(htimede[0]))
-                    {
-                        if( parseInt(gtimede[1])< parseInt(htimede[1]))
-                        {
-                           return -1
-                        }
-                    }
-                }
-            }
-        }
-        return 1
-    })
+    // console.log(e.target.value)
+
+    if(parseInt(e.target.value) === 2)
+    {
+        tempmahadata.sort(function(a,b){
+            let g=a.Datejoon
+            let h=b.Datejoon
+            console.log(g + h)
+            let gdeadd=g.split(" ");
+            let gdatede = gdeadd[0].split("/");
+            let gtimede = gdeadd[1].split(":");
+            let hdeadd=h.split(" ");
+            let hdatede = hdeadd[0].split("/");
+            let htimede = hdeadd[1].split(":");
+            let gstr = `${("0"+gdatede[2]).split(-4)}/${("0"+gdatede[1]).split(-2)}/${("0"+gdatede[0]).split(-2)} ${("0"+gtimede[0]).split(-2)}:${("0"+gtimede[1]).split(-2)}`
+            let hstr = `${("0"+hdatede[2]).split(-4)}/${("0"+hdatede[1]).split(-2)}/${("0"+hdatede[0]).split(-2)} ${("0"+htimede[0]).split(-2)}:${("0"+htimede[1]).split(-2)}`
+            return hstr.localeCompare(gstr)
+
+        //     if(parseInt(("0"+gdatede[2]).split(-4)) > parseInt(("0"+hdatede[2]).split(-4)))
+        //     {
+        //     return -1
+        //     }
+        //     else
+        //     {
+        //         if(parseInt(("0"+gdatede[1]).split(-2)) > parseInt(("0"+hdatede[1]).split(-2)))
+        //         {
+        //             return -1
+        //         }
+        //         else
+        //         {
+        //             if(parseInt(("0"+gdatede[0]).split(-2)) > parseInt(("0"+hdatede[0]).split(-2)))
+        //             {
+        //                 return -1
+        //             }
+        //             else
+        //             {
+        //                 if(parseInt(("0"+gtimede[0]).split(-2)) > parseInt(("0"+htimede[0]).split(-2)))
+        //                 {
+        //                     return -1
+        //                 }
+        //                 else
+        //                 {
+        //                     if(parseInt(("0"+gtimede[1]).split(-2)) > parseInt(("0"+htimede[1]).split(-2)))
+        //                     {
+        //                         return -1
+        //                     }
+        //                     else
+        //                     {
+        //                         return 1
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        //     return 1
+        })
+    }
+    if(parseInt(e.target.value) === 3){
+        console.log("asc")
+        tempmahadata.sort(function(a,b) {
+            let g=a.Datejoon
+            let h=b.Datejoon
+            console.log(g + h)
+            let gdeadd=g.split(" ");
+            let gdatede = gdeadd[0].split("/");
+            let gtimede = gdeadd[1].split(":");
+            let hdeadd=h.split(" ");
+            let hdatede = hdeadd[0].split("/");
+            let htimede = hdeadd[1].split(":");
+            let gstr = `${("0"+gdatede[2]).split(-4)}/${("0"+gdatede[1]).split(-2)}/${("0"+gdatede[0]).split(-2)} ${("0"+gtimede[0]).split(-2)}:${("0"+gtimede[1]).split(-2)}`
+            let hstr = `${("0"+hdatede[2]).split(-4)}/${("0"+hdatede[1]).split(-2)}/${("0"+hdatede[0]).split(-2)} ${("0"+htimede[0]).split(-2)}:${("0"+htimede[1]).split(-2)}`
+            return gstr.localeCompare(hstr)
+            
+            // if(parseInt(("0"+gdatede[2]).split(-4)) < parseInt(("0"+hdatede[2]).split(-4)))
+            // {
+            // return 1
+            // }
+            // else
+            // {
+            //     if(parseInt(("0"+gdatede[1]).split(-2)) < parseInt(("0"+hdatede[1]).split(-2)))
+            //     {
+            //         return 1
+            //     }
+            //     else
+            //     {
+            //         if(parseInt(("0"+gdatede[0]).split(-2)) < parseInt(("0"+hdatede[0]).split(-2)))
+            //         {
+            //             return 1
+            //         }
+            //         else
+            //         {
+            //             if(parseInt(("0"+gtimede[0]).split(-2)) < parseInt(("0"+htimede[0]).split(-2)))
+            //             {
+            //                 return 1
+            //             }
+            //             else
+            //             {
+            //                 if(parseInt(("0"+gtimede[1]).split(-2)) < parseInt(("0"+htimede[1]).split(-2)))
+            //                 {
+            //                     return 1
+            //                 }
+            //                 else
+            //                 {
+            //                     return -1
+            //                 }
+            //             }
+            //         }
+            //     }
+            // }
+            // return -1
+        })
+    }
+
     this.setState({mahadata2:tempmahadata})
     console.log(tempmahadata)
     

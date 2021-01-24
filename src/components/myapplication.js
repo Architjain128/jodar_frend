@@ -11,10 +11,12 @@ export default class  Applicationlist extends Component {
  {
      super(props)
      let newDate = new Date()
-     let date = newDate.getDate();
-     let month = newDate.getMonth() + 1;
-     let year = newDate.getFullYear();
-     let datata=`${date}/${month}/${year}`
+     let date = ("0"+newDate.getDate()).slice(-2);
+     let month =("0"+(newDate.getMonth() + 1)).slice(-2);
+     let year = ("0"+newDate.getFullYear()).slice(-4);
+     let hour = ("00"+newDate.getHours()).slice(-2);
+     let minite = ("00"+newDate.getMinutes()).slice(-2)
+     let datata=`${date}/${month}/${year} ${hour}:${minite}`
      this.state={
          dataalljob:"",
          comname:this.props.data1[0],

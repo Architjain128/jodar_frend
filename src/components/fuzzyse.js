@@ -1,7 +1,7 @@
 // import data from "./data.json";
 import React, { useState, useEffect } from "react";
 import Fuse from "fuse.js";
-import  {DataGrid}  from '@material-ui/data-grid';
+import  {columnLookupSelector, DataGrid}  from '@material-ui/data-grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import FormControl from '@material-ui/core/FormControl';
@@ -111,7 +111,7 @@ export default function SettingsPage(props) {
     
   // })
 
-
+  
   const searchItem = (query) => {
     settiti("1")
     settitira("1")
@@ -119,7 +119,9 @@ export default function SettingsPage(props) {
     setValue([0,200000]);
     settitity('All')
     settitidura('9')
-
+    setSearchData(props.data);
+    
+    console.log(props.data)
     if (!query || query==="" || query===" ") {
       setSearchData(props.data);
       return;
@@ -150,6 +152,8 @@ export default function SettingsPage(props) {
     setValue([0,200000]);
     settitity('All')
     settitidura('9')
+    setSearchData(props.data);
+
     if(e.target.value===2)
     searchData.sort((a,b) => (a.Salary - b.Salary))
     if(e.target.value===3)
@@ -162,6 +166,8 @@ export default function SettingsPage(props) {
     setValue([0,200000]);
     settitity('All')
     settitidura('9')
+    setSearchData(props.data);
+
     if(e.target.value===2)
     searchData.sort(function(a,b) {
       let g=a.Rating
@@ -186,6 +192,8 @@ export default function SettingsPage(props) {
     setValue([0,200000]);
     settitity('All')
     settitidura('9')
+    setSearchData(props.data);
+
     if(e.target.value===2)
     searchData.sort(function(a,b) {
       let g=a.Duration
@@ -211,7 +219,14 @@ export default function SettingsPage(props) {
     settiti("1")
     settitidu('1')
     settitira("1")
+    setSearchData(props.data);
+
     console.log(e.target.value)
+    if(e.target.value==="All")
+    {
+      const aaa = props.data
+      setSearchData( aaa.filter(function(a){ return 1}))
+    }
     if(e.target.value==="Full Time")
     {
       const aaa = props.data
@@ -237,6 +252,8 @@ export default function SettingsPage(props) {
     settiti("1")
     settitidu('1')
     settitira("1")
+    setSearchData(props.data);
+
     if(e.target.value === '1')
     {
       const aaa = props.data
@@ -287,10 +304,26 @@ export default function SettingsPage(props) {
   };
 
   const onClickapply = (e) => {
-    let rowid2 = e.currentTarget.value
-    console.log(rowid2)
-    localStorage.setItem('Jodar_jobapp',rowid2)
-    window.location.href="/applyjob"
+
+    console.log(props.datawwacc)
+    let aa1 = props.datawwacc[0]
+    let aa2 = props.datawwacc[1]
+    // console.log(props.datawwacc[1])
+    if(aa2>0)
+    {
+      alert("Can't apply, you already had a job so go and watch netflix")
+    }
+    else if(aa1>9)
+    {
+      alert("Can't apply, you already applied for 10 jobs go and build more skills to got selected")
+    }
+    else
+    {
+      let rowid2 = e.currentTarget.value
+      console.log(rowid2)
+      localStorage.setItem('Jodar_jobapp',rowid2)
+      window.location.href="/applyjob"
+    }
   };
   const onClickapplied = (e) => {
     let rowid2 = e.currentTarget.value
@@ -422,7 +455,7 @@ export default function SettingsPage(props) {
             <StyledTableCell>Rating</StyledTableCell>
             <StyledTableCell>Salary</StyledTableCell>
             <StyledTableCell align="right">Type</StyledTableCell>
-            <StyledTableCell align="right">Duration</StyledTableCell>
+            <StyledTableCell align="right">Duration**</StyledTableCell>
             <StyledTableCell align="right">Deadline</StyledTableCell>
             <StyledTableCell align="right">Status</StyledTableCell>
           </TableRow>
@@ -433,13 +466,31 @@ export default function SettingsPage(props) {
               <StyledTableRow>
                   <StyledTableCell >{row.Title}</StyledTableCell>
                   <StyledTableCell align="right">{row.RecName}</StyledTableCell>
-                  <StyledTableCell align="right">{row.Rating}</StyledTableCell>
+                  <StyledTableCell align="right">
+                    {
+                     (row.Rating === null ||  row.Rating === '' || isNaN(row.Rating) ) ? <>Not rated yet</>: <Rating defaultValue={row.Rating} readOnly precision={0.5}></Rating>
+                    }
+                  </StyledTableCell>
                   <StyledTableCell align="right">{row.Salary}</StyledTableCell>
                   <StyledTableCell align="right">{row.Type}</StyledTableCell>
                   <StyledTableCell align="right">{row.Duration}</StyledTableCell>
                   <StyledTableCell align="right">{row.Deadline}</StyledTableCell>
                   <StyledTableCell align="right">
-                      {row.Status === "Apply" ? <Button  value={row.id} variant="contained" color="primary" onClick={onClickapply} >Apply</Button>: row.Status === "Applied" ? <Button value={row.id} variant="contained" color="secondary" onClick={onClickapplied} >Applied</Button> : row.Status === "Position Fill" ? <Typography value={row.id} color="error" style={{fontSize:12}} >Position Filled</Typography> : <Typography value={row.id} color="error" style={{fontSize:12}}>Application limit reached</Typography> }
+                      {
+                      row.Status === "Apply" 
+                      ?
+                      <Button  value={row.id} variant="contained" color="primary" onClick={onClickapply} >Apply</Button>
+                      :
+                      row.Status === "Applied" 
+                      ? 
+                      <Button value={row.id} variant="contained" color="secondary" onClick={onClickapplied} >Applied</Button> 
+                      : 
+                      row.Status === "Position Full" 
+                      ? 
+                      <Typography value={row.id} color="error" style={{fontSize:12}} >Position Filled</Typography> 
+                      :
+                      <Typography value={row.id} color="error" style={{fontSize:12}}>Application limit reached</Typography> 
+                      }
                     </StyledTableCell>
               </StyledTableRow>
             ))}
@@ -463,7 +514,8 @@ export default function SettingsPage(props) {
         </TableBody>
       </Table>
     </TableContainer>
-<Typography variant="subtitle"> *If table showing none values try to enter " " space as input in search box to see results if present</Typography>
+<Typography variant="subtitle"> *If table showing none values try to enter " " space as input in search box to see results if present</Typography><br/>
+<Typography variant="subtitle"> ** Durations are in months</Typography>
       {/* <DataGrid rows={datasci?searchData:props.data}  columns={columns} showToolbar autoPageSize onCellClick /> */}
       </div>
     </div>
