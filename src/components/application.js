@@ -41,8 +41,240 @@ export default class  Applicationlist extends Component {
 
  getalljobinfo = async () =>{
     const d1 = await axios.get('http://localhost:6050/alljob/'+this.state.jodar_id)
+    const tt1 = await axios.post('http://localhost:6050/allapp')
+    const tt2 = await axios.post('http://localhost:6050/acceptedapp')
+    console.log(tt1)
+    console.log(tt2)
     console.log(d1.data.data1)
-    this.setState({dataalljob:d1.data.data1})
+    const zzapdata = [];
+    let allapp = new Map();
+    for(let i=0;i<tt1.data.dataallapp.length;i++)
+    {
+        const p = tt1.data.dataallapp[i]
+        allapp.set(p["_id"], p["total"]);
+    }
+    let accapp = new Map();
+    for(let i=0;i<tt2.data.acceptedapp.length;i++)
+    {
+        const p = tt2.data.acceptedapp[i]
+        accapp.set(p["_id"], p["total"]);
+    }
+    for(let i=0;i<d1.data.data1.length;i++)
+    {
+        const pp = d1.data.data1[i];
+        const pa = {cpos:"",capp:"",Status:pp["Status"],_id:pp["_id"],UserId:pp["UserId"],Company_name:pp["Company_name"],email:pp["email"],Title:pp["Title"],Descri:pp["Descri"],Maxappli:pp["Maxappli"],Maxposi: pp["Maxposi"],Deadline:pp["Deadline"],Job_Type:pp["Job_Type"],Job_Dura: pp["Job_Dura"],Job_Sal:pp["Job_Sal"],Skill_Req: pp["Skill_Req"],Rating: pp["Rating"],sumRating:pp["sumRating"],Ondate:pp["Ondate"]}
+        let temp = allapp.get(pp["_id"])
+        if(temp===null||isNaN(temp))temp=0
+        pa.capp = pa.Maxappli - temp
+        temp = accapp.get(pp["_id"])
+        if(temp===null||isNaN(temp))temp=0
+        pa.cpos = pa.Maxposi - temp
+
+        zzapdata.push(pa)
+    }
+    const t =[
+        {
+          "Status": "pending",
+          "_id": "600d2b596d3ad7038542fb08",
+          "UserId": "600d2070dab73f7079bb5f21",
+          "Company_name": "ar@gmail.com",
+          "email": "Archit",
+          "Title": "Test 2 ",
+          "Descri": "scf",
+          "Maxappli": 10,
+          "Maxposi": 1,
+          "Deadline": "12/02/2021 23:55",
+          "Job_Type": 1,
+          "Job_Dura": 7,
+          "Job_Sal": 12,
+          "Skill_Req": "vafv",
+          "Rating": 0,
+          "sumRating": 0,
+          "Ondate": "24/1/2021",
+          "__v": 0
+        },
+        {
+          "Status": "pending",
+          "_id": "600d2b816d3ad7038542fb09",
+          "UserId": "600d2070dab73f7079bb5f21",
+          "Company_name": "ar@gmail.com",
+          "email": "Archit",
+          "Title": "test 3",
+          "Descri": "rgrg",
+          "Maxappli": 20,
+          "Maxposi": 5,
+          "Deadline": "10/02/2021 23:55",
+          "Job_Type": 3,
+          "Job_Dura": 3,
+          "Job_Sal": 5600,
+          "Skill_Req": "ag",
+          "Rating": 0,
+          "sumRating": 0,
+          "Ondate": "24/1/2021",
+          "__v": 0
+        },
+        {
+          "Status": "pending",
+          "_id": "600d2bab6d3ad7038542fb0a",
+          "UserId": "600d2070dab73f7079bb5f21",
+          "Company_name": "ar@gmail.com",
+          "email": "Archit",
+          "Title": "test 4",
+          "Descri": "arrg",
+          "Maxappli": 50,
+          "Maxposi": 10,
+          "Deadline": "28/01/2021 23:55",
+          "Job_Type": 2,
+          "Job_Dura": 5,
+          "Job_Sal": 89654,
+          "Skill_Req": "arg",
+          "Rating": 0,
+          "sumRating": 0,
+          "Ondate": "24/1/2021",
+          "__v": 0
+        },
+        {
+          "Status": "pending",
+          "_id": "600d2bde6d3ad7038542fb0b",
+          "UserId": "600d2070dab73f7079bb5f21",
+          "Company_name": "ar@gmail.com",
+          "email": "Archit",
+          "Title": "test 5 ",
+          "Descri": "tqg",
+          "Maxappli": 10,
+          "Maxposi": 1,
+          "Deadline": "31/01/2021 23:55",
+          "Job_Type": 2,
+          "Job_Dura": 6,
+          "Job_Sal": 12,
+          "Skill_Req": "qrg",
+          "Rating": 0,
+          "sumRating": 0,
+          "Ondate": "24/1/2021",
+          "__v": 0
+        },
+        {
+          "Status": "pending",
+          "_id": "600d2c126d3ad7038542fb0c",
+          "UserId": "600d2070dab73f7079bb5f21",
+          "Company_name": "ar@gmail.com",
+          "email": "Archit",
+          "Title": "at 6",
+          "Descri": "aefg",
+          "Maxappli": 10,
+          "Maxposi": 1,
+          "Deadline": "30/01/2021 23:55",
+          "Job_Type": 2,
+          "Job_Dura": 3,
+          "Job_Sal": 889,
+          "Skill_Req": "ser",
+          "Rating": 0,
+          "sumRating": 0,
+          "Ondate": "24/1/2021",
+          "__v": 0
+        },
+        {
+          "Status": "pending",
+          "_id": "600d2c3a6d3ad7038542fb0d",
+          "UserId": "600d2070dab73f7079bb5f21",
+          "Company_name": "ar@gmail.com",
+          "email": "Archit",
+          "Title": "fzs 7",
+          "Descri": "RG",
+          "Maxappli": 70,
+          "Maxposi": 8,
+          "Deadline": "15/02/2021 23:55",
+          "Job_Type": 1,
+          "Job_Dura": 1,
+          "Job_Sal": 8463,
+          "Skill_Req": "AfV",
+          "Rating": 0,
+          "sumRating": 0,
+          "Ondate": "24/1/2021",
+          "__v": 0
+        },
+        {
+          "Status": "pending",
+          "_id": "600d2c7d6d3ad7038542fb0e",
+          "UserId": "600d2070dab73f7079bb5f21",
+          "Company_name": "ar@gmail.com",
+          "email": "Archit",
+          "Title": "SFB 8",
+          "Descri": "QAREGARG",
+          "Maxappli": 10,
+          "Maxposi": 1,
+          "Deadline": "08/08/2021 23:55",
+          "Job_Type": 1,
+          "Job_Dura": 7,
+          "Job_Sal": 120000,
+          "Skill_Req": "AEG",
+          "Rating": 0,
+          "sumRating": 0,
+          "Ondate": "24/1/2021",
+          "__v": 0
+        },
+        {
+          "Status": "pending",
+          "_id": "600d2ca06d3ad7038542fb0f",
+          "UserId": "600d2070dab73f7079bb5f21",
+          "Company_name": "ar@gmail.com",
+          "email": "Archit",
+          "Title": "RF 9 ",
+          "Descri": "AERG",
+          "Maxappli": 10,
+          "Maxposi": 1,
+          "Deadline": "05/02/2021 23:55",
+          "Job_Type": 3,
+          "Job_Dura": 3,
+          "Job_Sal": 98,
+          "Skill_Req": "AR",
+          "Rating": 0,
+          "sumRating": 0,
+          "Ondate": "24/1/2021",
+          "__v": 0
+        },
+        {
+          "Status": "pending",
+          "_id": "600d2cc76d3ad7038542fb10",
+          "UserId": "600d2070dab73f7079bb5f21",
+          "Company_name": "ar@gmail.com",
+          "email": "Archit",
+          "Title": "EARG 10",
+          "Descri": "ARGWG",
+          "Maxappli": 100,
+          "Maxposi": 18,
+          "Deadline": "10/02/2021 23:55",
+          "Job_Type": 2,
+          "Job_Dura": 5,
+          "Job_Sal": 789654,
+          "Skill_Req": "ARR",
+          "Rating": 0,
+          "sumRating": 0,
+          "Ondate": "24/1/2021",
+          "__v": 0
+        },
+        {
+          "Status": "pending",
+          "_id": "600d2cf26d3ad7038542fb11",
+          "UserId": "600d2070dab73f7079bb5f21",
+          "Company_name": "ar@gmail.com",
+          "email": "Archit",
+          "Title": "RWG 11",
+          "Descri": "QET",
+          "Maxappli": 120,
+          "Maxposi": 78,
+          "Deadline": "06/02/2021 23:55",
+          "Job_Type": 1,
+          "Job_Dura": 7,
+          "Job_Sal": 194523,
+          "Skill_Req": "RW",
+          "Rating": 0,
+          "sumRating": 0,
+          "Ondate": "24/1/2021",
+          "__v": 0
+        }
+      ]
+    this.setState({dataalljob:zzapdata}) 
 }
 
 async componentDidMount(){

@@ -7,7 +7,9 @@ import Dashyy from './recappdash';
 export default function DataTable(props) {
   const columns = [
     { field: 'Title', headerName: 'Title', description: 'Title of job posted',width: 150,headerAlign: 'center' },
+    { field: 'capp', headerName: 'Remaining Applicants',headerAlign: 'center',description: 'Maximunm application that can be applied', type : 'number', width: 150  },
     { field: 'Maxappli', headerName: 'Max Applicants',headerAlign: 'center',description: 'Maximunm application that can be applied', type : 'number', width: 150  },
+    { field: 'cpos', headerName: 'Remaining Positions',headerAlign: 'center', type :'number',description: 'Maximun accepted application', width: 150 },
     { field: 'Maxposi', headerName: 'Max Positions',headerAlign: 'center', type :'number',description: 'Maximun accepted application', width: 150 },
     { field: 'Ondate', headerName: 'Posted On',headerAlign: 'center',description: 'Date of creating listing', width: 150 },
     { field: 'id', headerName: 'Options', hide: true ,headerAlign: 'center'},
@@ -44,7 +46,7 @@ const anty = [];
   {
       const p = props.dataalljob[i]
       console.log(p)
-      const pa = {id:p["_id"],Title:p["Title"],Maxappli:p["Maxappli"],Maxposi:p["Maxposi"],Ondate:p["Ondate"]}
+      const pa = {capp:p['capp'],cpos:p["cpos"],id:p["_id"],Title:p["Title"],Maxappli:p["Maxappli"],Maxposi:p["Maxposi"],Ondate:p["Ondate"]}
       console.log(pa)
       anty.push(pa)
   }
