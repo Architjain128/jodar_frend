@@ -144,8 +144,6 @@ export default function DataTableh(props) {
 
   return (
     <div style={{ height: 400, width: '100%' }}>
-   
-      
       <br/>
       <SettingsPage data={antyj} dataall={props.dataall} dataacc={props.dataacc} datawwacc={allappstat}></SettingsPage>
     </div>

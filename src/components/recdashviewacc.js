@@ -68,7 +68,7 @@ export default class  Acceptedlist extends Component {
         {
             const pj = pjob.data.allmypostedjobs[j];
             const puser = await axios.get('http://localhost:6050/user/'+ pj["UserId"])
-            const pa = {LORating:pj["Rating"],Raating:0,Title:p["Title"],Jtype:p["Job_Type"],Datejoin:pj["Datejoin"],Rating:puser.data.data1.expire,sumRating:puser.data.data1.reset_token,fname:puser.data.data1.Firstname,lname:puser.data.data1.Lastname,uid : puser.data.data1._id}
+            const pa = {JOBUSID:pj['juid'],LoRating:pj["LoRating"],Raating:0,Title:p["Title"],Jtype:p["Job_Type"],Datejoin:pj["Datejoin"],Rating:puser.data.data1.expire,sumRating:puser.data.data1.reset_token,fname:puser.data.data1.Firstname,lname:puser.data.data1.Lastname, uid : puser.data.data1._id}
             if(pa.Rating===0)pa.Raating = 0
             else{
                 pa.Raating = pa.sumRating/pa.Rating
@@ -313,9 +313,15 @@ render (){
                                     <TableCell align="center">{row.Jtype}</TableCell>
                                     <TableCell align="center">{row.Datejoin}</TableCell>
                                     <TableCell align="center">{
-                                                ( row.LORating === 0 ||  row.LORating === "NaN" ||row.LORating === NaN) ? <div><SplitButton2 datar={row.uid}></SplitButton2></div>:<Rating name="half-rating-read" precision={0.5} name="read-only" value={row.LORating} readOnly />
+                                                ( row.LoRating === '' || row.LoRating === 0 ||  row.LoRating === "NaN" || isNaN(row.LoRating) === true ) ? <div><SplitButton2 datar={row.uid} dataj={row.JOBUSID}></SplitButton2></div>:<Rating name="half-rating-read" precision={0.5} name="read-only" value={row.LoRating} readOnly />
                                     }</TableCell>
-                                    <TableCell align="center"><Rating name="half-rating-read" precision={0.5} name="read-only" value={row.Raating} readOnly /></TableCell>
+                                    <TableCell align="center">{
+                                        row.Raating === 0
+                                        ?
+                                        <>Not rated yet</>
+                                        :
+                                        <Rating name="half-rating-read" precision={0.5} name="read-only" value={row.Raating} readOnly />
+                                        }</TableCell>
                                 </TableRow>
                                 ))}
                            
@@ -323,7 +329,8 @@ render (){
                         </Table>
                     </TableContainer>
                     <br/>
-                    <Typography variant="subtitle2">* Ratings shown here are ratings given by you to the applicants for corresponding job this is not a average rating</Typography>
+                    <br/>
+                    <Typography variant="subtitle2">* Ratings shown here are ratings given by you to the applicants for corresponding job this is not an average rating</Typography>
                     <Typography variant="subtitle2">** Average rating of an applicant covering average of rating for all job (accepted ones only)  </Typography>
                 </Box>
                 :

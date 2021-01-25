@@ -161,16 +161,16 @@ export default function SettingsPage(props) {
     searchData.sort(function(a,b) {
       let g=a.Rating
       let h=b.Rating
-      if(a.Rating==="NaN")g=6
-      if(b.Rating==="NaN")h=6
+      if(a.Rating==="NaN" || a.Rating === 0 || isNaN(a.Rating)===true)g=6
+      if(b.Rating==="NaN" || b.Rating === 0 || isNaN(b.Rating)===true)h=6
       return g - h
     })
     if(e.target.value===3)
     searchData.sort(function(a,b) {
       let g=a.Rating
       let h=b.Rating
-      if(a.Rating==="NaN")g=-1
-      if(b.Rating==="NaN")h=-1
+      if(a.Rating==="NaN" || a.Rating === 0 || isNaN(a.Rating)===true)g=-1
+      if(b.Rating==="NaN" || b.Rating === 0 || isNaN(b.Rating)===true)h=-1
       return h-g
     })
   }

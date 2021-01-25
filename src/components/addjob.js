@@ -259,14 +259,6 @@ render (){
                 <Typography variant="caption"> On Date</Typography>
                 <Typography variant="subtitle2">{this.state.ondate}</Typography>
             </Box>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-
     </Container>
   )};
 }

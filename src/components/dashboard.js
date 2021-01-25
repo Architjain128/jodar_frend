@@ -201,6 +201,7 @@ export default function Dashboard(props) {
           {homey === true ? <Apphome data1={props.data1} datajj={props.datajj}></Apphome> : null}
           {appyy === true ? <Mydashappli data1={props.data1} datajj={props.datajj}></Mydashappli> : null}
       </main>
+     
     </div>
   );
 }

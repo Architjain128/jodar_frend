@@ -213,6 +213,7 @@ export default function Marketplace(props) {
               <ListItemText primary={"Logout"} />
             </ListItem>
         </List>
+
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
@@ -220,7 +221,6 @@ export default function Marketplace(props) {
         {joby === true ? <Addjob data1={props.data1} /> : null}
         {list === true ? <Applicationlist data1={props.data1} /> : null}
         {dashy === true ? <Acceptedlist data1={props.data1}/> : null}
-        
       </main>
     </div>
   );

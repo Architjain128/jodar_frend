@@ -22,7 +22,8 @@ export default function SplitButton2(props) {
   const RhandleClick = () => {
       let rat = selectedIndex +1
     console.log("You clicked " + rat + " for "+ props.datar);
-    let ratty = ({rated : rat})
+    let jd = props.dataj
+    let ratty = ({rated : rat,juid: jd})
     axios.post('http://localhost:6050/rateuser/'+props.datar,ratty)
     .then(res => {
         console.log("ok")

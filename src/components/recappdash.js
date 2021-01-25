@@ -58,6 +58,7 @@ export default class  Dashyy extends Component {
          sona:'1',
          mahadata : [],
          mahadata2 : [],
+         point: "",
         }
     this.onChange=this.onChange.bind(this)
     this.getjobinfo=this.getjobinfo.bind(this)
@@ -79,13 +80,14 @@ export default class  Dashyy extends Component {
     const d2 = await axios.get('http://localhost:6050/getjob/'+this.state.bid)
     const dalist = await axios.get('http://localhost:6050/alljobslisting/'+this.state.bid)
     const daras = await axios.post('http://localhost:6050/getratingforjob/'+this.state.bid)
-if(daras.data.datarat.length){
-    var raating  = daras.data.datarat[0].Raating
-    var sumrating  = daras.data.datarat[0].sumRating
-    var porat = sumrating/raating
-    console.log(porat)
-    this.setState({points:porat})
-}
+
+    if(daras.data.datarat.length){
+        var raating  = daras.data.datarat[0].Raating
+        var sumrating  = daras.data.datarat[0].sumRating
+        var porat = sumrating/raating
+        console.log(porat)
+        this.setState({points:porat})
+    }
 
     const mahadata =[];
     for(let i=0;i<dalist.data.dalljoblisting.length;i++)
@@ -108,11 +110,11 @@ if(daras.data.datarat.length){
             askill.push(pskill.data.data3[i].Spec)
         }
         const pa = {Zenmod:"",UserId:p["UserId"],Email:puser.data.data1.email,Status:p["Status"],Datejoon:p["Datejoon"],Sop:p["Sop"],Resume:ppdf.data.pdf,Rating:puser.data.data1.reset_token,sumRating:puser.data.data1.expire,fname:puser.data.data1.Firstname,lname:puser.data.data1.Lastname,uedu:aedu,uskill:askill}
-        // if(pa.Rating===0)Rating="NaN"
-        // else{
-        //     pa.Rating = pa.sumRating/pa.Rating
-        // }
-        // console.log(pa)
+        if(pa.Rating===0 || pa.sumRating===0 )pa.Rating=0
+        else{
+            pa.Rating = pa.Rating/pa.sumRating
+        }
+        console.log(pa)
         pa.Zenmod = pa.UserId +";"+pa.Email
         if(pa.Status.toLowerCase()!="rejected" || pa.Status.toLowerCase()!="reject"  )
         mahadata.push(pa)
@@ -505,21 +507,25 @@ stoa(e){
         console.log(res.data)
         if(res.data.status === '201')
         {
+            axios.put("http://localhost:6050/asorall/"+ zz[0]+"+"+this.state.bid)
+            axios.get('http://localhost:6050/mailit/'+emailiduser)
+            .catch(err=>{
+                console.log(err)
+            })
             axios.get('http://localhost:6050/mailit/'+emailiduser)
             .then(res => {
                 alert("Application accepted and mail sent to applicant")
             })
             .catch(err=>{
                 console.log(err)
-                // alert("Application accepted e")
-
             })
+
         }
         else
         {
             alert("Error in accepting")
         }
-        // window.location.reload()
+        window.location.reload()
     })
     .catch(err=>{
         console.log(err)
@@ -548,10 +554,10 @@ render (){
                 <Typography variant="overline"><b>Max applications</b> {this.state.maxapp}</Typography><br/>
                 <Typography variant="overline"><b>Max positions</b> {this.state.maxpos}</Typography><br/>
                 <Typography variant="overline"><b>Skills Required </b> {this.state.skilltok.map(name => (<Chip variant="outlined" color="default" size="small" label={name} />))}</Typography><br/>
-                <Typography variant="overline"><b>Salary</b> {this.state.sala}</Typography><br/><Divider variant="middle" />
+                <Typography variant="overline"><b>Salary </b> {this.state.sala}</Typography><br/><Divider variant="middle" />
                 <Typography variant="overline"><b>Job Type</b> {this.state.jtype}</Typography><br/>
-                <Typography variant="overline"><b>Job Duration</b> {this.state.jdur}</Typography><br/>
-                <Typography variant="overline"><b>Rating </b><br/>
+                <Typography variant="overline"><b>Job Duration </b> {this.state.jdur}</Typography><br/>
+                <Typography variant="overline"><b>Job Rating </b><br/>
                 {
                     (this.state.points === "" ||this.state.points === 0 ||this.state.points === "0" || this.state.points === "NaN" )
                     ?
@@ -663,7 +669,10 @@ render (){
                                 <Divider variant="middle"></Divider>
                                 <br/>
                                 <Typography><b>Applicant Name : </b> {row.fname} {row.lname}</Typography><br/>
-                                <Typography><b>Rating : </b> {row.Rating} </Typography><br/>
+                                <Typography><b>Rating : </b> {
+                                row.Rating === 0 ?<>Not rated yet</>:<Rating readOnly precision={0.5} value={row.Rating}></Rating>
+                                } </Typography>
+                                <br/>
                                 <Typography><b>Applied On : </b> {row.Datejoon} </Typography><br/>
                                 <Typography><b>Skills</b></Typography>
                                 {
@@ -736,7 +745,9 @@ render (){
                                 <Divider variant="middle"></Divider>
                                 <br/>
                                 <Typography><b>Applicant Name : </b> {row.fname} {row.lname}</Typography><br/>
-                                <Typography><b>Rating : </b> {row.Rating} </Typography><br/>
+                                <Typography><b>Rating : </b> {
+                                row.Rating === 0 ?<>Not rated yet</>:<Rating readOnly precision={0.5} value={row.Rating}></Rating>
+                                } </Typography>
                                 <Typography><b>Applied On : </b> {row.Datejoon} </Typography><br/>
                                 <Typography><b>Skills</b></Typography>
                                 {
@@ -810,7 +821,9 @@ render (){
                                 <Divider variant="middle"></Divider>
                                 <br/>
                                 <Typography><b>Applicant Name : </b> {row.fname} {row.lname}</Typography><br/>
-                                <Typography><b>Rating : </b> {row.Rating} </Typography><br/>
+                                <Typography><b>Rating : </b> {
+                                row.Rating === 0 ?<>Not rated yet</>:<Rating readOnly precision={0.5} value={row.Rating}></Rating>
+                                } </Typography>
                                 <Typography><b>Applied On : </b> {row.Datejoon} </Typography><br/>
                                 <Typography><b>Skills</b></Typography>
                                 {
