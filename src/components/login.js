@@ -158,7 +158,7 @@ class Login extends Component {
                                         onChange = {this.onChange}
                                         />
                                         <div id="tcdiv">
-                                            <input type="checkbox" checked={this.state.checked} onChange={this.onCheck} id="tandcheck"/> <p id="tc">I agree all <a href="/" id="tandc">terms and conditions.</a></p><br/>
+                                            <input type="checkbox" checked={this.state.checked} onChange={this.onCheck} id="tandcheck"/> <p id="tc">I agree all <a  href="https://pastebin.com/embed_js/KjwiiUhG" target="blank" id="tandc">terms and conditions.</a></p><br/>
                                         </div>
                                         <Button
                                             type="submit"
