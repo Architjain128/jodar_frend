@@ -24,7 +24,7 @@ export default function SplitButton(props) {
     console.log("You clicked " + rat + " for "+ props.datar);
     let juid = localStorage.getItem("Jodar_id") + props.datar
     let ratty = ({rated : rat})
-    axios.put('http://localhost:6050/rateaappdies/'+juid,ratty)
+    axios.put('http://https://jodar-bk.herokuapp.com//rateaappdies/'+juid,ratty)
     .then(res => {
         console.log("ok")
         console.log(res.data)

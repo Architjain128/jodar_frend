@@ -66,7 +66,7 @@ class Login extends Component {
         }
 
         // console.log(newUser)
-        axios.post('http://localhost:6050/login', newUser)
+        axios.post('http://https://jodar-bk.herokuapp.com//login', newUser)
             .then(res => {
                 // console.log("ok")
                 // console.log(res.data)

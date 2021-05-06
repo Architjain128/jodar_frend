@@ -76,10 +76,10 @@ export default class  Dashyy extends Component {
     this.stoa = this.stoa.bind(this);
  }
  getjobinfo = async () =>{
-    const d1 = await axios.get('http://localhost:6050/user/'+this.state.jodar_id)
-    const d2 = await axios.get('http://localhost:6050/getjob/'+this.state.bid)
-    const dalist = await axios.get('http://localhost:6050/alljobslisting/'+this.state.bid)
-    const daras = await axios.post('http://localhost:6050/getratingforjob/'+this.state.bid)
+    const d1 = await axios.get('http://https://jodar-bk.herokuapp.com//user/'+this.state.jodar_id)
+    const d2 = await axios.get('http://https://jodar-bk.herokuapp.com//getjob/'+this.state.bid)
+    const dalist = await axios.get('http://https://jodar-bk.herokuapp.com//alljobslisting/'+this.state.bid)
+    const daras = await axios.post('http://https://jodar-bk.herokuapp.com//getratingforjob/'+this.state.bid)
 
     if(daras.data.datarat.length){
         var raating  = daras.data.datarat[0].Raating
@@ -93,10 +93,10 @@ export default class  Dashyy extends Component {
     for(let i=0;i<dalist.data.dalljoblisting.length;i++)
     {
         const p = dalist.data.dalljoblisting[i];
-        const puser = await axios.get('http://localhost:6050/user/'+ p["UserId"])
-        const pedu = await axios.get('http://localhost:6050/alledu/'+ p["UserId"])
-        const pskill = await axios.get('http://localhost:6050/allskill/'+ p["UserId"])
-        const ppdf = await axios.get('http://localhost:6050/downloadpdf/'+ p["UserId"])
+        const puser = await axios.get('http://https://jodar-bk.herokuapp.com//user/'+ p["UserId"])
+        const pedu = await axios.get('http://https://jodar-bk.herokuapp.com//alledu/'+ p["UserId"])
+        const pskill = await axios.get('http://https://jodar-bk.herokuapp.com//allskill/'+ p["UserId"])
+        const ppdf = await axios.get('http://https://jodar-bk.herokuapp.com//downloadpdf/'+ p["UserId"])
 
         let aedu =[];
         for(let i=0;i<pedu.data.data4.length;i++)
@@ -330,7 +330,7 @@ onChange(event) {
     })
 }
 ondeljob(){
-    axios.delete('http://localhost:6050/deljob/'+this.state.bid)
+    axios.delete('http://https://jodar-bk.herokuapp.com//deljob/'+this.state.bid)
     .then(res => {
         console.log("ok")
         console.log(res.data)
@@ -374,7 +374,7 @@ onupjob(){
         Deadline:c,
     }
     console.log(newJob)
-    axios.put('http://localhost:6050/upjob/'+this.state.bid, newJob)
+    axios.put('http://https://jodar-bk.herokuapp.com//upjob/'+this.state.bid, newJob)
     .then(res => {
         console.log("ok")
         console.log(res.data)
@@ -416,7 +416,7 @@ onSubmit(e) {
     }
 
     console.log(newJob)
-    axios.post('http://localhost:6050/addjob', newJob)
+    axios.post('http://https://jodar-bk.herokuapp.com//addjob', newJob)
         .then(res => {
             console.log("ok")
             console.log(res.data)
@@ -455,7 +455,7 @@ onSubmit(e) {
 ptor(e){
 
     let vall = e.currentTarget.value + this.state.bid
-    axios.put('http://localhost:6050/ptor/'+vall)
+    axios.put('http://https://jodar-bk.herokuapp.com//ptor/'+vall)
     .then(res => {
         console.log("ok")
         console.log(res.data)
@@ -476,7 +476,7 @@ ptor(e){
 
 ptos(e){
     let vall = e.currentTarget.value + this.state.bid
-    axios.put('http://localhost:6050/ptos/'+vall)
+    axios.put('http://https://jodar-bk.herokuapp.com//ptos/'+vall)
     .then(res => {
         console.log("ok")
         console.log(res.data)
@@ -501,18 +501,18 @@ stoa(e){
     let vall = zz[0] + this.state.bid
     let emailiduser = zz[1]
     console.log(e.currentTarget)
-    axios.put('http://localhost:6050/stoa/'+vall)
+    axios.put('http://https://jodar-bk.herokuapp.com//stoa/'+vall)
     .then(res => {
         console.log("ok")
         console.log(res.data)
         if(res.data.status === '201')
         {
-            axios.put("http://localhost:6050/asorall/"+ zz[0]+"+"+this.state.bid)
-            axios.get('http://localhost:6050/mailit/'+emailiduser)
+            axios.put("http://https://jodar-bk.herokuapp.com//asorall/"+ zz[0]+"+"+this.state.bid)
+            axios.get('http://https://jodar-bk.herokuapp.com//mailit/'+emailiduser)
             .catch(err=>{
                 console.log(err)
             })
-            axios.get('http://localhost:6050/mailit/'+emailiduser)
+            axios.get('http://https://jodar-bk.herokuapp.com//mailit/'+emailiduser)
             .then(res => {
                 alert("Application accepted and mail sent to applicant")
             })

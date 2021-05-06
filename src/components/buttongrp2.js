@@ -24,7 +24,7 @@ export default function SplitButton2(props) {
     console.log("You clicked " + rat + " for "+ props.datar);
     let jd = props.dataj
     let ratty = ({rated : rat,juid: jd})
-    axios.post('http://localhost:6050/rateuser/'+props.datar,ratty)
+    axios.post('http://https://jodar-bk.herokuapp.com//rateuser/'+props.datar,ratty)
     .then(res => {
         console.log("ok")
         console.log(res.data)

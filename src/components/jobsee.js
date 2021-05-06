@@ -44,7 +44,7 @@ export default class Dashyy extends Component {
     this.backMA=this.backMA.bind(this)
  }
  getjobinfo = async () =>{
-    const d2 = await axios.get('http://localhost:6050/getjob/'+this.state.bid)
+    const d2 = await axios.get('http://https://jodar-bk.herokuapp.com//getjob/'+this.state.bid)
     const sktok = d2.data.data5.Skill_Req.split(";");
     this.setState({skilltok:sktok,comname:d2.data.data5.Company_name,title:d2.data.data5.Title,deadline:d2.data.data5.Deadline,des:d2.data.data5.Descri,maxapp:d2.data.data5.Maxappli,maxpos:d2.data.data5.Maxposi,jtype:d2.data.data5.Job_Type,jdur:d2.data.data5.Job_Dura,sala:d2.data.data5.Job_Sal})
 }

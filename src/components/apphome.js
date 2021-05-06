@@ -41,10 +41,10 @@ export default class  Apphome extends Component {
  }
 
  getalljob2info = async () =>{
-    const d1 = await axios.get('http://localhost:6050/alljobposted')
-    const dall = await axios.post('http://localhost:6050/allapp')
-    const dacc = await axios.post('http://localhost:6050/acceptedapp')
-    const drar = await axios.get('http://localhost:6050/jobratins')
+    const d1 = await axios.get('http://https://jodar-bk.herokuapp.com//alljobposted')
+    const dall = await axios.post('http://https://jodar-bk.herokuapp.com//allapp')
+    const dacc = await axios.post('http://https://jodar-bk.herokuapp.com//acceptedapp')
+    const drar = await axios.get('http://https://jodar-bk.herokuapp.com//jobratins')
     
     console.log(dall)
     console.log(dacc)

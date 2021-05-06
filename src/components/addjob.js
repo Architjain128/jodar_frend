@@ -126,7 +126,7 @@ onSubmit(e) {
     }
 
     // console.log(newJob)
-    axios.post('http://localhost:6050/addjob', newJob)
+    axios.post('http://https://jodar-bk.herokuapp.com//addjob', newJob)
         .then(res => {
             // console.log("ok")
             // console.log(res.data)

@@ -37,7 +37,7 @@ export default class  Applicationlist extends Component {
  }
 
  getalljobinfo = async () =>{
-    const d1 = await axios.get('http://localhost:6050/alljob/'+this.state.jodar_id)
+    const d1 = await axios.get('http://https://jodar-bk.herokuapp.com//alljob/'+this.state.jodar_id)
     console.log(d1.data.data1)
     this.setState({dataalljob:d1.data.data1})
 }
