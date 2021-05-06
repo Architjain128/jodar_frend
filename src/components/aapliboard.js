@@ -20,19 +20,19 @@ class Appliboard extends Component {
             data4a:[],
             data4b:[],
             data4c:[],
-            dataimg:"http://https://jodar-bk.herokuapp.com//pimg/noprofile.jpg",
+            dataimg:"http:/jodar-bk.herokuapp.com/pimg/noprofile.jpg",
         }
         this.getinfo = this.getinfo.bind(this);
     }
     getinfo = async () =>{
         // alert("ok")
-        const d4 = await axios.get('http://https://jodar-bk.herokuapp.com//alledu/'+this.state.userid)
-        const d3 = await axios.get('http://https://jodar-bk.herokuapp.com//allskill/'+this.state.userid)
-        const d1 = await axios.get('http://https://jodar-bk.herokuapp.com//user/'+this.state.userid)
-        const dimg = await axios.get('http://https://jodar-bk.herokuapp.com//getimg/'+this.state.userid)
-        const dpdf = await axios.get('http://https://jodar-bk.herokuapp.com//getpdf/'+this.state.userid)
-        const djj = await axios.get('http://https://jodar-bk.herokuapp.com//myallappliedjobs/'+this.state.userid)
-        // const d4 = await axios.get('http://https://jodar-bk.herokuapp.com//alledu/'+this.state.userid)
+        const d4 = await axios.get('http:/jodar-bk.herokuapp.com/alledu/'+this.state.userid)
+        const d3 = await axios.get('http:/jodar-bk.herokuapp.com/allskill/'+this.state.userid)
+        const d1 = await axios.get('http:/jodar-bk.herokuapp.com/user/'+this.state.userid)
+        const dimg = await axios.get('http:/jodar-bk.herokuapp.com/getimg/'+this.state.userid)
+        const dpdf = await axios.get('http:/jodar-bk.herokuapp.com/getpdf/'+this.state.userid)
+        const djj = await axios.get('http:/jodar-bk.herokuapp.com/myallappliedjobs/'+this.state.userid)
+        // const d4 = await axios.get('http:/jodar-bk.herokuapp.com/alledu/'+this.state.userid)
         const dd1 = [];
         const dd3 = [];
         const dd4 = [];

@@ -24,7 +24,7 @@ class GooLogin extends Component {
         {
             console.log(newUser)
 
-            axios.post('http://https://jodar-bk.herokuapp.com//login', newUser)
+            axios.post('http:/jodar-bk.herokuapp.com/login', newUser)
                 .then(res => {
                     console.log("ok")
                     console.log(res.data)

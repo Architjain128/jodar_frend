@@ -57,17 +57,17 @@ export default class  Acceptedlist extends Component {
  }
  getjobinfo = async () =>{
     //  all accepted jobs from applicationd
-    const pp =   await axios.get('http://https://jodar-bk.herokuapp.com//getjobuser/'+ this.state.jodar_id)
+    const pp =   await axios.get('http:/jodar-bk.herokuapp.com/getjobuser/'+ this.state.jodar_id)
 
     const mahadata =[];
     for(let i=0;i<pp.data.datapp.length;i++)
     {
         const p = pp.data.datapp[i];
-        const pjob = await axios.get('http://https://jodar-bk.herokuapp.com//allmypostedjobs/'+ p["_id"])
+        const pjob = await axios.get('http:/jodar-bk.herokuapp.com/allmypostedjobs/'+ p["_id"])
         for(let j=0;j<pjob.data.allmypostedjobs.length;j++)
         {
             const pj = pjob.data.allmypostedjobs[j];
-            const puser = await axios.get('http://https://jodar-bk.herokuapp.com//user/'+ pj["UserId"])
+            const puser = await axios.get('http:/jodar-bk.herokuapp.com/user/'+ pj["UserId"])
             const pa = {JOBUSID:pj['juid'],LoRating:pj["LoRating"],Raating:0,Title:p["Title"],Jtype:p["Job_Type"],Datejoin:pj["Datejoin"],Rating:puser.data.data1.expire,sumRating:puser.data.data1.reset_token,fname:puser.data.data1.Firstname,lname:puser.data.data1.Lastname, uid : puser.data.data1._id}
             if(pa.Rating===0)pa.Raating = 0
             else{

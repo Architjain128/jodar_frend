@@ -21,9 +21,9 @@ class Recliboard extends Component {
     }
     getinfo = async () =>{
         // alert("ok")
-        const d1 = await axios.get('http://https://jodar-bk.herokuapp.com//user/'+this.state.userid)
-        const d2 = await axios.get('http://https://jodar-bk.herokuapp.com//bio/'+this.state.userid)
-        const dimg = await axios.get('http://https://jodar-bk.herokuapp.com//getimg/'+this.state.userid)
+        const d1 = await axios.get('http:/jodar-bk.herokuapp.com/user/'+this.state.userid)
+        const d2 = await axios.get('http:/jodar-bk.herokuapp.com/bio/'+this.state.userid)
+        const dimg = await axios.get('http:/jodar-bk.herokuapp.com/getimg/'+this.state.userid)
         const dd1 = [];
         const dd2 = [];
         dd1.push(d1.data.data1.company_name)

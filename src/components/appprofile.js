@@ -149,7 +149,7 @@ export default function Appprofile(props) {
       Spec : values.specy,
     }
     console.log(newskill)
-        axios.post('http://https://jodar-bk.herokuapp.com//addskill', newskill)
+        axios.post('http:/jodar-bk.herokuapp.com/addskill', newskill)
             .then(res => {
                 console.log("ok")
                 console.log(res.data)
@@ -170,7 +170,7 @@ export default function Appprofile(props) {
       Edue : values.edue,
     }
     console.log(newedu)
-        axios.post('http://https://jodar-bk.herokuapp.com//addedu', newedu)
+        axios.post('http:/jodar-bk.herokuapp.com/addedu', newedu)
             .then(res => {
                 console.log("ok")
                 console.log(res.data)
@@ -197,7 +197,7 @@ export default function Appprofile(props) {
       email : values.ena,
     }
     console.log(newedu)
-        axios.put('http://https://jodar-bk.herokuapp.com//uppro', newedu)
+        axios.put('http:/jodar-bk.herokuapp.com/uppro', newedu)
             .then(res => {
                 console.log("ok")
                 console.log(res.data)
@@ -390,7 +390,7 @@ export default function Appprofile(props) {
     console.log(e.target.files[0])
     const formData = new FormData();        
     formData.append('dp', e.target.files[0]);
-    axios.post('http://https://jodar-bk.herokuapp.com//addimg/'+jodar_id, formData)
+    axios.post('http:/jodar-bk.herokuapp.com/addimg/'+jodar_id, formData)
             .then(res => {
                 console.log("ok")
                 console.log(res.data)
@@ -407,7 +407,7 @@ export default function Appprofile(props) {
     console.log(e.target.files[0])
     const formData = new FormData();        
     formData.append('dp', e.target.files[0]);
-    axios.post('http://https://jodar-bk.herokuapp.com//addpdf/'+jodar_id, formData)
+    axios.post('http:/jodar-bk.herokuapp.com/addpdf/'+jodar_id, formData)
             .then(res => {
                 console.log("ok")
                 console.log(res.data)

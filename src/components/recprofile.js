@@ -144,7 +144,7 @@ export default function Recprofile(props) {
       email : values.ena,
     }
     console.log(newedu)
-        axios.put('http://https://jodar-bk.herokuapp.com//upprofile', newedu)
+        axios.put('http:/jodar-bk.herokuapp.com/upprofile', newedu)
             .then(res => {
                 console.log("ok")
                 console.log(res.data)
@@ -165,7 +165,7 @@ export default function Recprofile(props) {
       Bio : values.biobio,
     }
     console.log(newbio)
-        axios.post('http://https://jodar-bk.herokuapp.com//addbio', newbio)
+        axios.post('http:/jodar-bk.herokuapp.com/addbio', newbio)
             .then(res => {
                 console.log("ok")
                 console.log(res.data)
@@ -185,7 +185,7 @@ export default function Recprofile(props) {
       Bio : values.biobio,
     }
     console.log(newbio)
-        axios.put('http://https://jodar-bk.herokuapp.com//upbio/'+jodar_id, newbio)
+        axios.put('http:/jodar-bk.herokuapp.com/upbio/'+jodar_id, newbio)
             .then(res => {
                 console.log("ok")
                 console.log(res.data)
@@ -357,7 +357,7 @@ const imgadd=(e)=>{
   console.log(e.target.files[0])
   const formData = new FormData();        
   formData.append('dp', e.target.files[0]);
-  axios.post('http://https://jodar-bk.herokuapp.com//addimg/'+jodar_id, formData)
+  axios.post('http:/jodar-bk.herokuapp.com/addimg/'+jodar_id, formData)
           .then(res => {
               console.log("ok")
               console.log(res.data)
