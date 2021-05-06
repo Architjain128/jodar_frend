@@ -58,7 +58,7 @@ class UserData extends Component {
             contact_number:this.state.contact_number,
         }
         console.log(newUser)
-        axios.post('http://localhost:6050/signup', newUser)
+        axios.post('http:/jodar-bk.herokuapp.com/signup', newUser)
             .then(res => {
                 console.log("ok")
                 console.log(res.data)

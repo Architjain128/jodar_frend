@@ -47,9 +47,9 @@ export default class Dashyy extends Component {
     this.handleChange=this.handleChange.bind(this)
  }
  getjobinfo = async () =>{
-    const d2 = await axios.get('http://localhost:6050/getjob/'+this.state.bid)
-    const dap = await axios.get('http://localhost:6050/myappli/'+this.state.jodar_id)
-    // const dac = await axios.get('http://localhost:6050/myapplicur/'+this.state.jodar_id)
+    const d2 = await axios.get('http:/jodar-bk.herokuapp.com/getjob/'+this.state.bid)
+    const dap = await axios.get('http:/jodar-bk.herokuapp.com/myappli/'+this.state.jodar_id)
+    // const dac = await axios.get('http:/jodar-bk.herokuapp.com/myapplicur/'+this.state.jodar_id)
     const reappli=dap.data.dap
     // const reappcu=dac.data.dac
 
@@ -154,7 +154,7 @@ onapplyjob(e){
         }
         console.log(newlistjob)
 
-        axios.post('http://localhost:6050/jobindash', newlistjob)
+        axios.post('http:/jodar-bk.herokuapp.com/jobindash', newlistjob)
             .then(res => {
                 console.log("ok")
                 console.log(res.data)

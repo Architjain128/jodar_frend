@@ -40,9 +40,9 @@ export default class  Applicationlist extends Component {
  }
 
  getalljobinfo = async () =>{
-    const d1 = await axios.get('http://localhost:6050/alljob/'+this.state.jodar_id)
-    const tt1 = await axios.post('http://localhost:6050/allapp')
-    const tt2 = await axios.post('http://localhost:6050/acceptedapp')
+    const d1 = await axios.get('http:/jodar-bk.herokuapp.com/alljob/'+this.state.jodar_id)
+    const tt1 = await axios.post('http:/jodar-bk.herokuapp.com/allapp')
+    const tt2 = await axios.post('http:/jodar-bk.herokuapp.com/acceptedapp')
     console.log(tt1)
     console.log(tt2)
     console.log(d1.data.data1)
@@ -310,7 +310,7 @@ async componentDidMount(){
 //     }
 
 //     console.log(newJob)
-//     axios.post('http://localhost:6050/addjob', newJob)
+//     axios.post('http:/jodar-bk.herokuapp.com/addjob', newJob)
 //         .then(res => {
 //             console.log("ok")
 //             console.log(res.data)
